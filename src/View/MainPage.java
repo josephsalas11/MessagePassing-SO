@@ -27,23 +27,289 @@ public class MainPage extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
+        jLabel1 = new javax.swing.JLabel();
+        panelOpciones = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        direc_direcRadio = new javax.swing.JRadioButton();
+        jLabel9 = new javax.swing.JLabel();
+        direc_indirectRadio = new javax.swing.JRadioButton();
+        jLabel10 = new javax.swing.JLabel();
+        formatoCombo = new javax.swing.JComboBox<>();
+        formatoField = new javax.swing.JTextField();
+        direc_receiveCombo = new javax.swing.JComboBox<>();
+        direc_indirecCombo = new javax.swing.JComboBox<>();
+        sinc_sendCombo = new javax.swing.JComboBox<>();
+        Sinc_ReceiveCombo = new javax.swing.JComboBox<>();
+        colasCombo = new javax.swing.JComboBox<>();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        sliderProcesos = new javax.swing.JSlider();
+        tamanoCola = new javax.swing.JTextField();
+        startButton = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Message Passing");
         setName("mainPage"); // NOI18N
+
+        jLabel1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel1.setText("Conguración para Message Passing");
+
+        jLabel2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel2.setText("Sincronización");
+
+        jLabel3.setText("Direccionamiento");
+
+        jLabel4.setText("Formato");
+
+        jLabel5.setText("Manejo de Colas");
+
+        jLabel6.setText("Send");
+
+        jLabel7.setText("Receive");
+
+        buttonGroup1.add(direc_direcRadio);
+        direc_direcRadio.setText("Directo");
+        direc_direcRadio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                direc_direcRadioActionPerformed(evt);
+            }
+        });
+
+        jLabel9.setText("Receive");
+
+        buttonGroup1.add(direc_indirectRadio);
+        direc_indirectRadio.setText("Indirecto");
+        direc_indirectRadio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                direc_indirectRadioActionPerformed(evt);
+            }
+        });
+
+        jLabel10.setText("Largo");
+
+        formatoCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Fijo", "Variable" }));
+
+        formatoField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                formatoFieldActionPerformed(evt);
+            }
+        });
+
+        direc_receiveCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Explícito", "Implícito" }));
+        direc_receiveCombo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                direc_receiveComboActionPerformed(evt);
+            }
+        });
+
+        direc_indirecCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Estático", "Dinámico" }));
+        direc_indirecCombo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                direc_indirecComboActionPerformed(evt);
+            }
+        });
+
+        sinc_sendCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Blocking", "Nonblocking" }));
+
+        Sinc_ReceiveCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Blocking", "Nonblocking", "Prueba de llegada" }));
+
+        colasCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "FIFO", "Prioridad" }));
+
+        jLabel8.setText("Cantidad de procesos");
+
+        jLabel11.setText("Tamaño de la cola");
+
+        sliderProcesos.setMajorTickSpacing(15);
+        sliderProcesos.setMaximum(15);
+        sliderProcesos.setMinorTickSpacing(1);
+        sliderProcesos.setPaintTicks(true);
+        sliderProcesos.setValue(0);
+
+        startButton.setText("Start Simulation");
+        startButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                startButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelOpcionesLayout = new javax.swing.GroupLayout(panelOpciones);
+        panelOpciones.setLayout(panelOpcionesLayout);
+        panelOpcionesLayout.setHorizontalGroup(
+            panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelOpcionesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelOpcionesLayout.createSequentialGroup()
+                        .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel7))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(panelOpcionesLayout.createSequentialGroup()
+                        .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelOpcionesLayout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(colasCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(sinc_sendCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Sinc_ReceiveCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(direc_direcRadio)
+                            .addGroup(panelOpcionesLayout.createSequentialGroup()
+                                .addGap(21, 21, 21)
+                                .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(direc_receiveCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel9)))
+                            .addComponent(jLabel3)
+                            .addGroup(panelOpcionesLayout.createSequentialGroup()
+                                .addGap(126, 126, 126)
+                                .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(direc_indirecCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(direc_indirectRadio)))
+                            .addGroup(panelOpcionesLayout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(formatoCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(formatoField, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel4)
+                            .addGroup(panelOpcionesLayout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(jLabel10))
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel11)
+                            .addComponent(jLabel8)
+                            .addComponent(sliderProcesos, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tamanoCola, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 508, Short.MAX_VALUE))))
+            .addGroup(panelOpcionesLayout.createSequentialGroup()
+                .addGap(56, 56, 56)
+                .addComponent(startButton)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        panelOpcionesLayout.setVerticalGroup(
+            panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelOpcionesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(sinc_sendCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(35, 35, 35)
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Sinc_ReceiveCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(direc_direcRadio)
+                    .addComponent(direc_indirectRadio))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(direc_receiveCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(direc_indirecCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel4)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(formatoCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(formatoField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(31, 31, 31)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(colasCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel8)
+                .addGap(3, 3, 3)
+                .addComponent(sliderProcesos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel11)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tamanoCola, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                .addComponent(startButton)
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 755, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(panelOpciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(245, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 557, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelOpciones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formatoFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_formatoFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formatoFieldActionPerformed
+
+    private void direc_receiveComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_direc_receiveComboActionPerformed
+   
+    }//GEN-LAST:event_direc_receiveComboActionPerformed
+
+    private void direc_indirecComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_direc_indirecComboActionPerformed
+        
+    }//GEN-LAST:event_direc_indirecComboActionPerformed
+
+    private void direc_direcRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_direc_direcRadioActionPerformed
+ 
+       if (direc_direcRadio.isSelected())
+       {
+           direc_indirecCombo.disable();
+           direc_receiveCombo.enable();
+       }
+       
+    }//GEN-LAST:event_direc_direcRadioActionPerformed
+
+    private void direc_indirectRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_direc_indirectRadioActionPerformed
+        if (direc_indirectRadio.isSelected())
+        {
+            direc_receiveCombo.disable();
+            direc_indirecCombo.enable();
+        }
+       
+    }//GEN-LAST:event_direc_indirectRadioActionPerformed
+
+    private void startButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startButtonActionPerformed
+
+            direc_receiveCombo.disable();
+            direc_indirecCombo.disable();
+            direc_indirectRadio.disable();
+            direc_direcRadio.disable();
+            sinc_sendCombo.disable();
+            Sinc_ReceiveCombo.disable();
+            formatoCombo.disable();
+            formatoField.disable();
+            colasCombo.disable();
+            sliderProcesos.disable();
+            tamanoCola.disable();
+        
+    }//GEN-LAST:event_startButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -81,5 +347,30 @@ public class MainPage extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> Sinc_ReceiveCombo;
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JComboBox<String> colasCombo;
+    private javax.swing.JRadioButton direc_direcRadio;
+    private javax.swing.JComboBox<String> direc_indirecCombo;
+    private javax.swing.JRadioButton direc_indirectRadio;
+    private javax.swing.JComboBox<String> direc_receiveCombo;
+    private javax.swing.JComboBox<String> formatoCombo;
+    private javax.swing.JTextField formatoField;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel panelOpciones;
+    private javax.swing.JComboBox<String> sinc_sendCombo;
+    private javax.swing.JSlider sliderProcesos;
+    private javax.swing.JButton startButton;
+    private javax.swing.JTextField tamanoCola;
     // End of variables declaration//GEN-END:variables
 }
