@@ -5,6 +5,8 @@
  */
 package View;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Joseph Salas
@@ -184,7 +186,7 @@ public class MainPage extends javax.swing.JFrame {
                             .addComponent(jLabel8)
                             .addComponent(sliderProcesos, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(tamanoCola, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 508, Short.MAX_VALUE))))
+                        .addGap(0, 515, Short.MAX_VALUE))))
             .addGroup(panelOpcionesLayout.createSequentialGroup()
                 .addGap(56, 56, 56)
                 .addComponent(startButton)
@@ -297,6 +299,14 @@ public class MainPage extends javax.swing.JFrame {
 
     private void startButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startButtonActionPerformed
 
+        if(sinc_sendCombo.getSelectedItem().toString() == "Blocking" 
+                & Sinc_ReceiveCombo.getSelectedItem().toString() == "Nonblocking")
+        {
+            JOptionPane.showMessageDialog(null, "La sincronización no puede recibir los parámetros indicados"
+                    , "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        else
+        {
             direc_receiveCombo.disable();
             direc_indirecCombo.disable();
             direc_indirectRadio.disable();
@@ -308,7 +318,8 @@ public class MainPage extends javax.swing.JFrame {
             colasCombo.disable();
             sliderProcesos.disable();
             tamanoCola.disable();
-        
+        }
+  
     }//GEN-LAST:event_startButtonActionPerformed
 
     /**
