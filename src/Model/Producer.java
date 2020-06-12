@@ -67,9 +67,7 @@ public class Producer extends Thread{
         }
         while(messageQueue.getQueue().size() == 0)
             sleep(1);
-        //notify(); //si la cola tiene elementos
-        Message message = messageQueue.getMessage();
-        
+        Message message = messageQueue.getMessage(); 
         //dependiendo del tipo de cola se elimina el mensaje, implementado en interfaz
         messageQueue.remove(message);
         return message;

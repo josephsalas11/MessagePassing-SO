@@ -5,11 +5,11 @@
  */
 package View;
 
-import Model.Consumer;
 import Model.Message;
 import Model.MessageType;
 import Model.Producer;
 import Model.QueueType;
+import Model.Receiver;
 import Model.SynchronizationType;
 
 /**
@@ -29,8 +29,8 @@ public class test{
             p.getMessageQueue().addMessage(m3);
 
             p.start();
-            Consumer c = new Consumer(p, SynchronizationType.NONBLOCKING);
-            c.start();
+            Receiver r = new Receiver(p, SynchronizationType.NONBLOCKING);
+            r.start();
         }
         
 }
