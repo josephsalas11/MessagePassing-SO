@@ -5,7 +5,9 @@
  */
 package Model;
 
-import sun.misc.Queue;
+import java.util.LinkedList;
+import java.util.Queue;
+
 
 /**
  *
@@ -17,9 +19,10 @@ public class FIFOQueue implements IMessageQueue{
 
     public FIFOQueue(int size) {
         this.size = size;
-        queue = new Queue<>();
+        queue = new LinkedList<Message>();
     }
 
+    @Override
     public Queue<Message> getQueue() {
         return queue;
     }
@@ -28,6 +31,7 @@ public class FIFOQueue implements IMessageQueue{
         this.queue = queue;
     }
 
+    @Override
     public int getSize() {
         return size;
     }
@@ -38,7 +42,17 @@ public class FIFOQueue implements IMessageQueue{
     
     @Override
     public void addMessage(Message message){
-        queue.enqueue(message);
+        queue.add(message);
+    }
+
+    @Override
+    public Message getMessage() {
+        return queue.element();
+    }
+
+    @Override
+    public void remove(Message message) {
+        queue.remove(message);
     }
     
     
