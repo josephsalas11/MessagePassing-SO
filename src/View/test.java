@@ -23,7 +23,7 @@ public class test{
             Message m2 = new Message(MessageType.FIFO, 2, 1, 10, "Soy un pura mierda 2");
             Message m3 = new Message(MessageType.FIFO, 2, 1, 10, "Soy un pura mierda 3");
 
-            Producer p = new Producer(5, SynchronizationType.BLOCKING, QueueType.FIFO);
+            Producer p = new Producer(5, SynchronizationType.NONBLOCKING, QueueType.FIFO);
             p.getMessageQueue().addMessage(m1);
             p.getMessageQueue().addMessage(m2);
             p.getMessageQueue().addMessage(m3);
