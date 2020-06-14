@@ -12,7 +12,7 @@ package Model;
 public class Producer extends Thread{
     private IMessageQueue messageQueue;
     private SynchronizationType synchronizationType;
-    private Receiver receiver;
+    private IReceiver receiver;
 
     public Producer(int queueSize, SynchronizationType synchronizationType, QueueType queueType) {
         if(queueType == QueueType.FIFO)
@@ -50,7 +50,7 @@ public class Producer extends Thread{
         }
         //messageQueue.addMessage(message); ver como manejar mensajes
         wait(); //para esperar que el otro hilo responda
-        //receiver.receiveMessage();
+
         if(receiver != null && receiver.getSynchronizationType() == SynchronizationType.BLOCKING){
             receiver.receiveMessage();
             receiver = null;
@@ -63,7 +63,7 @@ public class Producer extends Thread{
             wait();
         }
         //messageQueue.addElement(message); ver como manejar mensajes
-        //receiver.receiveMessage();
+
         if(receiver != null && receiver.getSynchronizationType() == SynchronizationType.BLOCKING){
             receiver.receiveMessage();
             receiver = null;
@@ -71,7 +71,7 @@ public class Producer extends Thread{
         //notify();
     }
     
-    public synchronized Message getMessage(Receiver receiver) throws InterruptedException{
+    public synchronized Message getMessage(IReceiver receiver) throws InterruptedException{
         this.receiver = receiver;
         sleep(1000);
         
@@ -80,7 +80,7 @@ public class Producer extends Thread{
             notify();
         }
         else if(synchronizationType == SynchronizationType.NONBLOCKING){
-            
+
         }
         
         //si el tipo de sincronizacion del receiver es blocking
@@ -91,7 +91,6 @@ public class Producer extends Thread{
         while(messageQueue.getQueue().isEmpty())
             sleep(5000);
         Message message = messageQueue.getMessage(); 
-        //dependiendo del tipo de cola se elimina el mensaje, implementado en interfaz
         messageQueue.remove(message);
         return message;
     }

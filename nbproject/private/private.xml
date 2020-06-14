@@ -5,9 +5,11 @@
         <group>
             <file>file:/C:/Users/Paulo/Desktop/MessagePassing-SO/src/Model/Receiver.java</file>
             <file>file:/C:/Users/Paulo/Desktop/MessagePassing-SO/src/Model/Producer.java</file>
+            <file>file:/C:/Users/Paulo/Desktop/MessagePassing-SO/src/View/test.java</file>
             <file>file:/C:/Users/Paulo/Desktop/MessagePassing-SO/src/Model/FIFOQueue.java</file>
-            <file>file:/C:/Users/Paulo/Desktop/MessagePassing-SO/src/Model/Consumer.java</file>
+            <file>file:/C:/Users/Paulo/Desktop/MessagePassing-SO/src/Model/IMessageQueue.java</file>
             <file>file:/C:/Users/Paulo/Desktop/MessagePassing-SO/src/View/MainPage.java</file>
+            <file>file:/C:/Users/Paulo/Desktop/MessagePassing-SO/src/Model/Process.java</file>
             <file>file:/C:/Users/Paulo/Desktop/MessagePassing-SO/src/Model/Message.java</file>
             <file>file:/C:/Users/Paulo/Desktop/MessagePassing-SO/src/Model/MessageType.java</file>
         </group>
