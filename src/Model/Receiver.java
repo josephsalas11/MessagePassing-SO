@@ -33,7 +33,6 @@ public class Receiver extends Thread implements IReceiver{
                         sleep(1);
                     }
                     else{
-                        System.out.println("ASD");
                         getProducerMessage();
                     }
                 }

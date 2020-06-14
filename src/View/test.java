@@ -45,11 +45,11 @@ public class test{
             p1.send(p2, m2);
             p1.send(p2, m3);
             
-            p2.receive(p1, m1);
+            p2.receive(p1);
             sleep(3000);
-            p2.receive(p1, m1);
+            p2.receive(p1);
             sleep(3000);
-            p2.receive(p1, m1);
+            p2.receive(p1);
 
         }
         

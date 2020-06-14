@@ -45,7 +45,7 @@ public class Process {
         producer.getMessageQueue().addMessage(message);
     }
     
-    public void receive(Process source, Message message){
+    public void receive(Process source){
         if(senderProcess != null && source.id != senderProcess.id)
             System.out.println("El proceso que envió el mensaje no corresponde con el especificado en este proceso");
         else{
