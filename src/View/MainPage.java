@@ -86,6 +86,7 @@ public class MainPage extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         commandFileBtn = new javax.swing.JButton();
+        messageBtn = new javax.swing.JButton();
         helpButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -159,7 +160,7 @@ public class MainPage extends javax.swing.JFrame {
 
         sync_ReceiveCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Blocking", "Nonblocking", "Prueba de llegada" }));
 
-        queueCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "FIFO", "Prioridad" }));
+        queueCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "FIFO", "PRIORITY" }));
 
         jLabel8.setText("Cantidad de procesos");
 
@@ -194,6 +195,13 @@ public class MainPage extends javax.swing.JFrame {
         commandFileBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 commandFileBtnActionPerformed(evt);
+            }
+        });
+
+        messageBtn.setText("Crear Mensaje");
+        messageBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                messageBtnActionPerformed(evt);
             }
         });
 
@@ -245,12 +253,17 @@ public class MainPage extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(startButton))
                     .addGroup(panelOpcionesLayout.createSequentialGroup()
-                        .addGap(39, 39, 39)
                         .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel12)
-                            .addComponent(jLabel13)
-                            .addComponent(jScrollPane2)
-                            .addComponent(jScrollPane1))
+                            .addGroup(panelOpcionesLayout.createSequentialGroup()
+                                .addGap(39, 39, 39)
+                                .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel12)
+                                    .addComponent(jLabel13)
+                                    .addComponent(jScrollPane2)
+                                    .addComponent(jScrollPane1)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelOpcionesLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(messageBtn)))
                         .addContainerGap())))
         );
         panelOpcionesLayout.setVerticalGroup(
@@ -300,6 +313,8 @@ public class MainPage extends javax.swing.JFrame {
                         .addComponent(jLabel13)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(messageBtn)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(queueCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -431,6 +446,7 @@ public class MainPage extends javax.swing.JFrame {
             numProcess = processSlider.getValue();
             queueSizeType = queueSize.getText();
         }
+       
   
     }//GEN-LAST:event_startButtonActionPerformed
 
@@ -449,6 +465,13 @@ public class MainPage extends javax.swing.JFrame {
         
     }//GEN-LAST:event_commandFileBtnActionPerformed
 
+    private void messageBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_messageBtnActionPerformed
+         
+        Message message = new Message(MessageType.valueOf(queueCombo.getSelectedItem().toString()),
+        2,1,Integer.parseInt(formatField.getText()),msgArea.getText());
+    }//GEN-LAST:event_messageBtnActionPerformed
+
+    
     /**
      * @param args the command line arguments
      */
@@ -511,6 +534,7 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JButton messageBtn;
     private javax.swing.JTextArea msgArea;
     private javax.swing.JPanel panelOpciones;
     private javax.swing.JSlider processSlider;
