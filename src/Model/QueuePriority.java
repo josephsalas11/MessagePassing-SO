@@ -37,8 +37,14 @@ public class QueuePriority implements IMessageQueue{
     }
     
     @Override
-    public void addMessage(Message message){
-        priorityQueue.add(message);
+    public boolean addMessage(Message message){
+        if(priorityQueue.size() == size){
+            return false;
+        }
+        else{
+            priorityQueue.add(message);
+            return true;
+        }
     }
 
     @Override
