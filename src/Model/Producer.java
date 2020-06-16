@@ -18,7 +18,7 @@ public class Producer extends Thread implements IProducer{
         if(queueType == QueueType.FIFO)
             messageQueue = new FIFOQueue(queueSize);
         else if(queueType == QueueType.PRIORITY){
-            //messageQueue = new PriorityQueue(queueSize);
+            messageQueue = new QueuePriority(queueSize);
         }
         this.synchronizationType = synchronizationType;
     }
@@ -51,8 +51,10 @@ public class Producer extends Thread implements IProducer{
     
     
     //lo sustituye create message en process
-    public synchronized void putMessageBlocking() throws InterruptedException{
-        while(messageQueue.getQueue().size() == messageQueue.getSize()){
+
+    private synchronized void putMessageBlocking() throws InterruptedException{
+        while(messageQueue.getQueueSize() == messageQueue.getSize()){
+
             wait();
         }
         //messageQueue.addMessage(message); ver como manejar mensajes
@@ -65,8 +67,10 @@ public class Producer extends Thread implements IProducer{
         notify();
     }
     
-    public synchronized void putMessageNonblocking() throws InterruptedException{
-        while(messageQueue.getQueue().size() == messageQueue.getSize()){
+
+    private synchronized void putMessageNonblocking() throws InterruptedException{
+        while(messageQueue.getQueueSize() == messageQueue.getSize()){
+
             wait();
         }
         //messageQueue.addElement(message); ver como manejar mensajes
@@ -96,7 +100,7 @@ public class Producer extends Thread implements IProducer{
             receiver.receiveMessage(); //para que se desbloquee el hilo del receiver
         }*/
         
-        while(messageQueue.getQueue().isEmpty())
+        while(messageQueue.isQueueEmpty())
             sleep(5000);
         Message message = messageQueue.getMessage(); 
         messageQueue.remove(message);

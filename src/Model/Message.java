@@ -11,12 +11,13 @@ import java.io.Serializable;
  *
  * @author Paulo
  */
-public class Message implements Serializable{
+public class Message implements Serializable, Comparable<Message>{
     private MessageType messageType;
     private int destinyID;
     private int sourceID;
     private int length;
     private String content;
+    private int priorityFlag;
 
     public Message(MessageType messageType, int destinyID, int sourceID, int length, String content) {
         this.messageType = messageType;
@@ -24,6 +25,15 @@ public class Message implements Serializable{
         this.sourceID = sourceID;
         this.length = length;
         this.content = content;
+    }
+    
+        public Message(MessageType messageType, int destinyID, int sourceID, int length, String content, int priorityFlag) {
+        this.messageType = messageType;
+        this.destinyID = destinyID;
+        this.sourceID = sourceID;
+        this.length = length;
+        this.content = content;
+        this.priorityFlag = priorityFlag;
     }
 
     public MessageType getMessageType() {
@@ -65,6 +75,26 @@ public class Message implements Serializable{
     public void setContent(String content) {
         this.content = content;
     }
-    
+
+    public int getPriorityFlag() {
+        return priorityFlag;
+    }
+
+    public void setPriorityFlag(int priorityFlag) {
+        this.priorityFlag = priorityFlag;
+    }
+
+    @Override
+    public int compareTo(Message message) {
+        if(this.getPriorityFlag() > message.getPriorityFlag()) {
+            return 1;
+        } 
+        else if (this.getPriorityFlag() < message.getPriorityFlag()) 
+        {
+            return -1;
+        } else {
+            return 0;
+        }
+    }
     
 }
