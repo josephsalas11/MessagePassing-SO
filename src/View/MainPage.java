@@ -5,6 +5,7 @@
  */
 package View;
 
+import Model.Mailbox;
 import javax.swing.JOptionPane;
 import Model.Message;
 import Model.MessageType;
@@ -41,6 +42,7 @@ public class MainPage extends javax.swing.JFrame {
     private SynchronizationType synchronizationTypeProducer; 
     private SynchronizationType synchronizationTypeReceiver;
     private QueueType queueType;
+    private int createdProcess = 0; 
     
     
     /**
@@ -100,6 +102,9 @@ public class MainPage extends javax.swing.JFrame {
         createProcessBtn = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
+        jLabel15 = new javax.swing.JLabel();
         helpButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -226,6 +231,12 @@ public class MainPage extends javax.swing.JFrame {
 
         jLabel14.setText("ID del proceso");
 
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane3.setViewportView(jTextArea1);
+
+        jLabel15.setText("Consola");
+
         javax.swing.GroupLayout panelOpcionesLayout = new javax.swing.GroupLayout(panelOpciones);
         panelOpciones.setLayout(panelOpcionesLayout);
         panelOpcionesLayout.setHorizontalGroup(
@@ -272,16 +283,6 @@ public class MainPage extends javax.swing.JFrame {
                         .addGap(39, 39, 39)
                         .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panelOpcionesLayout.createSequentialGroup()
-                                .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jScrollPane2)
-                                    .addComponent(jScrollPane1)
-                                    .addGroup(panelOpcionesLayout.createSequentialGroup()
-                                        .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel12)
-                                            .addComponent(jLabel13))
-                                        .addGap(0, 0, Short.MAX_VALUE)))
-                                .addContainerGap())
-                            .addGroup(panelOpcionesLayout.createSequentialGroup()
                                 .addComponent(sendProcessBtn)
                                 .addGap(31, 31, 31)
                                 .addComponent(receiveProcessBtn)
@@ -295,7 +296,19 @@ public class MainPage extends javax.swing.JFrame {
                                     .addGroup(panelOpcionesLayout.createSequentialGroup()
                                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 111, Short.MAX_VALUE)
-                                        .addComponent(createProcessBtn))))))
+                                        .addComponent(createProcessBtn))))
+                            .addGroup(panelOpcionesLayout.createSequentialGroup()
+                                .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane2)
+                                    .addComponent(jScrollPane1)
+                                    .addComponent(jScrollPane3)
+                                    .addGroup(panelOpcionesLayout.createSequentialGroup()
+                                        .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel12)
+                                            .addComponent(jLabel13)
+                                            .addComponent(jLabel15))
+                                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addContainerGap())))
                     .addGroup(panelOpcionesLayout.createSequentialGroup()
                         .addComponent(startButton)
                         .addGap(18, 18, 18)
@@ -339,9 +352,7 @@ public class MainPage extends javax.swing.JFrame {
                         .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(formatCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(formatField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(31, 31, 31)
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                        .addGap(31, 31, 31))
                     .addGroup(panelOpcionesLayout.createSequentialGroup()
                         .addGap(14, 14, 14)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -349,15 +360,24 @@ public class MainPage extends javax.swing.JFrame {
                         .addComponent(jLabel13)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addComponent(queueCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel8)
-                .addGap(3, 3, 3)
-                .addComponent(processSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel11)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel15)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelOpcionesLayout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(queueCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel8)
+                        .addGap(3, 3, 3)
+                        .addComponent(processSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel11)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(panelOpcionesLayout.createSequentialGroup()
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addGap(60, 60, 60)))
                 .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(queueSize, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(sendProcessBtn)
@@ -367,7 +387,7 @@ public class MainPage extends javax.swing.JFrame {
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel14)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addGap(28, 28, 28)
                 .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(startButton)
                     .addComponent(commandFileBtn))
@@ -534,30 +554,35 @@ public class MainPage extends javax.swing.JFrame {
 
     private void createProcessBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createProcessBtnActionPerformed
 
-                   //private SynchronizationType synchronizationTypeProducer; 
-           //private SynchronizationType synchronizationTypeReceiver;
-           // private QueueType queueType;
-        
-        if(direc_direcRadio.isSelected())
+        if(createdProcess < numProcess)
         {
-            if(direc_receiveCombo.getSelectedItem().toString()== "Explícito")
+            if(direc_direcRadio.isSelected())
             {
-                processList.put(processCounter, new Process(processCounter, synchronizationTypeProducer,
-                queueType,queueSizeType,synchronizationTypeReceiver));
-            }else
-            {
-                
+                if(direc_receiveCombo.getSelectedItem().toString()== "Explícito")
+                {
+                    processList.put(processCounter, new Process(processCounter, synchronizationTypeProducer,
+                            queueType,queueSizeType,synchronizationTypeReceiver));
+                }else{
+                    processList.put(processCounter, new Process(processCounter, synchronizationTypeProducer,
+                            queueType,queueSizeType,synchronizationTypeReceiver));
+                }
             }
-        }else if(direc_indirectRadio.isSelected())
-        {
-            if(direc_receiveCombo.getSelectedItem().toString()== "Estático")
+            else if(direc_indirectRadio.isSelected())
             {
-            }else
-            {   
+                if(direc_receiveCombo.getSelectedItem().toString()== "Estático")
+                {
+                    processList.put(processCounter, new Process(processCounter, synchronizationTypeProducer,
+                            queueType,queueSizeType,synchronizationTypeReceiver, new Mailbox(queueSizeType,queueType)));
+                }else
+                {
+                    processList.put(processCounter, new Process(processCounter, synchronizationTypeProducer,
+                            queueType,queueSizeType,synchronizationTypeReceiver, new Mailbox(queueSizeType,queueType)));
+                }
             }
-        }
-        processCounter++;
-        System.out.println(processCounter);
+            processCounter++;
+            createdProcess++; 
+        }else{JOptionPane.showMessageDialog(null, "Ha llegado al límite de procesos establecidos"
+                    , "Error", JOptionPane.ERROR_MESSAGE);}
         
     }//GEN-LAST:event_createProcessBtnActionPerformed
 
@@ -619,6 +644,7 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -629,6 +655,8 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextArea msgArea;
     private javax.swing.JPanel panelOpciones;
