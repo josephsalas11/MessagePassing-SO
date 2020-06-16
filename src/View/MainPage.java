@@ -15,6 +15,7 @@ import Model.SynchronizationType;
 import Model.Process;
 import static java.lang.Thread.sleep;
 import javax.swing.JFileChooser;
+import java.util.*; 
 
 
 /**
@@ -34,7 +35,12 @@ public class MainPage extends javax.swing.JFrame {
     private String formatSize;
     private String queueHandle;
     private int numProcess;
-    private String queueSizeType;
+    private int queueSizeType;
+    private  Hashtable<Integer, Process> processList;
+    private int processCounter;
+    private SynchronizationType synchronizationTypeProducer; 
+    private SynchronizationType synchronizationTypeReceiver;
+    private QueueType queueType;
     
     
     /**
@@ -43,6 +49,8 @@ public class MainPage extends javax.swing.JFrame {
     public MainPage() {
         initComponents();
         eventLogArea.setEditable(false);
+        processList = new Hashtable<Integer, Process>();
+
     }
 
     /**
@@ -86,10 +94,10 @@ public class MainPage extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         commandFileBtn = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        sendProcessBtn = new javax.swing.JButton();
+        receiveProcessBtn = new javax.swing.JButton();
+        displayProcessBtn = new javax.swing.JButton();
+        createProcessBtn = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
         helpButton = new javax.swing.JButton();
@@ -156,14 +164,14 @@ public class MainPage extends javax.swing.JFrame {
             }
         });
 
-        sync_SendCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Blocking", "Nonblocking" }));
+        sync_SendCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "BLOCKING", "NONBLOCKING" }));
         sync_SendCombo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 sync_SendComboActionPerformed(evt);
             }
         });
 
-        sync_ReceiveCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Blocking", "Nonblocking", "Prueba de llegada" }));
+        sync_ReceiveCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "BLOCKING", "NONBLOCKING", "Prueba de llegada" }));
 
         queueCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "FIFO", "PRIORITY" }));
 
@@ -203,13 +211,18 @@ public class MainPage extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Send");
+        sendProcessBtn.setText("Send");
 
-        jButton3.setText("Receive");
+        receiveProcessBtn.setText("Receive");
 
-        jButton4.setText("Display");
+        displayProcessBtn.setText("Display");
 
-        jButton1.setText("Create");
+        createProcessBtn.setText("Create");
+        createProcessBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                createProcessBtnActionPerformed(evt);
+            }
+        });
 
         jLabel14.setText("ID del proceso");
 
@@ -269,11 +282,11 @@ public class MainPage extends javax.swing.JFrame {
                                         .addGap(0, 0, Short.MAX_VALUE)))
                                 .addContainerGap())
                             .addGroup(panelOpcionesLayout.createSequentialGroup()
-                                .addComponent(jButton2)
+                                .addComponent(sendProcessBtn)
                                 .addGap(31, 31, 31)
-                                .addComponent(jButton3)
+                                .addComponent(receiveProcessBtn)
                                 .addGap(30, 30, 30)
-                                .addComponent(jButton4)
+                                .addComponent(displayProcessBtn)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(panelOpcionesLayout.createSequentialGroup()
@@ -282,7 +295,7 @@ public class MainPage extends javax.swing.JFrame {
                                     .addGroup(panelOpcionesLayout.createSequentialGroup()
                                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 111, Short.MAX_VALUE)
-                                        .addComponent(jButton1))))))
+                                        .addComponent(createProcessBtn))))))
                     .addGroup(panelOpcionesLayout.createSequentialGroup()
                         .addComponent(startButton)
                         .addGap(18, 18, 18)
@@ -347,10 +360,10 @@ public class MainPage extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(queueSize, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4)
-                    .addComponent(jButton1)
+                    .addComponent(sendProcessBtn)
+                    .addComponent(receiveProcessBtn)
+                    .addComponent(displayProcessBtn)
+                    .addComponent(createProcessBtn)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel14)
@@ -435,8 +448,9 @@ public class MainPage extends javax.swing.JFrame {
 
     private void startButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startButtonActionPerformed
 
-        if(sync_SendCombo.getSelectedItem().toString() == "Blocking" 
-                & sync_ReceiveCombo.getSelectedItem().toString() == "Nonblocking")
+        
+        if(sync_SendCombo.getSelectedItem().toString() == "BLOCKING" 
+                & sync_ReceiveCombo.getSelectedItem().toString() == "NONBLOCKING")
         {
             JOptionPane.showMessageDialog(null, "La sincronización no puede recibir los parámetros indicados"
                     , "Error", JOptionPane.ERROR_MESSAGE);
@@ -473,9 +487,33 @@ public class MainPage extends javax.swing.JFrame {
             formatSize = formatField.getText();
             queueHandle  = queueCombo.getSelectedItem().toString();
             numProcess = processSlider.getValue();
-            queueSizeType = queueSize.getText();
+            queueSizeType = Integer.parseInt(queueSize.getText());
         }
-       
+        if(sync_ReceiveCombo.getSelectedItem().toString() ==  "BLOCKING")
+        {
+            synchronizationTypeProducer = SynchronizationType.BLOCKING;
+        }else
+        {
+            synchronizationTypeProducer = SynchronizationType.NONBLOCKING;
+        }
+        
+        if(sync_SendCombo.getSelectedItem().toString() ==  "BLOCKING")
+        {
+            synchronizationTypeReceiver = SynchronizationType.BLOCKING;
+        }else
+        {
+            synchronizationTypeReceiver = SynchronizationType.NONBLOCKING;
+        }
+        
+        if(queueCombo.getSelectedItem().toString() ==  "FIFO")
+        {
+            queueType = QueueType.FIFO;
+        }else
+        {
+            queueType = QueueType.PRIORITY;
+        }
+        
+        
   
     }//GEN-LAST:event_startButtonActionPerformed
 
@@ -493,6 +531,35 @@ public class MainPage extends javax.swing.JFrame {
         openFile.showOpenDialog(null);
         
     }//GEN-LAST:event_commandFileBtnActionPerformed
+
+    private void createProcessBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createProcessBtnActionPerformed
+
+                   //private SynchronizationType synchronizationTypeProducer; 
+           //private SynchronizationType synchronizationTypeReceiver;
+           // private QueueType queueType;
+        
+        if(direc_direcRadio.isSelected())
+        {
+            if(direc_receiveCombo.getSelectedItem().toString()== "Explícito")
+            {
+                processList.put(processCounter, new Process(processCounter, synchronizationTypeProducer,
+                queueType,queueSizeType,synchronizationTypeReceiver));
+            }else
+            {
+                
+            }
+        }else if(direc_indirectRadio.isSelected())
+        {
+            if(direc_receiveCombo.getSelectedItem().toString()== "Estático")
+            {
+            }else
+            {   
+            }
+        }
+        processCounter++;
+        System.out.println(processCounter);
+        
+    }//GEN-LAST:event_createProcessBtnActionPerformed
 
     
     /**
@@ -536,18 +603,16 @@ public class MainPage extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton commandFileBtn;
+    private javax.swing.JButton createProcessBtn;
     private javax.swing.JRadioButton direc_direcRadio;
     private javax.swing.JComboBox<String> direc_indirecCombo;
     private javax.swing.JRadioButton direc_indirectRadio;
     private javax.swing.JComboBox<String> direc_receiveCombo;
+    private javax.swing.JButton displayProcessBtn;
     private javax.swing.JTextArea eventLogArea;
     private javax.swing.JComboBox<String> formatCombo;
     private javax.swing.JTextField formatField;
     private javax.swing.JButton helpButton;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -570,6 +635,8 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JSlider processSlider;
     private javax.swing.JComboBox<String> queueCombo;
     private javax.swing.JTextField queueSize;
+    private javax.swing.JButton receiveProcessBtn;
+    private javax.swing.JButton sendProcessBtn;
     private javax.swing.JButton startButton;
     private javax.swing.JComboBox<String> sync_ReceiveCombo;
     private javax.swing.JComboBox<String> sync_SendCombo;
