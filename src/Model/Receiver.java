@@ -12,12 +12,12 @@ import static java.lang.Thread.sleep;
  * @author Paulo
  */
 public class Receiver extends Thread implements IReceiver{
-    private Producer producer;
+    private IProducer producer;
     private SynchronizationType synchronizationType;
     private boolean allowReceive = false;
     private boolean waitReceive = true;
 
-    public Receiver(Producer producer, SynchronizationType synchronizationType) {
+    public Receiver(IProducer producer, SynchronizationType synchronizationType) {
         this.producer = producer;
         this.synchronizationType = synchronizationType;
     }

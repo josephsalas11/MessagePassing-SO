@@ -41,8 +41,14 @@ public class FIFOQueue implements IMessageQueue{
     }
     
     @Override
-    public void addMessage(Message message){
-        queue.add(message);
+    public boolean addMessage(Message message){
+        if(queue.size() == size){ //no se pueden meter mas mensajes
+            return false;
+        }
+        else{
+            queue.add(message);
+            return true;
+        }
     }
 
     @Override
