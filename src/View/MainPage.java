@@ -5,17 +5,44 @@
  */
 package View;
 
+import javax.swing.JOptionPane;
+import Model.Message;
+import Model.MessageType;
+import Model.Producer;
+import Model.QueueType;
+import Model.Receiver;
+import Model.SynchronizationType;
+import Model.Process;
+import static java.lang.Thread.sleep;
+import javax.swing.JFileChooser;
+
+
 /**
  *
  * @author Joseph Salas
  */
 public class MainPage extends javax.swing.JFrame {
 
+    
+    private String sync_ReceiveType;
+    private String sync_SendType;
+    private boolean direccionamientoDirecto;
+    private boolean direccionamientoIndirecto;
+    private String direc_receiveType;
+    private String direc_indirecType;
+    private String formatType;
+    private String formatSize;
+    private String queueHandle;
+    private int numProcess;
+    private String queueSizeType;
+    
+    
     /**
      * Creates new form MainPage
      */
     public MainPage() {
         initComponents();
+        eventLogArea.setEditable(false);
     }
 
     /**
@@ -27,24 +54,447 @@ public class MainPage extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
+        jLabel1 = new javax.swing.JLabel();
+        panelOpciones = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        direc_direcRadio = new javax.swing.JRadioButton();
+        jLabel9 = new javax.swing.JLabel();
+        direc_indirectRadio = new javax.swing.JRadioButton();
+        jLabel10 = new javax.swing.JLabel();
+        formatCombo = new javax.swing.JComboBox<>();
+        formatField = new javax.swing.JTextField();
+        direc_receiveCombo = new javax.swing.JComboBox<>();
+        direc_indirecCombo = new javax.swing.JComboBox<>();
+        sync_SendCombo = new javax.swing.JComboBox<>();
+        sync_ReceiveCombo = new javax.swing.JComboBox<>();
+        queueCombo = new javax.swing.JComboBox<>();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        processSlider = new javax.swing.JSlider();
+        queueSize = new javax.swing.JTextField();
+        startButton = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        msgArea = new javax.swing.JTextArea();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        eventLogArea = new javax.swing.JTextArea();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        commandFileBtn = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jTextField1 = new javax.swing.JTextField();
+        jLabel14 = new javax.swing.JLabel();
+        helpButton = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Message Passing");
         setName("mainPage"); // NOI18N
+
+        jLabel1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel1.setText("Conguración para Message Passing");
+
+        jLabel2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel2.setText("Sincronización");
+
+        jLabel3.setText("Direccionamiento");
+
+        jLabel4.setText("Formato");
+
+        jLabel5.setText("Manejo de Colas");
+
+        jLabel6.setText("Send");
+
+        jLabel7.setText("Receive");
+
+        buttonGroup1.add(direc_direcRadio);
+        direc_direcRadio.setText("Directo");
+        direc_direcRadio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                direc_direcRadioActionPerformed(evt);
+            }
+        });
+
+        jLabel9.setText("Receive");
+
+        buttonGroup1.add(direc_indirectRadio);
+        direc_indirectRadio.setText("Indirecto");
+        direc_indirectRadio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                direc_indirectRadioActionPerformed(evt);
+            }
+        });
+
+        jLabel10.setText("Largo");
+
+        formatCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Fijo", "Variable" }));
+
+        formatField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                formatFieldActionPerformed(evt);
+            }
+        });
+
+        direc_receiveCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Explícito", "Implícito" }));
+        direc_receiveCombo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                direc_receiveComboActionPerformed(evt);
+            }
+        });
+
+        direc_indirecCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Estático", "Dinámico" }));
+        direc_indirecCombo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                direc_indirecComboActionPerformed(evt);
+            }
+        });
+
+        sync_SendCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Blocking", "Nonblocking" }));
+        sync_SendCombo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sync_SendComboActionPerformed(evt);
+            }
+        });
+
+        sync_ReceiveCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Blocking", "Nonblocking", "Prueba de llegada" }));
+
+        queueCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "FIFO", "PRIORITY" }));
+
+        jLabel8.setText("Cantidad de procesos");
+
+        jLabel11.setText("Tamaño de la cola");
+
+        processSlider.setMajorTickSpacing(15);
+        processSlider.setMaximum(15);
+        processSlider.setMinorTickSpacing(1);
+        processSlider.setPaintTicks(true);
+        processSlider.setValue(0);
+
+        startButton.setText("Start Simulation");
+        startButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                startButtonActionPerformed(evt);
+            }
+        });
+
+        msgArea.setColumns(20);
+        msgArea.setRows(5);
+        jScrollPane1.setViewportView(msgArea);
+
+        eventLogArea.setColumns(20);
+        eventLogArea.setRows(5);
+        jScrollPane2.setViewportView(eventLogArea);
+
+        jLabel12.setText("Log de eventos");
+
+        jLabel13.setText("Escriba el mensaje del proceso");
+
+        commandFileBtn.setText("Cargar Comandos");
+        commandFileBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                commandFileBtnActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("Send");
+
+        jButton3.setText("Receive");
+
+        jButton4.setText("Display");
+
+        jButton1.setText("Create");
+
+        jLabel14.setText("ID del proceso");
+
+        javax.swing.GroupLayout panelOpcionesLayout = new javax.swing.GroupLayout(panelOpciones);
+        panelOpciones.setLayout(panelOpcionesLayout);
+        panelOpcionesLayout.setHorizontalGroup(
+            panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelOpcionesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelOpcionesLayout.createSequentialGroup()
+                        .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(sync_SendCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(sync_ReceiveCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(panelOpcionesLayout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(queueCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(direc_direcRadio)
+                            .addGroup(panelOpcionesLayout.createSequentialGroup()
+                                .addGap(21, 21, 21)
+                                .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(direc_receiveCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel9)))
+                            .addGroup(panelOpcionesLayout.createSequentialGroup()
+                                .addGap(126, 126, 126)
+                                .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(direc_indirecCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(direc_indirectRadio)))
+                            .addGroup(panelOpcionesLayout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(formatCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(formatField, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel4)
+                            .addGroup(panelOpcionesLayout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(jLabel10))
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel11)
+                            .addComponent(jLabel8)
+                            .addComponent(processSlider, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(queueSize, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel7))
+                        .addGap(39, 39, 39)
+                        .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelOpcionesLayout.createSequentialGroup()
+                                .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane2)
+                                    .addComponent(jScrollPane1)
+                                    .addGroup(panelOpcionesLayout.createSequentialGroup()
+                                        .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel12)
+                                            .addComponent(jLabel13))
+                                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addContainerGap())
+                            .addGroup(panelOpcionesLayout.createSequentialGroup()
+                                .addComponent(jButton2)
+                                .addGap(31, 31, 31)
+                                .addComponent(jButton3)
+                                .addGap(30, 30, 30)
+                                .addComponent(jButton4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(panelOpcionesLayout.createSequentialGroup()
+                                        .addComponent(jLabel14)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addGroup(panelOpcionesLayout.createSequentialGroup()
+                                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 111, Short.MAX_VALUE)
+                                        .addComponent(jButton1))))))
+                    .addGroup(panelOpcionesLayout.createSequentialGroup()
+                        .addComponent(startButton)
+                        .addGap(18, 18, 18)
+                        .addComponent(commandFileBtn)
+                        .addGap(0, 0, Short.MAX_VALUE))))
+        );
+        panelOpcionesLayout.setVerticalGroup(
+            panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelOpcionesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel12))
+                .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelOpcionesLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(sync_SendCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(35, 35, 35)
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(sync_ReceiveCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(direc_direcRadio)
+                            .addComponent(direc_indirectRadio))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(direc_receiveCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(direc_indirecCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel4)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(formatCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(formatField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(31, 31, 31)
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                    .addGroup(panelOpcionesLayout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel13)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addComponent(queueCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel8)
+                .addGap(3, 3, 3)
+                .addComponent(processSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel11)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(queueSize, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2)
+                    .addComponent(jButton3)
+                    .addComponent(jButton4)
+                    .addComponent(jButton1)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel14)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(startButton)
+                    .addComponent(commandFileBtn))
+                .addContainerGap())
+        );
+
+        helpButton.setText("Ayuda");
+        helpButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                helpButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 755, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(panelOpciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 113, Short.MAX_VALUE)
+                        .addComponent(helpButton, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(23, 23, 23))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 557, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(helpButton))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(panelOpciones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void formatFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_formatFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formatFieldActionPerformed
+
+    private void direc_receiveComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_direc_receiveComboActionPerformed
+   
+    }//GEN-LAST:event_direc_receiveComboActionPerformed
+
+    private void direc_indirecComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_direc_indirecComboActionPerformed
+        
+    }//GEN-LAST:event_direc_indirecComboActionPerformed
+
+    private void direc_direcRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_direc_direcRadioActionPerformed
+ 
+       if (direc_direcRadio.isSelected())
+       {
+           direc_indirecCombo.disable();
+           direc_receiveCombo.enable();
+       }
+       
+    }//GEN-LAST:event_direc_direcRadioActionPerformed
+
+    private void direc_indirectRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_direc_indirectRadioActionPerformed
+        if (direc_indirectRadio.isSelected())
+        {
+            direc_receiveCombo.disable();
+            direc_indirecCombo.enable();
+        }
+       
+    }//GEN-LAST:event_direc_indirectRadioActionPerformed
+
+    private void startButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startButtonActionPerformed
+
+        if(sync_SendCombo.getSelectedItem().toString() == "Blocking" 
+                & sync_ReceiveCombo.getSelectedItem().toString() == "Nonblocking")
+        {
+            JOptionPane.showMessageDialog(null, "La sincronización no puede recibir los parámetros indicados"
+                    , "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        else
+        {
+            direc_receiveCombo.disable();
+            direc_indirecCombo.disable();
+            direc_indirectRadio.disable();
+            direc_direcRadio.disable();
+            sync_SendCombo.disable();
+            sync_ReceiveCombo.disable();
+            formatCombo.disable();
+            formatField.disable();
+            queueCombo.disable();
+            processSlider.disable();
+            queueSize.disable();
+             
+            sync_ReceiveType = sync_ReceiveCombo.getSelectedItem().toString();
+            sync_SendType = sync_SendCombo.getSelectedItem().toString();
+            if(direc_direcRadio.isSelected())
+            {
+                direccionamientoDirecto = true;
+                direccionamientoIndirecto = false;
+            }
+            else if(direc_indirectRadio.isSelected())
+            {
+                direccionamientoIndirecto = true;
+                direccionamientoDirecto = false;
+            }
+            direc_receiveType = direc_receiveCombo.getSelectedItem().toString();
+            direc_indirecType = direc_indirecCombo.getSelectedItem().toString();
+            formatType = formatCombo.getSelectedItem().toString();
+            formatSize = formatField.getText();
+            queueHandle  = queueCombo.getSelectedItem().toString();
+            numProcess = processSlider.getValue();
+            queueSizeType = queueSize.getText();
+        }
+       
+  
+    }//GEN-LAST:event_startButtonActionPerformed
+
+    private void helpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_helpButtonActionPerformed
+        HelpWindow help = new HelpWindow();
+        help.setVisible(true);
+    }//GEN-LAST:event_helpButtonActionPerformed
+
+    private void sync_SendComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sync_SendComboActionPerformed
+      
+    }//GEN-LAST:event_sync_SendComboActionPerformed
+
+    private void commandFileBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_commandFileBtnActionPerformed
+        JFileChooser openFile = new JFileChooser();
+        openFile.showOpenDialog(null);
+        
+    }//GEN-LAST:event_commandFileBtnActionPerformed
+
+    
     /**
      * @param args the command line arguments
      */
@@ -76,10 +526,52 @@ public class MainPage extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new MainPage().setVisible(true);
+                
             }
         });
     }
+    
+    //        Message message = new Message(MessageType.valueOf(queueCombo.getSelectedItem().toString()),2,1,Integer.parseInt(formatField.getText()),msgArea.getText());
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JButton commandFileBtn;
+    private javax.swing.JRadioButton direc_direcRadio;
+    private javax.swing.JComboBox<String> direc_indirecCombo;
+    private javax.swing.JRadioButton direc_indirectRadio;
+    private javax.swing.JComboBox<String> direc_receiveCombo;
+    private javax.swing.JTextArea eventLogArea;
+    private javax.swing.JComboBox<String> formatCombo;
+    private javax.swing.JTextField formatField;
+    private javax.swing.JButton helpButton;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextArea msgArea;
+    private javax.swing.JPanel panelOpciones;
+    private javax.swing.JSlider processSlider;
+    private javax.swing.JComboBox<String> queueCombo;
+    private javax.swing.JTextField queueSize;
+    private javax.swing.JButton startButton;
+    private javax.swing.JComboBox<String> sync_ReceiveCombo;
+    private javax.swing.JComboBox<String> sync_SendCombo;
     // End of variables declaration//GEN-END:variables
 }
