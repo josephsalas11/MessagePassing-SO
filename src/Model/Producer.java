@@ -35,7 +35,7 @@ public class Producer extends Thread implements IProducer{
 
     @Override
     public void putMessage() throws InterruptedException {
-        if(synchronizationType == SynchronizationType.BLOCKING){
+        if(synchronizationType == SynchronizationType.BLOCKING){ //&& no se envia a mailbox
             System.out.println("entro b");
             putMessageBlocking();
             sleep(1000);
@@ -88,6 +88,7 @@ public class Producer extends Thread implements IProducer{
         sleep(1000);
         
         //si el tipo de sincronizacion del producer es blocking
+        //se puede cambiar por sendMessage
         if(synchronizationType == SynchronizationType.BLOCKING){
             notify();
         }
@@ -110,5 +111,14 @@ public class Producer extends Thread implements IProducer{
     public IMessageQueue getMessageQueue() {
         return messageQueue;
     }
+
+    @Override
+    public void sendMessage() {
+        if(synchronizationType == SynchronizationType.BLOCKING){
+            notify();
+        }
+    }
+    
+    
     
 }

@@ -71,5 +71,9 @@ public class QueuePriority implements IMessageQueue{
        return false;
     }
     
+    @Override
+    public void poll() {
+        priorityQueue.poll();
+    }
     
 }

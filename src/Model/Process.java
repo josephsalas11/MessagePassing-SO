@@ -36,6 +36,16 @@ public class Process {
         receiver.start();
     }
     
+    //para direccionamiento indirecto
+    public Process(int id, SynchronizationType synchronizationTypeProducer, QueueType queueType, int queueSize, SynchronizationType synchronizationTypeReceiver, IProducer mailbox){
+        this.id = id;
+        this.producer = new Producer(queueSize, synchronizationTypeProducer, queueType);
+        this.receiver = new Receiver(mailbox, synchronizationTypeReceiver);
+        
+        producer.start();
+        receiver.start();
+    }
+    
     public Message createMessage(Process destination, String messageContent, MessageType messageType, int messageLength){
         Message message = new Message(messageType, destination.id, id, messageLength, messageContent);
         return message;
@@ -43,6 +53,10 @@ public class Process {
     
     public void send(Process destination, Message message){
         producer.getMessageQueue().addMessage(message);
+    }
+    
+    public void sendMailbox(Mailbox mailbox, Message message){
+        mailbox.addMessage(message);
     }
     
     public void receive(Process source){
@@ -53,6 +67,7 @@ public class Process {
             receiver.setAllowReceive(true);
         }
     }
+    
 
     public int getId() {
         return id;

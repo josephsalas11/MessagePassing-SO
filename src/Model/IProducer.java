@@ -13,4 +13,5 @@ public interface IProducer {
     void putMessage() throws InterruptedException;
     Message getMessage(IReceiver receiver) throws InterruptedException;
     IMessageQueue getMessageQueue();
+    void sendMessage();
 }

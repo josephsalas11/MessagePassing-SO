@@ -69,6 +69,11 @@ public class FIFOQueue implements IMessageQueue{
         }
         return false;
     }
+
+    @Override
+    public void poll() {
+        queue.poll();
+    }
     
     
 }

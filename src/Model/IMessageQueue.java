@@ -20,5 +20,6 @@ public interface IMessageQueue {
     boolean isQueueEmpty();
     Message getMessage();
     void remove(Message message);
+    void poll();
     
 }
