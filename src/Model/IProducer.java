@@ -5,17 +5,12 @@
  */
 package Model;
 
-import java.util.Queue;
-
-
 /**
  *
  * @author Paulo
  */
-public interface IMessageQueue {
-    boolean addMessage(Message message);
-    int getSize();
-    Queue<Message> getQueue();
-    Message getMessage();
-    void remove(Message message);
+public interface IProducer {
+    void putMessage() throws InterruptedException;
+    Message getMessage(IReceiver receiver) throws InterruptedException;
+    IMessageQueue getMessageQueue();
 }

@@ -9,7 +9,7 @@ package Model;
  *
  * @author Paulo
  */
-public class Producer extends Thread{
+public class Producer extends Thread implements IProducer{
     private IMessageQueue messageQueue;
     private SynchronizationType synchronizationType;
     private IReceiver receiver;
@@ -27,24 +27,31 @@ public class Producer extends Thread{
     public void run(){
         try {
             while(true){
-            if(synchronizationType == SynchronizationType.BLOCKING){
-                System.out.println("entro b");
-                putMessageBlocking();
-                sleep(1000);
-                //getProducer
-            }
-            else if(synchronizationType == SynchronizationType.NONBLOCKING){
-                System.out.println("entro nb");
-                putMessageNonblocking();
-                sleep(1000);
+                putMessage();
                 }
-            }
             } catch (InterruptedException  e) {
         }
     }
+
+    @Override
+    public void putMessage() throws InterruptedException {
+        if(synchronizationType == SynchronizationType.BLOCKING){
+            System.out.println("entro b");
+            putMessageBlocking();
+            sleep(1000);
+            //getProducer
+        }                
+        else if(synchronizationType == SynchronizationType.NONBLOCKING){
+            System.out.println("entro nb");
+            putMessageNonblocking();
+            sleep(1000);    
+        }
+
+    }
+    
     
     //lo sustituye create message en process
-    private synchronized void putMessageBlocking() throws InterruptedException{
+    public synchronized void putMessageBlocking() throws InterruptedException{
         while(messageQueue.getQueue().size() == messageQueue.getSize()){
             wait();
         }
@@ -58,7 +65,7 @@ public class Producer extends Thread{
         notify();
     }
     
-    private synchronized void putMessageNonblocking() throws InterruptedException{
+    public synchronized void putMessageNonblocking() throws InterruptedException{
         while(messageQueue.getQueue().size() == messageQueue.getSize()){
             wait();
         }
@@ -71,6 +78,7 @@ public class Producer extends Thread{
         //notify();
     }
     
+    @Override
     public synchronized Message getMessage(IReceiver receiver) throws InterruptedException{
         this.receiver = receiver;
         sleep(1000);
