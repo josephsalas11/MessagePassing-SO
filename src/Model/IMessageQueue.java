@@ -5,6 +5,7 @@
  */
 package Model;
 
+import java.util.PriorityQueue;
 import java.util.Queue;
 
 
@@ -15,7 +16,9 @@ import java.util.Queue;
 public interface IMessageQueue {
     void addMessage(Message message);
     int getSize();
-    Queue<Message> getQueue();
+    int getQueueSize();
+    boolean isQueueEmpty();
     Message getMessage();
     void remove(Message message);
+    
 }

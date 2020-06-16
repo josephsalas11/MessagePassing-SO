@@ -6,24 +6,25 @@
 package Model;
 
 import java.util.LinkedList;
+import java.util.PriorityQueue;
 import java.util.Queue;
-
-
 /**
  *
- * @author Paulo
+ * @author Joseph Salas
  */
-public class FIFOQueue implements IMessageQueue{
-    private Queue<Message> queue;
+public class QueuePriority implements IMessageQueue{
+   
+    private PriorityQueue<Message> priorityQueue;
     private int size;
 
-    public FIFOQueue(int size) {
+    public QueuePriority(int size) {
         this.size = size;
-        queue = new LinkedList<Message>();
+        priorityQueue = new PriorityQueue<Message>();
     }
 
-    public void setQueue(Queue<Message> queue) {
-        this.queue = queue;
+
+    public void setQueue(PriorityQueue<Message> queue) {
+        this.priorityQueue = queue;
     }
 
     @Override
@@ -37,31 +38,31 @@ public class FIFOQueue implements IMessageQueue{
     
     @Override
     public void addMessage(Message message){
-        queue.add(message);
+        priorityQueue.add(message);
     }
 
     @Override
     public Message getMessage() {
-        return queue.element();
+        return priorityQueue.element();
     }
 
     @Override
     public void remove(Message message) {
-        queue.remove(message);
+        priorityQueue.remove(message);
     }
 
     @Override
     public int getQueueSize() {
-        return queue.size();
+        return priorityQueue.size();
     }
 
     @Override
     public boolean isQueueEmpty() {
-        if(queue.isEmpty())
-        {
-            return true;
-        }
-        return false;
+       if(priorityQueue.isEmpty())
+       {
+           return true;
+       }
+       return false;
     }
     
     
