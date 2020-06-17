@@ -17,7 +17,7 @@ public class CreateMailboxCommand implements ICommand{
     @Override
     public void execute(ArrayList params) {
         MainPage mainPage = (MainPage)params.get(0);
-        //mainPage.createMailbox();
+        mainPage.createMailbox();
     }
 
     @Override

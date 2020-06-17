@@ -20,12 +20,13 @@ public class AddReceiverMailboxCommand implements ICommand{
     public AddReceiverMailboxCommand(int mailboxId, int receiverId) {
         this.mailboxId = mailboxId;
         this.receiverId = receiverId;
+        
     }    
     
     @Override
     public void execute(ArrayList params) {
         MainPage mainPage = (MainPage)params.get(0);
-        //mainPage.addReceiverMailbox(mailboxId, receiverId);
+        mainPage.addReceiverMailbox(mailboxId,receiverId);
     }
 
     @Override
