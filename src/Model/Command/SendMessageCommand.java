@@ -5,6 +5,8 @@
  */
 package Model.Command;
 
+import java.awt.List;
+
 /**
  *
  * @author Paulo
@@ -20,7 +22,7 @@ public class SendMessageCommand implements ICommand{
     }
 
     @Override
-    public void execute() {
+    public void execute(List params) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

@@ -5,11 +5,13 @@
  */
 package Model.Command;
 
+import java.awt.List;
+
 /**
  *
  * @author Paulo
  */
 public interface ICommand {
     void execute();
-    String getCommandText();
+    String getCommandText(List params);
 }

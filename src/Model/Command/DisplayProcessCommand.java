@@ -5,6 +5,9 @@
  */
 package Model.Command;
 
+import java.util.ArrayList;
+
+
 /**
  *
  * @author Paulo
@@ -18,7 +21,7 @@ public class DisplayProcessCommand implements ICommand{
     }
 
     @Override
-    public void execute() {
+    public void execute(ArrayList params) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
