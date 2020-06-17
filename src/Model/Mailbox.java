@@ -16,6 +16,7 @@ public class Mailbox implements IProducer{
     private IMessageQueue messageQueue;
     private ArrayList<IProducer> producers;
     private ArrayList<IReceiver> receivers;
+    private int lastMessageCounter = 0;
     
 
     public Mailbox(int queueSize, QueueType queueType) {
@@ -45,11 +46,13 @@ public class Mailbox implements IProducer{
             }
         }*/
         if(messageQueue.getQueueSize() < messageQueue.getSize()){
+            //System.out.println(receivers.size());
             for(int i=0; i<receivers.size(); i++){
                 IReceiver receiver = receivers.get(i);
-            
+                
                 if(receiver != null && receiver.getSynchronizationType() == SynchronizationType.BLOCKING){
                     receiver.receiveMessage();
+                    System.out.println("asd");
                 }
             }
         }
@@ -58,10 +61,20 @@ public class Mailbox implements IProducer{
     @Override
     public Message getMessage(IReceiver receiver) throws InterruptedException {
         //aqui habria que poner el sendMessage del producer correspondiente
-        System.out.println("Entro");
-        Message message = messageQueue.getMessage(); 
-        //messageQueue.remove(message);
-        return message;
+        
+        if(isReceiverAllowed(receiver)){
+            Message message = messageQueue.getMessage();
+            lastMessageCounter++;
+            //receiver.receiveMessage();
+
+            if(lastMessageCounter == receivers.size()){
+                messageQueue.poll();
+                lastMessageCounter = 0;
+                //putMessage();
+            }
+            return message;
+        }
+        return null;
     }
 
     @Override
@@ -76,18 +89,27 @@ public class Mailbox implements IProducer{
     
     //MAILBOX
     
-    public void addProducer(IProducer producer){
-        producers.add(producer);
+    public void addProducer(Process producer){
+        producers.add(producer.getProducer());
     }
     
-    public void addReceiver(IReceiver receiver){
-        receivers.add(receiver);
+    public void addReceiver(Process receiver){
+        receivers.add(receiver.getReceiver());
     }
     
     public void addMessage(Message message){
         if(messageQueue.addMessage(message) == false){ //aqui se agrega
             System.out.println("No se pueden agregar más procesos, la cola está llena");
         }
+    }
+    
+    public boolean isReceiverAllowed(IReceiver receiver){
+        for(int i=0; i<receivers.size(); i++){
+            if(receivers.get(i).equals(receiver)){
+                return true;
+            }
+        }
+        return false;
     }
     
 }

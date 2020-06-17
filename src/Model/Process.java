@@ -55,8 +55,9 @@ public class Process {
         producer.getMessageQueue().addMessage(message);
     }
     
-    public void sendMailbox(Mailbox mailbox, Message message){
+    public void sendMailbox(Mailbox mailbox, Message message) throws InterruptedException{
         mailbox.addMessage(message);
+        //mailbox.putMessage();
     }
     
     public void receive(Process source){
@@ -75,6 +76,14 @@ public class Process {
 
     public void setWaitReceive(boolean waitReceive) {
         receiver.setWaitReceive(false);
+    }
+
+    public Producer getProducer() {
+        return producer;
+    }
+
+    public IReceiver getReceiver() {
+        return receiver;
     }
     
     
