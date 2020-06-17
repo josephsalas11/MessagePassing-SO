@@ -14,16 +14,19 @@ import java.util.ArrayList;
  */
 public class AddReceiverMailboxCommand implements ICommand{
     
+    private int mailboxId;
     private int receiverId;
 
-    public AddReceiverMailboxCommand(int receiverId) {
+    public AddReceiverMailboxCommand(int mailboxId,int receiverId) {
+        this.mailboxId = mailboxId;
         this.receiverId = receiverId;
+        
     }    
     
     @Override
     public void execute(ArrayList params) {
         MainPage mainPage = (MainPage)params.get(0);
-        //mainPage.addReceiverMailbox(receiverId);
+        mainPage.addReceiverMailbox(mailboxId,receiverId);
     }
 
     @Override

@@ -85,6 +85,19 @@ public class FunctionManager {
         destination.receive(source);
     }
     
+    public void createMailbox(int ID, int queueSize, QueueType queueType)
+    {
+        mailboxList.put(ID, new Mailbox(ID,queueSize, queueType));
+    } 
+    
+    public void addReceiverMailbox(int mailboxId,int receiverId)
+    {
+        
+        Mailbox mailbox = mailboxList.get(mailboxId);
+        Process receiver = processList.get(receiverId);
+        mailbox.addReceiver(receiver);
+    }
+    
     
     public Hashtable<Integer, Process> getProcessList() {
         return processList;

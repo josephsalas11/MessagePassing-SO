@@ -48,6 +48,7 @@ public class MainPage extends javax.swing.JFrame {
     private CommandTokenizer commandTokenizer = CommandTokenizer.getInstance();
     private ICommand currentCommand ;
     private FunctionManager functionManager = new FunctionManager();
+    private int mailboxCounter = 1;
     
     
     /**
@@ -1007,6 +1008,21 @@ public class MainPage extends javax.swing.JFrame {
         public void receiveMessage(int destinyID,int sourceID)
         {
             functionManager.receiveMessage(sourceID,destinyID);
+        }
+        
+        public void createMailbox()
+        {
+            if(direc_indirectRadio.isSelected())
+            {
+                functionManager.createMailbox(mailboxCounter, queueSizeType, queueType);
+                mailboxCounter++;
+            }
+            else;   
+        }
+        
+        public void addReceiverMailbox(int mailboxId,int receiverId)
+        {
+            functionManager.addReceiverMailbox(mailboxId, receiverId);
         }
 
 }
