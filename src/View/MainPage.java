@@ -5,6 +5,7 @@
  */
 package View;
 
+import Model.Mailbox;
 import javax.swing.JOptionPane;
 import Model.Message;
 import Model.MessageType;
@@ -15,6 +16,7 @@ import Model.SynchronizationType;
 import Model.Process;
 import static java.lang.Thread.sleep;
 import javax.swing.JFileChooser;
+import java.util.*; 
 
 
 /**
@@ -34,7 +36,13 @@ public class MainPage extends javax.swing.JFrame {
     private String formatSize;
     private String queueHandle;
     private int numProcess;
-    private String queueSizeType;
+    private int queueSizeType;
+    private  Hashtable<Integer, Process> processList;
+    private int processCounter;
+    private SynchronizationType synchronizationTypeProducer; 
+    private SynchronizationType synchronizationTypeReceiver;
+    private QueueType queueType;
+    private int createdProcess = 0; 
     
     
     /**
@@ -43,6 +51,8 @@ public class MainPage extends javax.swing.JFrame {
     public MainPage() {
         initComponents();
         eventLogArea.setEditable(false);
+        processList = new Hashtable<Integer, Process>();
+
     }
 
     /**
@@ -86,12 +96,15 @@ public class MainPage extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         commandFileBtn = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        sendProcessBtn = new javax.swing.JButton();
+        receiveProcessBtn = new javax.swing.JButton();
+        displayProcessBtn = new javax.swing.JButton();
+        createProcessBtn = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
+        jLabel15 = new javax.swing.JLabel();
         helpButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -156,14 +169,14 @@ public class MainPage extends javax.swing.JFrame {
             }
         });
 
-        sync_SendCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Blocking", "Nonblocking" }));
+        sync_SendCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "BLOCKING", "NONBLOCKING" }));
         sync_SendCombo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 sync_SendComboActionPerformed(evt);
             }
         });
 
-        sync_ReceiveCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Blocking", "Nonblocking", "Prueba de llegada" }));
+        sync_ReceiveCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "BLOCKING", "NONBLOCKING", "Prueba de llegada" }));
 
         queueCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "FIFO", "PRIORITY" }));
 
@@ -203,15 +216,26 @@ public class MainPage extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Send");
+        sendProcessBtn.setText("Send");
 
-        jButton3.setText("Receive");
+        receiveProcessBtn.setText("Receive");
 
-        jButton4.setText("Display");
+        displayProcessBtn.setText("Display");
 
-        jButton1.setText("Create");
+        createProcessBtn.setText("Create");
+        createProcessBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                createProcessBtnActionPerformed(evt);
+            }
+        });
 
         jLabel14.setText("ID del proceso");
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane3.setViewportView(jTextArea1);
+
+        jLabel15.setText("Consola");
 
         javax.swing.GroupLayout panelOpcionesLayout = new javax.swing.GroupLayout(panelOpciones);
         panelOpciones.setLayout(panelOpcionesLayout);
@@ -259,21 +283,11 @@ public class MainPage extends javax.swing.JFrame {
                         .addGap(39, 39, 39)
                         .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panelOpcionesLayout.createSequentialGroup()
-                                .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jScrollPane2)
-                                    .addComponent(jScrollPane1)
-                                    .addGroup(panelOpcionesLayout.createSequentialGroup()
-                                        .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel12)
-                                            .addComponent(jLabel13))
-                                        .addGap(0, 0, Short.MAX_VALUE)))
-                                .addContainerGap())
-                            .addGroup(panelOpcionesLayout.createSequentialGroup()
-                                .addComponent(jButton2)
+                                .addComponent(sendProcessBtn)
                                 .addGap(31, 31, 31)
-                                .addComponent(jButton3)
+                                .addComponent(receiveProcessBtn)
                                 .addGap(30, 30, 30)
-                                .addComponent(jButton4)
+                                .addComponent(displayProcessBtn)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(panelOpcionesLayout.createSequentialGroup()
@@ -282,7 +296,19 @@ public class MainPage extends javax.swing.JFrame {
                                     .addGroup(panelOpcionesLayout.createSequentialGroup()
                                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 111, Short.MAX_VALUE)
-                                        .addComponent(jButton1))))))
+                                        .addComponent(createProcessBtn))))
+                            .addGroup(panelOpcionesLayout.createSequentialGroup()
+                                .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane2)
+                                    .addComponent(jScrollPane1)
+                                    .addComponent(jScrollPane3)
+                                    .addGroup(panelOpcionesLayout.createSequentialGroup()
+                                        .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel12)
+                                            .addComponent(jLabel13)
+                                            .addComponent(jLabel15))
+                                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addContainerGap())))
                     .addGroup(panelOpcionesLayout.createSequentialGroup()
                         .addComponent(startButton)
                         .addGap(18, 18, 18)
@@ -326,9 +352,7 @@ public class MainPage extends javax.swing.JFrame {
                         .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(formatCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(formatField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(31, 31, 31)
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                        .addGap(31, 31, 31))
                     .addGroup(panelOpcionesLayout.createSequentialGroup()
                         .addGap(14, 14, 14)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -336,25 +360,34 @@ public class MainPage extends javax.swing.JFrame {
                         .addComponent(jLabel13)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addComponent(queueCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel8)
-                .addGap(3, 3, 3)
-                .addComponent(processSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel11)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel15)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelOpcionesLayout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(queueCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel8)
+                        .addGap(3, 3, 3)
+                        .addComponent(processSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel11)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(panelOpcionesLayout.createSequentialGroup()
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addGap(60, 60, 60)))
                 .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(queueSize, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4)
-                    .addComponent(jButton1)
+                    .addComponent(sendProcessBtn)
+                    .addComponent(receiveProcessBtn)
+                    .addComponent(displayProcessBtn)
+                    .addComponent(createProcessBtn)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel14)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addGap(28, 28, 28)
                 .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(startButton)
                     .addComponent(commandFileBtn))
@@ -435,8 +468,9 @@ public class MainPage extends javax.swing.JFrame {
 
     private void startButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startButtonActionPerformed
 
-        if(sync_SendCombo.getSelectedItem().toString() == "Blocking" 
-                & sync_ReceiveCombo.getSelectedItem().toString() == "Nonblocking")
+        
+        if(sync_SendCombo.getSelectedItem().toString() == "BLOCKING" 
+                & sync_ReceiveCombo.getSelectedItem().toString() == "NONBLOCKING")
         {
             JOptionPane.showMessageDialog(null, "La sincronización no puede recibir los parámetros indicados"
                     , "Error", JOptionPane.ERROR_MESSAGE);
@@ -473,9 +507,35 @@ public class MainPage extends javax.swing.JFrame {
             formatSize = formatField.getText();
             queueHandle  = queueCombo.getSelectedItem().toString();
             numProcess = processSlider.getValue();
-            queueSizeType = queueSize.getText();
+            queueSizeType = Integer.parseInt(queueSize.getText());
         }
-       
+        if(sync_ReceiveCombo.getSelectedItem().toString() ==  "BLOCKING")
+        {
+            synchronizationTypeProducer = SynchronizationType.BLOCKING;
+        }else
+        {
+            synchronizationTypeProducer = SynchronizationType.NONBLOCKING;
+        }
+        
+        if(sync_SendCombo.getSelectedItem().toString() ==  "BLOCKING")
+        {
+            synchronizationTypeReceiver = SynchronizationType.BLOCKING;
+        }else
+        {
+            synchronizationTypeReceiver = SynchronizationType.NONBLOCKING;
+        }
+        
+        if(queueCombo.getSelectedItem().toString() ==  "FIFO")
+        {
+            queueType = QueueType.FIFO;
+        }else
+        {
+            queueType = QueueType.PRIORITY;
+        }
+        processList.put(processCounter, new Process(processCounter, synchronizationTypeProducer,
+                queueType,queueSizeType,synchronizationTypeReceiver));
+        
+        
   
     }//GEN-LAST:event_startButtonActionPerformed
 
@@ -493,6 +553,40 @@ public class MainPage extends javax.swing.JFrame {
         openFile.showOpenDialog(null);
         
     }//GEN-LAST:event_commandFileBtnActionPerformed
+
+    private void createProcessBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createProcessBtnActionPerformed
+
+        if(createdProcess < numProcess)
+        {
+            if(direc_direcRadio.isSelected())
+            {
+                if(direc_receiveCombo.getSelectedItem().toString()== "Explícito")
+                {
+                    processList.put(processCounter, new Process(processCounter, synchronizationTypeProducer,
+                            queueType,queueSizeType,synchronizationTypeReceiver));
+                }else{
+                    processList.put(processCounter, new Process(processCounter, synchronizationTypeProducer,
+                            queueType,queueSizeType,synchronizationTypeReceiver));
+                }
+            }
+            else if(direc_indirectRadio.isSelected())
+            {
+                if(direc_receiveCombo.getSelectedItem().toString()== "Estático")
+                {
+                    processList.put(processCounter, new Process(processCounter, synchronizationTypeProducer,
+                            queueType,queueSizeType,synchronizationTypeReceiver, new Mailbox(queueSizeType,queueType)));
+                }else
+                {
+                    processList.put(processCounter, new Process(processCounter, synchronizationTypeProducer,
+                            queueType,queueSizeType,synchronizationTypeReceiver, new Mailbox(queueSizeType,queueType)));
+                }
+            }
+            processCounter++;
+            createdProcess++; 
+        }else{JOptionPane.showMessageDialog(null, "Ha llegado al límite de procesos establecidos"
+                    , "Error", JOptionPane.ERROR_MESSAGE);}
+        
+    }//GEN-LAST:event_createProcessBtnActionPerformed
 
     
     /**
@@ -536,24 +630,23 @@ public class MainPage extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton commandFileBtn;
+    private javax.swing.JButton createProcessBtn;
     private javax.swing.JRadioButton direc_direcRadio;
     private javax.swing.JComboBox<String> direc_indirecCombo;
     private javax.swing.JRadioButton direc_indirectRadio;
     private javax.swing.JComboBox<String> direc_receiveCombo;
+    private javax.swing.JButton displayProcessBtn;
     private javax.swing.JTextArea eventLogArea;
     private javax.swing.JComboBox<String> formatCombo;
     private javax.swing.JTextField formatField;
     private javax.swing.JButton helpButton;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -564,12 +657,16 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextArea msgArea;
     private javax.swing.JPanel panelOpciones;
     private javax.swing.JSlider processSlider;
     private javax.swing.JComboBox<String> queueCombo;
     private javax.swing.JTextField queueSize;
+    private javax.swing.JButton receiveProcessBtn;
+    private javax.swing.JButton sendProcessBtn;
     private javax.swing.JButton startButton;
     private javax.swing.JComboBox<String> sync_ReceiveCombo;
     private javax.swing.JComboBox<String> sync_SendCombo;
