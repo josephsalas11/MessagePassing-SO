@@ -52,8 +52,8 @@ public class CommandTokenizer {
             outputCommand = new CreateMailboxCommand();
         }
         else if(tokens[0].equals("add-receiver-mailbox")){
-            //create-mailbox
-            outputCommand = new AddReceiverMailboxCommand(Integer.parseInt(tokens[1]));
+            //add-receiver-mailbox mailboxId processReceiverId
+            outputCommand = new AddReceiverMailboxCommand(Integer.parseInt(tokens[1]), Integer.parseInt(tokens[2]));
         }
         return outputCommand;
     }

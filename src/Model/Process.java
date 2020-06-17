@@ -58,6 +58,8 @@ public class Process {
     
     public void send(Process destination, Message message){
         producer.getMessageQueue().addMessage(message);
+        //LOG
+        Log.getInstance().addLog(id, "El proceso "+id+" ha enviado el comando para enviar un mensaje al proceso "+destination.id);
     }
     
     public void sendMailbox(Mailbox mailbox, Message message) throws InterruptedException{
@@ -66,11 +68,15 @@ public class Process {
     }
     
     public void receive(Process source){
-        if(senderProcess != null && source.id != senderProcess.id)
+        if(senderProcess != null && source.id != senderProcess.id){
             System.out.println("El proceso que envió el mensaje no corresponde con el especificado en este proceso");
+            //LOG
+            Log.getInstance().addLog(id, "El proceso "+id+" no puede recibir el mensaje porque el proceso "+source.id+" no está autorizado eb este proceso");
+        }
         else{
             //recibir mensaje
             receiver.setAllowReceive(true);
+            Log.getInstance().addLog(id, "El proceso "+id+" ha enviado el comando para recibir un mensaje del proceso "+source.id);
         }
     }
     

@@ -106,6 +106,10 @@ public class Producer extends Thread implements IProducer{
             sleep(5000);
         Message message = messageQueue.getMessage(); 
         messageQueue.remove(message);
+        
+        //LOG
+        Log.getInstance().addLog(message.getDestinyID(), "El proceso "+message.getDestinyID()+" ha recibido un mensaje del proceso "+message.getSourceID());
+        
         return message;
     }
 

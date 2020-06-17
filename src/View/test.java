@@ -80,9 +80,6 @@ public class test{
             System.out.println(mailbox.getMessageQueue().getQueueSize());            
 
 
-            
-            
-
         }
         
 }
