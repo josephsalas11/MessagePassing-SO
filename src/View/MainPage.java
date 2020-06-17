@@ -111,12 +111,6 @@ public class MainPage extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         commandFileBtn = new javax.swing.JButton();
-        sendProcessBtn = new javax.swing.JButton();
-        receiveProcessBtn = new javax.swing.JButton();
-        displayProcessBtn = new javax.swing.JButton();
-        createProcessBtn = new javax.swing.JButton();
-        senderProcessField = new javax.swing.JTextField();
-        jLabel14 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         consoleArea = new javax.swing.JTextArea();
         jLabel15 = new javax.swing.JLabel();
@@ -129,7 +123,6 @@ public class MainPage extends javax.swing.JFrame {
         log_Help = new javax.swing.JLabel();
         msg_Info = new javax.swing.JLabel();
         consola_Info = new javax.swing.JLabel();
-        btn_info = new javax.swing.JLabel();
         buttons_Info = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -242,31 +235,6 @@ public class MainPage extends javax.swing.JFrame {
             }
         });
 
-        sendProcessBtn.setText("Send");
-        sendProcessBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                sendProcessBtnActionPerformed(evt);
-            }
-        });
-
-        receiveProcessBtn.setText("Receive");
-
-        displayProcessBtn.setText("Display");
-        displayProcessBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                displayProcessBtnActionPerformed(evt);
-            }
-        });
-
-        createProcessBtn.setText("Create");
-        createProcessBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                createProcessBtnActionPerformed(evt);
-            }
-        });
-
-        jLabel14.setText("ID del proceso");
-
         consoleArea.setColumns(20);
         consoleArea.setRows(5);
         consoleArea.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -359,15 +327,6 @@ public class MainPage extends javax.swing.JFrame {
             }
         });
 
-        btn_info.setFont(new java.awt.Font("Arial", 3, 24)); // NOI18N
-        btn_info.setForeground(new java.awt.Color(204, 0, 0));
-        btn_info.setText("?");
-        btn_info.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btn_infoMouseClicked(evt);
-            }
-        });
-
         buttons_Info.setFont(new java.awt.Font("Arial", 3, 24)); // NOI18N
         buttons_Info.setForeground(new java.awt.Color(204, 0, 0));
         buttons_Info.setText("?");
@@ -446,14 +405,6 @@ public class MainPage extends javax.swing.JFrame {
                             .addGroup(panelOpcionesLayout.createSequentialGroup()
                                 .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(panelOpcionesLayout.createSequentialGroup()
-                                        .addComponent(sendProcessBtn)
-                                        .addGap(31, 31, 31)
-                                        .addComponent(receiveProcessBtn)
-                                        .addGap(30, 30, 30)
-                                        .addComponent(displayProcessBtn)
-                                        .addGap(30, 30, 30)
-                                        .addComponent(createProcessBtn))
-                                    .addGroup(panelOpcionesLayout.createSequentialGroup()
                                         .addComponent(jLabel12)
                                         .addGap(18, 18, 18)
                                         .addComponent(log_Help))
@@ -465,10 +416,8 @@ public class MainPage extends javax.swing.JFrame {
                                         .addComponent(jLabel15)
                                         .addGap(18, 18, 18)
                                         .addComponent(consola_Info)))
-                                .addGap(0, 113, Short.MAX_VALUE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btn_info)
-                        .addContainerGap())
+                                .addGap(0, 297, Short.MAX_VALUE)))
+                        .addGap(29, 29, 29))
                     .addGroup(panelOpcionesLayout.createSequentialGroup()
                         .addComponent(startButton)
                         .addGap(18, 18, 18)
@@ -476,12 +425,6 @@ public class MainPage extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(buttons_Info)
                         .addGap(0, 0, Short.MAX_VALUE))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelOpcionesLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(senderProcessField, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel14))
-                .addContainerGap())
         );
         panelOpcionesLayout.setVerticalGroup(
             panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -519,7 +462,7 @@ public class MainPage extends javax.swing.JFrame {
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(sync_ReceiveCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
                         .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
                             .addComponent(direccionamiento_Info))
@@ -563,25 +506,18 @@ public class MainPage extends javax.swing.JFrame {
                             .addComponent(size_ColaInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(panelOpcionesLayout.createSequentialGroup()
-                        .addComponent(jScrollPane3)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
                         .addGap(60, 60, 60)))
-                .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(queueSize, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(sendProcessBtn)
-                    .addComponent(receiveProcessBtn)
-                    .addComponent(displayProcessBtn)
-                    .addComponent(createProcessBtn)
-                    .addComponent(senderProcessField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_info, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(queueSize, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelOpcionesLayout.createSequentialGroup()
-                        .addComponent(jLabel14)
-                        .addGap(28, 28, 28)
+                        .addGap(48, 48, 48)
                         .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(startButton)
                             .addComponent(commandFileBtn)))
-                    .addComponent(buttons_Info, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelOpcionesLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttons_Info, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
@@ -737,38 +673,6 @@ public class MainPage extends javax.swing.JFrame {
         
     }//GEN-LAST:event_commandFileBtnActionPerformed
 
-    private void createProcessBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createProcessBtnActionPerformed
-
-        if(createdProcess < numProcess)
-        {
-            if(direc_direcRadio.isSelected())
-            {
-                if(direc_receiveCombo.getSelectedItem().toString()== "Explícito")
-                {
-                    functionManager.createExplicitProcess(processCounter, synchronizationTypeProducer, queueType, queueSizeType, synchronizationTypeProducer, 
-                            Integer.parseInt(senderProcessField.getText()));
-                }else{
-                    functionManager.createImplicitProcess(processCounter, synchronizationTypeProducer, queueType, queueSizeType, synchronizationTypeProducer);
-        
-                }
-            }
-            else if(direc_indirectRadio.isSelected())
-            {
-                if(direc_receiveCombo.getSelectedItem().toString()== "Estático")
-                {
-                    functionManager.createIndirectProcess(processCounter, synchronizationTypeProducer, queueType, queueSizeType, synchronizationTypeProducer, 1);
-                }else
-                {
-                    functionManager.createIndirectProcess(processCounter, synchronizationTypeProducer, queueType, queueSizeType, synchronizationTypeProducer, 2);
-                } //MAILBOX SE DEBEN TRATAR DIFERENTE
-            }
-            processCounter++;
-            createdProcess++; 
-        }else{JOptionPane.showMessageDialog(null, "Ha llegado al límite de procesos establecidos"
-                    , "Error", JOptionPane.ERROR_MESSAGE);}
-        
-    }//GEN-LAST:event_createProcessBtnActionPerformed
-
     private void consoleAreaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_consoleAreaKeyPressed
         
         if(evt.getKeyCode() == KeyEvent.VK_ENTER)
@@ -791,19 +695,6 @@ public class MainPage extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_consoleAreaKeyPressed
-
-    private void sendProcessBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendProcessBtnActionPerformed
-        
-        
-    }//GEN-LAST:event_sendProcessBtnActionPerformed
-
-    private void displayProcessBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_displayProcessBtnActionPerformed
-        Hashtable<Integer, Process> hashPrueba  = functionManager.getProcessList();
-        System.out.println(hashPrueba.size());
-        for (int i = 1; i <= hashPrueba.size() ; i++) {
-            System.out.println(hashPrueba.get(i).toString());
-        }
-    }//GEN-LAST:event_displayProcessBtnActionPerformed
 
     private void syn_InfoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_syn_InfoMouseClicked
                JOptionPane.showMessageDialog(null, "Se puede escoger la sincronización del message passing. \n En la opcion send"
@@ -849,12 +740,6 @@ public class MainPage extends javax.swing.JFrame {
                 + "El botón de cargar comandos, carga los comandos a la consola desde un archivo de texto"
                     , "Informacion de sincronización", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_buttons_InfoMouseClicked
-
-    private void btn_infoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_infoMouseClicked
-        JOptionPane.showMessageDialog(null, "Los botones cumplen la misma función de la consola, pero de forma interactiva. \n"
-                        + "Cada boton tiene realiza una funcionalidad diferente, el campo de ID de proceso esta reservado para usarlo cada vez que se crea un proces explícito, ya que este necesita un proceso del cual enviar otro. \n"
-                    , "Informacion de sincronización", JOptionPane.INFORMATION_MESSAGE);
-    }//GEN-LAST:event_btn_infoMouseClicked
 
     private void consola_InfoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_consola_InfoMouseClicked
         JOptionPane.showMessageDialog(null, "La consola será la encargada de ejecutar todos los comandos para realizar la simulación. \n"
@@ -919,7 +804,6 @@ public class MainPage extends javax.swing.JFrame {
     //        Message message = new Message(MessageType.valueOf(queueCombo.getSelectedItem().toString()),2,1,Integer.parseInt(formatField.getText()),msgArea.getText());
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel btn_info;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel buttons_Info;
     private javax.swing.JLabel cant_ProcesosInfo;
@@ -927,13 +811,11 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JButton commandFileBtn;
     private javax.swing.JLabel consola_Info;
     private javax.swing.JTextArea consoleArea;
-    private javax.swing.JButton createProcessBtn;
     private javax.swing.JRadioButton direc_direcRadio;
     private javax.swing.JComboBox<String> direc_indirecCombo;
     private javax.swing.JRadioButton direc_indirectRadio;
     private javax.swing.JComboBox<String> direc_receiveCombo;
     private javax.swing.JLabel direccionamiento_Info;
-    private javax.swing.JButton displayProcessBtn;
     private javax.swing.JTextArea eventLogArea;
     private javax.swing.JComboBox<String> formatCombo;
     private javax.swing.JTextField formatField;
@@ -943,7 +825,6 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -963,9 +844,6 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JSlider processSlider;
     private javax.swing.JComboBox<String> queueCombo;
     private javax.swing.JTextField queueSize;
-    private javax.swing.JButton receiveProcessBtn;
-    private javax.swing.JButton sendProcessBtn;
-    private javax.swing.JTextField senderProcessField;
     private javax.swing.JLabel size_ColaInfo;
     private javax.swing.JButton startButton;
     private javax.swing.JLabel syn_Info;
@@ -1072,5 +950,18 @@ public class MainPage extends javax.swing.JFrame {
                 
             }
 
+        }
+        
+        public void displayProcess(int sourceId)
+        {
+           ArrayList<String> logMessages = Log.getInstance().getProcessLog(sourceId) ;
+           String logs = "";
+            for (int y = 0; y < logMessages.size(); y++) 
+            {
+                logs += Log.getInstance().getLogs().get(y).getMessage() + "\n";
+                
+            }
+            JOptionPane.showMessageDialog(null, logs
+                        , "Logs del proceso " + sourceId, JOptionPane.INFORMATION_MESSAGE);
         }
 }

@@ -25,7 +25,7 @@ public class DisplayProcessCommand implements ICommand{
     @Override
     public void execute(ArrayList params) {
         MainPage mainPage = (MainPage)params.get(0);
-        //mainPage.displayProcess(destinyId, sourceId);
+        mainPage.displayProcess(processId);
     }
 
     @Override

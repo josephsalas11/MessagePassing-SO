@@ -98,6 +98,11 @@ public class FunctionManager {
         mailbox.addReceiver(receiver);
     }
     
+    public Process display(int processID)
+    {
+        Process displayProcess = processList.get(processID);
+        return displayProcess;
+    }
     
     public Hashtable<Integer, Process> getProcessList() {
         return processList;
