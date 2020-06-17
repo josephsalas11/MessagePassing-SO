@@ -104,12 +104,9 @@ public class MainPage extends javax.swing.JFrame {
         processSlider = new javax.swing.JSlider();
         queueSize = new javax.swing.JTextField();
         startButton = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        msgArea = new javax.swing.JTextArea();
         jScrollPane2 = new javax.swing.JScrollPane();
         eventLogArea = new javax.swing.JTextArea();
         jLabel12 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
         commandFileBtn = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         consoleArea = new javax.swing.JTextArea();
@@ -121,7 +118,6 @@ public class MainPage extends javax.swing.JFrame {
         cant_ProcesosInfo = new javax.swing.JLabel();
         size_ColaInfo = new javax.swing.JLabel();
         log_Help = new javax.swing.JLabel();
-        msg_Info = new javax.swing.JLabel();
         consola_Info = new javax.swing.JLabel();
         buttons_Info = new javax.swing.JLabel();
 
@@ -216,17 +212,11 @@ public class MainPage extends javax.swing.JFrame {
             }
         });
 
-        msgArea.setColumns(20);
-        msgArea.setRows(5);
-        jScrollPane1.setViewportView(msgArea);
-
         eventLogArea.setColumns(20);
         eventLogArea.setRows(5);
         jScrollPane2.setViewportView(eventLogArea);
 
         jLabel12.setText("Log de eventos");
-
-        jLabel13.setText("Escriba el mensaje del proceso");
 
         commandFileBtn.setText("Cargar Comandos");
         commandFileBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -306,15 +296,6 @@ public class MainPage extends javax.swing.JFrame {
         log_Help.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 log_HelpMouseClicked(evt);
-            }
-        });
-
-        msg_Info.setFont(new java.awt.Font("Arial", 3, 24)); // NOI18N
-        msg_Info.setForeground(new java.awt.Color(204, 0, 0));
-        msg_Info.setText("?");
-        msg_Info.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                msg_InfoMouseClicked(evt);
             }
         });
 
@@ -399,8 +380,6 @@ public class MainPage extends javax.swing.JFrame {
                                     .addComponent(jLabel9))))
                         .addGap(39, 39, 39)
                         .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2)
-                            .addComponent(jScrollPane1)
                             .addComponent(jScrollPane3)
                             .addGroup(panelOpcionesLayout.createSequentialGroup()
                                 .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -409,14 +388,11 @@ public class MainPage extends javax.swing.JFrame {
                                         .addGap(18, 18, 18)
                                         .addComponent(log_Help))
                                     .addGroup(panelOpcionesLayout.createSequentialGroup()
-                                        .addComponent(jLabel13)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(msg_Info))
-                                    .addGroup(panelOpcionesLayout.createSequentialGroup()
                                         .addComponent(jLabel15)
                                         .addGap(18, 18, 18)
                                         .addComponent(consola_Info)))
-                                .addGap(0, 297, Short.MAX_VALUE)))
+                                .addGap(0, 357, Short.MAX_VALUE))
+                            .addComponent(jScrollPane2))
                         .addGap(29, 29, 29))
                     .addGroup(panelOpcionesLayout.createSequentialGroup()
                         .addComponent(startButton)
@@ -437,21 +413,7 @@ public class MainPage extends javax.swing.JFrame {
                             .addComponent(jLabel12)
                             .addComponent(log_Help, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(14, 14, 14)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelOpcionesLayout.createSequentialGroup()
-                                .addComponent(jLabel13)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel15)
-                                    .addComponent(consola_Info, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(panelOpcionesLayout.createSequentialGroup()
-                                .addComponent(msg_Info, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                        .addComponent(jScrollPane2))
                     .addGroup(panelOpcionesLayout.createSequentialGroup()
                         .addComponent(syn_Info, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(13, 13, 13)
@@ -479,14 +441,21 @@ public class MainPage extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(formatoMsj_Info, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4))
-                        .addGap(18, 18, 18)
+                            .addComponent(jLabel4))))
+                .addGap(18, 18, 18)
+                .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelOpcionesLayout.createSequentialGroup()
                         .addComponent(jLabel10)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(formatCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(formatField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(31, 31, 31)))
+                        .addGap(31, 31, 31))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelOpcionesLayout.createSequentialGroup()
+                        .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel15)
+                            .addComponent(consola_Info, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelOpcionesLayout.createSequentialGroup()
                         .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -753,11 +722,6 @@ public class MainPage extends javax.swing.JFrame {
                     , "Informacion de sincronización", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_consola_InfoMouseClicked
 
-    private void msg_InfoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_msg_InfoMouseClicked
-        JOptionPane.showMessageDialog(null, "Escriba únicamente el mensaje que se va a envíar entre los procesos"
-                    , "Informacion de sincronización", JOptionPane.INFORMATION_MESSAGE);
-    }//GEN-LAST:event_msg_InfoMouseClicked
-
     private void log_HelpMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_log_HelpMouseClicked
         JOptionPane.showMessageDialog(null, "En esta pantalla se muestra el log general de los eventos. \n"
                 + "Esto es infromación general de procesos y mensajes, si necesita más información detallada por proceso, diríjase al comando Display."
@@ -824,7 +788,6 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -834,12 +797,9 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel log_Help;
-    private javax.swing.JTextArea msgArea;
-    private javax.swing.JLabel msg_Info;
     private javax.swing.JPanel panelOpciones;
     private javax.swing.JSlider processSlider;
     private javax.swing.JComboBox<String> queueCombo;
@@ -867,6 +827,7 @@ public class MainPage extends javax.swing.JFrame {
                 }
                 else if(direc_indirectRadio.isSelected())
                 {
+                    CommandTokenizer.getInstance().indirect = true;
                     if(direc_receiveCombo.getSelectedItem().toString()== "Estático")
                     {
                         functionManager.createIndirectProcess(processCounter, synchronizationTypeProducer, queueType, queueSizeType, synchronizationTypeProducer, idAux);

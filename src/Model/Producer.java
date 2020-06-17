@@ -97,18 +97,14 @@ public class Producer extends Thread implements IProducer{
 
         }
         
-        //si el tipo de sincronizacion del receiver es blocking
-        /*if(receiver.getSynchronizationType() == SynchronizationType.BLOCKING){
-            receiver.receiveMessage(); //para que se desbloquee el hilo del receiver
-        }*/
-        
         while(messageQueue.isQueueEmpty())
             sleep(5000);
         Message message = messageQueue.getMessage(); 
         messageQueue.remove(message);
         
         //LOG
-        Log.getInstance().addLog(message.getDestinyID(), "El proceso "+message.getDestinyID()+" ha recibido un mensaje del proceso "+message.getSourceID());
+        Log.getInstance().addLog(message.getDestinyID(), "El proceso "+message.getDestinyID()+" ha recibido un mensaje del proceso "+message.getSourceID()+
+                " con el mensaje "+message.getContent());
         
         return message;
     }

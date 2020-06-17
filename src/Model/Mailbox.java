@@ -21,6 +21,7 @@ public class Mailbox implements IProducer{
     
 
     public Mailbox(int id, int queueSize, QueueType queueType) {
+        this.id = id;
         if(queueType == QueueType.FIFO){
             messageQueue = new FIFOQueue(queueSize);
         }
