@@ -5,6 +5,7 @@
  */
 package Model.Command;
 
+import View.MainPage;
 import java.awt.List;
 import java.util.ArrayList;
 
@@ -25,12 +26,14 @@ public class ReceiveMessageCommand implements ICommand{
 
     @Override
     public void execute(ArrayList params) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        MainPage mainPage = (MainPage)params.get(0);
+        //mainPage.receiveMessage(destinyId, sourceId);
     }
 
     @Override
     public String getCommandText() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String commandText = "receive destinyId= "+destinyId+" sourceId= "+sourceId;
+        return commandText;
     }
 
     public int getSourceId() {

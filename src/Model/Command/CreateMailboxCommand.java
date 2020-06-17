@@ -6,39 +6,24 @@
 package Model.Command;
 
 import View.MainPage;
-import java.awt.List;
 import java.util.ArrayList;
-
 
 /**
  *
  * @author Paulo
  */
-public class DisplayProcessCommand implements ICommand{
-    
-    private int processId;
-
-    public DisplayProcessCommand(int processId) {
-        this.processId = processId;
-    }
+public class CreateMailboxCommand implements ICommand{
 
     @Override
     public void execute(ArrayList params) {
         MainPage mainPage = (MainPage)params.get(0);
-        //mainPage.displayProcess(destinyId, sourceId);
+        //mainPage.createMailbox(destinyId, sourceId);
     }
 
     @Override
     public String getCommandText() {
-        String commandText = "display processId= "+processId;
+        String commandText = "create-mailbox";
         return commandText;
     }
-
-    public int getProcessId() {
-        return processId;
-    }
-
-
-    
     
 }
