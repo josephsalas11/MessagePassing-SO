@@ -10,5 +10,5 @@ package Model;
  * @author Paulo
  */
 public enum MessageType {
-    FIFO, PRIORITY;
+    FIXED, VARIABLE;
 }

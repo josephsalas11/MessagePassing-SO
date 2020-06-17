@@ -51,6 +51,11 @@ public class Process {
         return message;
     }
     
+    public Message createMessagePriority(Process destination, String messageContent, MessageType messageType, int messageLength, int priority){
+        Message message = new Message(messageType, destination.id, id, messageLength, messageContent, priority);
+        return message;
+    }
+    
     public void send(Process destination, Message message){
         producer.getMessageQueue().addMessage(message);
     }

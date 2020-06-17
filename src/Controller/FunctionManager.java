@@ -43,8 +43,15 @@ public class FunctionManager {
                 queueType,queueSizeType,STR, mailbox));
     }
     
-    public void sendProcess()
+    public void sendProcess(int idSourceProcess, int idDestinationProcess, MessageType messageType, int messageLength, String messageContent, int priority)
     {
+        Process source = processList.get(idSourceProcess);
+        Process destination = processList.get(idDestinationProcess);
+        
+        if(priority != -1)
+            source.createMessage(destination, messageContent, messageType, messageLength);
+        else
+            source.createMessage(destination, messageContent, messageType, messageLength, priority);
         
     }
     
