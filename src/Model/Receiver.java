@@ -56,6 +56,7 @@ public class Receiver extends Thread implements IReceiver{
                 System.out.println(message.getContent());
                 sleep(1000);
             }
+
         }
         else{
             System.out.println("El receiver no está autorizado para acceder a este recurso");
