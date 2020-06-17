@@ -42,7 +42,7 @@ public class MainPage extends javax.swing.JFrame {
     private SynchronizationType synchronizationTypeProducer; 
     private SynchronizationType synchronizationTypeReceiver;
     private QueueType queueType;
-    private int createdProcess = 0; 
+    private int createdProcess = 1; 
     
     
     /**
@@ -534,6 +534,7 @@ public class MainPage extends javax.swing.JFrame {
         }
         processList.put(processCounter, new Process(processCounter, synchronizationTypeProducer,
                 queueType,queueSizeType,synchronizationTypeReceiver));
+        processCounter++;
         
         
   
