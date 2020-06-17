@@ -20,6 +20,11 @@ import java.util.*;
 import Model.Command.*;
 import java.awt.event.KeyEvent;
 import Controller.FunctionManager;
+import java.io.File;
+import Controller.BashFile;
+import java.io.FileNotFoundException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
@@ -49,6 +54,8 @@ public class MainPage extends javax.swing.JFrame {
     private ICommand currentCommand ;
     private FunctionManager functionManager = new FunctionManager();
     private int mailboxCounter = 1;
+    private File file;
+    private ArrayList<String> commands;
     
     
     /**
@@ -712,8 +719,17 @@ public class MainPage extends javax.swing.JFrame {
     }//GEN-LAST:event_sync_SendComboActionPerformed
 
     private void commandFileBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_commandFileBtnActionPerformed
+        BashFile bashFile = new BashFile();
         JFileChooser openFile = new JFileChooser();
         openFile.showOpenDialog(null);
+        openFile.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES); 
+        file = openFile.getSelectedFile();
+        try {
+            commands = bashFile.getCommands(file);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         
     }//GEN-LAST:event_commandFileBtnActionPerformed
 
