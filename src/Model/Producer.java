@@ -37,13 +37,13 @@ public class Producer extends Thread implements IProducer{
     @Override
     public void putMessage() throws InterruptedException {
         if(synchronizationType == SynchronizationType.BLOCKING){ //&& no se envia a mailbox
-            System.out.println("entro b");
+            //System.out.println("entro b");
             putMessageBlocking();
             sleep(1000);
             //getProducer
         }                
         else if(synchronizationType == SynchronizationType.NONBLOCKING){
-            System.out.println("entro nb");
+            //System.out.println("entro nb");
             putMessageNonblocking();
             sleep(1000);    
         }

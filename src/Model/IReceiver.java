@@ -17,4 +17,6 @@ public interface IReceiver{
    
    void setAllowReceive(boolean allowReceive);
    void setWaitReceive(boolean waitReceive);
+   void setProducer(IProducer producer);
+   IProducer getProducer();
 }

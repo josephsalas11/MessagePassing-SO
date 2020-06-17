@@ -89,6 +89,16 @@ public class Receiver extends Thread implements IReceiver{
     public void setWaitReceive(boolean waitReceive) {
         this.waitReceive = waitReceive;
     }
+
+    @Override
+    public void setProducer(IProducer producer) {
+        this.producer = producer;
+    }
+
+    @Override
+    public IProducer getProducer() {
+        return producer;
+    }
     
     
     

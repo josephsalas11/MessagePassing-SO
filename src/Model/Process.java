@@ -22,6 +22,8 @@ public class Process {
         this.receiver = new Receiver(senderProcess.producer, synchronizationTypeReceiver);
         this.senderProcess = senderProcess;
         
+        //LOG
+        Log.getInstance().addLog(id, "El proceso "+id+" de tipo "+synchronizationTypeProducer.toString()+"-"+synchronizationTypeReceiver.toString()+" directo explicito ha sido creado exitosamente");
         producer.start();
         receiver.start();
     }
@@ -32,6 +34,9 @@ public class Process {
         this.producer = new Producer(queueSize, synchronizationTypeProducer, queueType);
         this.receiver = new Receiver(null, synchronizationTypeReceiver);
         
+        //LOG
+        Log.getInstance().addLog(id, "El proceso "+id+" de tipo "+synchronizationTypeProducer.toString()+"-"+synchronizationTypeReceiver.toString()+" directo implicito ha sido creado exitosamente");
+
         producer.start();
         receiver.start();
     }
@@ -41,6 +46,9 @@ public class Process {
         this.id = id;
         this.producer = new Producer(queueSize, synchronizationTypeProducer, queueType);
         this.receiver = new Receiver(mailbox, synchronizationTypeReceiver);
+        
+        //LOG
+        Log.getInstance().addLog(id, "El proceso "+id+" de tipo "+synchronizationTypeProducer.toString()+"-"+synchronizationTypeReceiver.toString()+" indirecto ha sido creado exitosamente");
         
         producer.start();
         receiver.start();
@@ -64,6 +72,8 @@ public class Process {
     
     public void sendMailbox(Mailbox mailbox, Message message) throws InterruptedException{
         mailbox.addMessage(message);
+        //LOG
+        Log.getInstance().addLog(id, "El proceso "+message.getSourceID()+" ha enviado el comando para enviar un mensaje al proceso "+message.getDestinyID()+ " a través del mailbox "+mailbox.getId());
         //mailbox.putMessage();
     }
     
@@ -75,6 +85,7 @@ public class Process {
         }
         else{
             //recibir mensaje
+            receiver.setProducer(source.getProducer());
             receiver.setAllowReceive(true);
             Log.getInstance().addLog(id, "El proceso "+id+" ha enviado el comando para recibir un mensaje del proceso "+source.id);
         }

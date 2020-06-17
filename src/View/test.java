@@ -39,25 +39,25 @@ public class test{
             
             Process p1 = new Process(1, SynchronizationType.NONBLOCKING, QueueType.PRIORITY, 5, SynchronizationType.BLOCKING);
             Mailbox mailbox = new Mailbox(1, 5, QueueType.PRIORITY);
-            Process p2 = new Process(2, SynchronizationType.BLOCKING, QueueType.PRIORITY, 5, SynchronizationType.BLOCKING, mailbox);
+            Process p2 = new Process(2, SynchronizationType.BLOCKING, QueueType.PRIORITY, 5, SynchronizationType.BLOCKING);
             Process p3 = new Process(3, SynchronizationType.BLOCKING, QueueType.PRIORITY, 5, SynchronizationType.BLOCKING, mailbox);
 
             //p1.setWaitReceive(false);
             //p2.setWaitReceive(false);
             //p3.setWaitReceive(false);
 
-            
+            /*
             mailbox.addReceiver(p2);
             //mailbox.addReceiver(p3);
 
             p1.sendMailbox(mailbox, m1);
             p1.sendMailbox(mailbox, m2);
-            p1.sendMailbox(mailbox, m3);
+            p1.sendMailbox(mailbox, m3);*/
             
-            /*
+            
             p1.send(p2, m1);
             p1.send(p2, m2);
-            p1.send(p2, m3);*/
+            p1.send(p2, m3);
             
             System.out.println(mailbox.getMessageQueue().getQueueSize());
             

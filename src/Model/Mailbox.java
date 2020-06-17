@@ -96,6 +96,9 @@ public class Mailbox implements IProducer{
     
     public void addReceiver(Process receiver){
         receivers.add(receiver.getReceiver());
+        
+        //LOG
+        Log.getInstance().addLog(receiver.getId(), "El proceso "+receiver.getId()+" ha sido agregado a la lista del mailbox "+id);
     }
     
     public void addMessage(Message message){
@@ -112,5 +115,10 @@ public class Mailbox implements IProducer{
         }
         return false;
     }
+
+    public int getId() {
+        return id;
+    }
+    
     
 }
