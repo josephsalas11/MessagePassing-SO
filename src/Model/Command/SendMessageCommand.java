@@ -7,6 +7,8 @@ package Model.Command;
 
 import View.MainPage;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -35,7 +37,11 @@ public class SendMessageCommand implements ICommand{
     @Override
     public void execute(ArrayList params) {
         MainPage mainPage = (MainPage)params.get(0);
-        //mainPage.sendMessage(sourceId, destinyId, message, priority);
+        try {
+            mainPage.sendMessage(sourceId, destinyId, message, priority);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(SendMessageCommand.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override

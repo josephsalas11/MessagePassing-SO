@@ -164,6 +164,7 @@ public class MainPage extends javax.swing.JFrame {
 
         formatCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Fijo", "Variable" }));
 
+        formatField.setText("20");
         formatField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 formatFieldActionPerformed(evt);
@@ -968,6 +969,37 @@ public class MainPage extends javax.swing.JFrame {
                 processCounter++;
                 createdProcess++; 
             }else{JOptionPane.showMessageDialog(null, "Ha llegado al límite de procesos establecidos"
+                        , "Error", JOptionPane.ERROR_MESSAGE);}
+    }
+    
+    
+        public void sendMessage(int sourceID, int destinyID, String message, int priority) throws InterruptedException{
+
+                if(direc_direcRadio.isSelected())
+                {
+                    if(formatCombo.getSelectedItem().toString() == "Fijo")
+                    {
+                        functionManager.sendDirectProcess(sourceID, destinyID, MessageType.FIXED, Integer.parseInt(formatField.getText())
+                                    , message, priority);
+                    }else
+                    {
+                        functionManager.sendDirectProcess(sourceID, destinyID, MessageType.VARIABLE, Integer.parseInt(formatField.getText())
+                                , message, priority);
+                    }
+                }
+                else if(direc_indirectRadio.isSelected())
+                {
+                    if(formatCombo.getSelectedItem().toString() == "Fijo")
+                    {
+                        functionManager.sendIndirectProcess(sourceID, destinyID, MessageType.FIXED, Integer.parseInt(formatField.getText())
+                                , message, priority);
+                    }else
+                    {
+                        functionManager.sendIndirectProcess(sourceID, destinyID, MessageType.VARIABLE, Integer.parseInt(formatField.getText())
+                                , message, priority);
+                    }
+                }
+                else{JOptionPane.showMessageDialog(null, "Ha llegado al límite de procesos establecidos"
                         , "Error", JOptionPane.ERROR_MESSAGE);}
     }
 
