@@ -11,6 +11,7 @@ import Model.Process;
 import static java.lang.Thread.sleep;
 import java.util.*; 
 import Model.Command.*;
+import Model.IProducer;
 
 
 
@@ -43,15 +44,33 @@ public class FunctionManager {
                 queueType,queueSizeType,STR, mailbox));
     }
     
-    public void sendProcess(int idSourceProcess, int idDestinationProcess, MessageType messageType, int messageLength, String messageContent, int priority)
+    public void sendDirectProcess(int idSourceProcess, int idDestinationProcess, MessageType messageType, int messageLength, String messageContent, int priority)
     {
         Process source = processList.get(idSourceProcess);
         Process destination = processList.get(idDestinationProcess);
+        Message message = null;
         
         if(priority != -1)
-            source.createMessage(destination, messageContent, messageType, messageLength);
+            message = source.createMessage(destination, messageContent, messageType, messageLength);
         else
-            source.createMessage(destination, messageContent, messageType, messageLength, priority);
+            message = source.createMessagePriority(destination, messageContent, messageType, messageLength, priority);
+        
+        source.send(destination, message);
+        
+    }
+    
+    public void sendIndirectProcess(int idSourceProcess, int idDestinationProcess, MessageType messageType, int messageLength, String messageContent, int priority) throws InterruptedException
+    {
+        Process source = processList.get(idSourceProcess);
+        Process destination = processList.get(idDestinationProcess);
+        Message message = null;
+        
+        if(priority != -1)
+            message = source.createMessage(destination, messageContent, messageType, messageLength);
+        else
+            message = source.createMessagePriority(destination, messageContent, messageType, messageLength, priority);
+        
+        source.sendMailbox((Mailbox)(IProducer)destination.getProducer(), message);
         
     }
     

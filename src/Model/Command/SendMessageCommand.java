@@ -5,7 +5,7 @@
  */
 package Model.Command;
 
-import java.awt.List;
+import java.util.ArrayList;
 
 /**
  *
@@ -22,7 +22,7 @@ public class SendMessageCommand implements ICommand{
     }
 
     @Override
-    public void execute(List params) {
+    public void execute(ArrayList params) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
