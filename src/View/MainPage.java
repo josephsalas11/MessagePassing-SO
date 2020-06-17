@@ -271,8 +271,8 @@ public class MainPage extends javax.swing.JFrame {
         syn_Info.setForeground(new java.awt.Color(204, 0, 0));
         syn_Info.setText("?");
         syn_Info.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                syn_InfoMouseEntered(evt);
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                syn_InfoMouseClicked(evt);
             }
         });
 
@@ -280,8 +280,8 @@ public class MainPage extends javax.swing.JFrame {
         direccionamiento_Info.setForeground(new java.awt.Color(204, 0, 0));
         direccionamiento_Info.setText("?");
         direccionamiento_Info.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                direccionamiento_InfoMouseEntered(evt);
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                direccionamiento_InfoMouseClicked(evt);
             }
         });
 
@@ -289,8 +289,8 @@ public class MainPage extends javax.swing.JFrame {
         formatoMsj_Info.setForeground(new java.awt.Color(204, 0, 0));
         formatoMsj_Info.setText("?");
         formatoMsj_Info.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                formatoMsj_InfoMouseEntered(evt);
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                formatoMsj_InfoMouseClicked(evt);
             }
         });
 
@@ -298,8 +298,8 @@ public class MainPage extends javax.swing.JFrame {
         colas_Info.setForeground(new java.awt.Color(204, 0, 0));
         colas_Info.setText("?");
         colas_Info.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                colas_InfoMouseEntered(evt);
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                colas_InfoMouseClicked(evt);
             }
         });
 
@@ -307,8 +307,8 @@ public class MainPage extends javax.swing.JFrame {
         cant_ProcesosInfo.setForeground(new java.awt.Color(204, 0, 0));
         cant_ProcesosInfo.setText("?");
         cant_ProcesosInfo.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                cant_ProcesosInfoMouseEntered(evt);
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cant_ProcesosInfoMouseClicked(evt);
             }
         });
 
@@ -316,8 +316,8 @@ public class MainPage extends javax.swing.JFrame {
         size_ColaInfo.setForeground(new java.awt.Color(204, 0, 0));
         size_ColaInfo.setText("?");
         size_ColaInfo.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                size_ColaInfoMouseEntered(evt);
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                size_ColaInfoMouseClicked(evt);
             }
         });
 
@@ -325,8 +325,8 @@ public class MainPage extends javax.swing.JFrame {
         log_Help.setForeground(new java.awt.Color(204, 0, 0));
         log_Help.setText("?");
         log_Help.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                log_HelpMouseEntered(evt);
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                log_HelpMouseClicked(evt);
             }
         });
 
@@ -334,8 +334,8 @@ public class MainPage extends javax.swing.JFrame {
         msg_Info.setForeground(new java.awt.Color(204, 0, 0));
         msg_Info.setText("?");
         msg_Info.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                msg_InfoMouseEntered(evt);
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                msg_InfoMouseClicked(evt);
             }
         });
 
@@ -343,8 +343,8 @@ public class MainPage extends javax.swing.JFrame {
         consola_Info.setForeground(new java.awt.Color(204, 0, 0));
         consola_Info.setText("?");
         consola_Info.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                consola_InfoMouseEntered(evt);
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                consola_InfoMouseClicked(evt);
             }
         });
 
@@ -352,8 +352,8 @@ public class MainPage extends javax.swing.JFrame {
         btn_info.setForeground(new java.awt.Color(204, 0, 0));
         btn_info.setText("?");
         btn_info.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btn_infoMouseEntered(evt);
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_infoMouseClicked(evt);
             }
         });
 
@@ -361,8 +361,8 @@ public class MainPage extends javax.swing.JFrame {
         buttons_Info.setForeground(new java.awt.Color(204, 0, 0));
         buttons_Info.setText("?");
         buttons_Info.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                buttons_InfoMouseEntered(evt);
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                buttons_InfoMouseClicked(evt);
             }
         });
 
@@ -581,12 +581,9 @@ public class MainPage extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(panelOpciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(23, 204, Short.MAX_VALUE))))
+                    .addComponent(jLabel1)
+                    .addComponent(panelOpciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -774,55 +771,58 @@ public class MainPage extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_displayProcessBtnActionPerformed
 
-    private void syn_InfoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_syn_InfoMouseEntered
-       JOptionPane.showMessageDialog(null, "Se puede escoger la sincronización del message passing. \n En la opcion send"
+    private void syn_InfoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_syn_InfoMouseClicked
+               JOptionPane.showMessageDialog(null, "Se puede escoger la sincronización del message passing. \n En la opcion send"
                + "se puede escoger si el envío del proceso es Blocking o Nonblocking. El reciever se puede configurar para"
                + "que sea Blocking, Nonblocking o prueba de llegada."
                     , "Informacion de sincronización", JOptionPane.INFORMATION_MESSAGE);
-    }//GEN-LAST:event_syn_InfoMouseEntered
+    }//GEN-LAST:event_syn_InfoMouseClicked
 
-    private void direccionamiento_InfoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_direccionamiento_InfoMouseEntered
-               JOptionPane.showMessageDialog(null, "Se puede escoger el tipo de direccionamiento del message passing."
-                       + " \n Seleccione si desea que sea directo o indirecto. Si escogio direccionamiento directo, podra escoger si el proceso de recieve es implícito"
-                       + "o explícito. \n"
-                       + "Si escoge la opción de indirecto, podra luego seleccionar si requiere que sea estático o dinámico."
+    private void direccionamiento_InfoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_direccionamiento_InfoMouseClicked
+                JOptionPane.showMessageDialog(null, "Se puede escoger el tipo de direccionamiento del message passing."
+                        + " \n Seleccione si desea que sea directo o indirecto. Si escogio direccionamiento directo, podra escoger si el proceso de recieve es implícito"
+                        + "o explícito. \n"
+                        + "Si escoge la opción de indirecto, podra luego seleccionar si requiere que sea estático o dinámico."
                     , "Informacion de sincronización", JOptionPane.INFORMATION_MESSAGE);
-    }//GEN-LAST:event_direccionamiento_InfoMouseEntered
+    }//GEN-LAST:event_direccionamiento_InfoMouseClicked
 
-    private void formatoMsj_InfoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formatoMsj_InfoMouseEntered
+    private void formatoMsj_InfoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formatoMsj_InfoMouseClicked
                 JOptionPane.showMessageDialog(null, "Si lo desea puede modificar el formato del mensaje. \n"
                         + "Puede modificar el largo del mensaje y hacerlo variable, seleccionando esta opción y escribiendo a la par el tamaño deseado. De lo contrario, el largo se asignara por default"
-                    , "Informacion de sincronización", JOptionPane.INFORMATION_MESSAGE);
-    }//GEN-LAST:event_formatoMsj_InfoMouseEntered
+                , "Informacion de sincronización", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_formatoMsj_InfoMouseClicked
 
-    private void colas_InfoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_colas_InfoMouseEntered
-         JOptionPane.showMessageDialog(null, "Se puede escoger el manejo de colas, el default es el manejo FIFO(First In First Out). \n"
+    private void colas_InfoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_colas_InfoMouseClicked
+        
+        JOptionPane.showMessageDialog(null, "Se puede escoger el manejo de colas, el default es el manejo FIFO(First In First Out). \n"
                  + "Si lo desea, puede asignar el manejo por prioridad, y la prioridad será asignada en el mensaje"
                     , "Informacion de sincronización", JOptionPane.INFORMATION_MESSAGE);
-    }//GEN-LAST:event_colas_InfoMouseEntered
+    }//GEN-LAST:event_colas_InfoMouseClicked
 
-    private void cant_ProcesosInfoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cant_ProcesosInfoMouseEntered
+    private void cant_ProcesosInfoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cant_ProcesosInfoMouseClicked
         JOptionPane.showMessageDialog(null, "Se puede seleccionar la cantidad máxima de procesos a ejecutar"
                     , "Informacion de sincronización", JOptionPane.INFORMATION_MESSAGE);
-    }//GEN-LAST:event_cant_ProcesosInfoMouseEntered
+    }//GEN-LAST:event_cant_ProcesosInfoMouseClicked
 
-    private void size_ColaInfoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_size_ColaInfoMouseEntered
+    private void size_ColaInfoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_size_ColaInfoMouseClicked
         JOptionPane.showMessageDialog(null, "Seleccione el tamaño máximo de la cola de mensajes"
                     , "Informacion de sincronización", JOptionPane.INFORMATION_MESSAGE);
-    }//GEN-LAST:event_size_ColaInfoMouseEntered
+    }//GEN-LAST:event_size_ColaInfoMouseClicked
 
-    private void log_HelpMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_log_HelpMouseEntered
-        JOptionPane.showMessageDialog(null, "En esta pantalla se muestra el log general de los eventos. \n"
-                + "Esto es infromación general de procesos y mensajes, si necesita más información detallada por proceso, diríjase al comando Display."
+    private void buttons_InfoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttons_InfoMouseClicked
+        
+        JOptionPane.showMessageDialog(null, "El botón de Start Simulation guarda la configuración previamente seleccionada por el usuario para crear los procesos. \n"
+                + "El botón de cargar comandos, carga los comandos a la consola desde un archivo de texto"
                     , "Informacion de sincronización", JOptionPane.INFORMATION_MESSAGE);
-    }//GEN-LAST:event_log_HelpMouseEntered
+    }//GEN-LAST:event_buttons_InfoMouseClicked
 
-    private void msg_InfoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_msg_InfoMouseEntered
-       JOptionPane.showMessageDialog(null, "Escriba únicamente el mensaje que se va a envíar entre los procesos"
+    private void btn_infoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_infoMouseClicked
+        JOptionPane.showMessageDialog(null, "Los botones cumplen la misma función de la consola, pero de forma interactiva. \n"
+                        + "Cada boton tiene realiza una funcionalidad diferente, el campo de ID de proceso esta reservado para usarlo cada vez que se crea un proces explícito, ya que este necesita un proceso del cual enviar otro. \n"
                     , "Informacion de sincronización", JOptionPane.INFORMATION_MESSAGE);
-    }//GEN-LAST:event_msg_InfoMouseEntered
+    }//GEN-LAST:event_btn_infoMouseClicked
 
-    private void consola_InfoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_consola_InfoMouseEntered
+    private void consola_InfoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_consola_InfoMouseClicked
         JOptionPane.showMessageDialog(null, "La consola será la encargada de ejecutar todos los comandos para realizar la simulación. \n"
                 + "Este consola prermite cuatro comandos base. create(), send(), recieve() y display(). \n"
                 + "El comando create se encarga de crear un proceso con la respectiva configuración anteriormente seleccionada. \n"
@@ -830,19 +830,18 @@ public class MainPage extends javax.swing.JFrame {
                 + "El comando receive se encarga de activar el thread que recive los mensajes anteriormente enviados por el hilo productor del mensaje. \n"
                 + "Finalmente, el comando display es el encargado de mostrar la información detallada de un proceso y cada uno de los paso que ha llevado a cabo."
                     , "Informacion de sincronización", JOptionPane.INFORMATION_MESSAGE);
-    }//GEN-LAST:event_consola_InfoMouseEntered
+    }//GEN-LAST:event_consola_InfoMouseClicked
 
-    private void btn_infoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_infoMouseEntered
-                JOptionPane.showMessageDialog(null, "Los botones cumplen la misma función de la consola, pero de forma interactiva. \n"
-                        + "Cada boton tiene realiza una funcionalidad diferente, el campo de ID de proceso esta reservado para usarlo cada vez que se crea un proces explícito, ya que este necesita un proceso del cual enviar otro. \n"
+    private void msg_InfoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_msg_InfoMouseClicked
+        JOptionPane.showMessageDialog(null, "Escriba únicamente el mensaje que se va a envíar entre los procesos"
                     , "Informacion de sincronización", JOptionPane.INFORMATION_MESSAGE);
-    }//GEN-LAST:event_btn_infoMouseEntered
+    }//GEN-LAST:event_msg_InfoMouseClicked
 
-    private void buttons_InfoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttons_InfoMouseEntered
-        JOptionPane.showMessageDialog(null, "El botón de Start Simulation guarda la configuración previamente seleccionada por el usuario para crear los procesos. \n"
-                + "El botón de cargar comandos, carga los comandos a la consola desde un archivo de texto"
+    private void log_HelpMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_log_HelpMouseClicked
+        JOptionPane.showMessageDialog(null, "En esta pantalla se muestra el log general de los eventos. \n"
+                + "Esto es infromación general de procesos y mensajes, si necesita más información detallada por proceso, diríjase al comando Display."
                     , "Informacion de sincronización", JOptionPane.INFORMATION_MESSAGE);
-    }//GEN-LAST:event_buttons_InfoMouseEntered
+    }//GEN-LAST:event_log_HelpMouseClicked
 
     
     /**
