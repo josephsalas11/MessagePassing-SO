@@ -110,7 +110,17 @@ public class MainPage extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         consoleArea = new javax.swing.JTextArea();
         jLabel15 = new javax.swing.JLabel();
-        helpButton = new javax.swing.JButton();
+        syn_Info = new javax.swing.JLabel();
+        direccionamiento_Info = new javax.swing.JLabel();
+        formatoMsj_Info = new javax.swing.JLabel();
+        colas_Info = new javax.swing.JLabel();
+        cant_ProcesosInfo = new javax.swing.JLabel();
+        size_ColaInfo = new javax.swing.JLabel();
+        log_Help = new javax.swing.JLabel();
+        msg_Info = new javax.swing.JLabel();
+        consola_Info = new javax.swing.JLabel();
+        btn_info = new javax.swing.JLabel();
+        buttons_Info = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Message Passing");
@@ -257,6 +267,105 @@ public class MainPage extends javax.swing.JFrame {
 
         jLabel15.setText("Consola");
 
+        syn_Info.setFont(new java.awt.Font("Arial", 3, 24)); // NOI18N
+        syn_Info.setForeground(new java.awt.Color(204, 0, 0));
+        syn_Info.setText("?");
+        syn_Info.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                syn_InfoMouseEntered(evt);
+            }
+        });
+
+        direccionamiento_Info.setFont(new java.awt.Font("Arial", 3, 24)); // NOI18N
+        direccionamiento_Info.setForeground(new java.awt.Color(204, 0, 0));
+        direccionamiento_Info.setText("?");
+        direccionamiento_Info.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                direccionamiento_InfoMouseEntered(evt);
+            }
+        });
+
+        formatoMsj_Info.setFont(new java.awt.Font("Arial", 3, 24)); // NOI18N
+        formatoMsj_Info.setForeground(new java.awt.Color(204, 0, 0));
+        formatoMsj_Info.setText("?");
+        formatoMsj_Info.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                formatoMsj_InfoMouseEntered(evt);
+            }
+        });
+
+        colas_Info.setFont(new java.awt.Font("Arial", 3, 24)); // NOI18N
+        colas_Info.setForeground(new java.awt.Color(204, 0, 0));
+        colas_Info.setText("?");
+        colas_Info.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                colas_InfoMouseEntered(evt);
+            }
+        });
+
+        cant_ProcesosInfo.setFont(new java.awt.Font("Arial", 3, 24)); // NOI18N
+        cant_ProcesosInfo.setForeground(new java.awt.Color(204, 0, 0));
+        cant_ProcesosInfo.setText("?");
+        cant_ProcesosInfo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                cant_ProcesosInfoMouseEntered(evt);
+            }
+        });
+
+        size_ColaInfo.setFont(new java.awt.Font("Arial", 3, 24)); // NOI18N
+        size_ColaInfo.setForeground(new java.awt.Color(204, 0, 0));
+        size_ColaInfo.setText("?");
+        size_ColaInfo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                size_ColaInfoMouseEntered(evt);
+            }
+        });
+
+        log_Help.setFont(new java.awt.Font("Arial", 3, 24)); // NOI18N
+        log_Help.setForeground(new java.awt.Color(204, 0, 0));
+        log_Help.setText("?");
+        log_Help.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                log_HelpMouseEntered(evt);
+            }
+        });
+
+        msg_Info.setFont(new java.awt.Font("Arial", 3, 24)); // NOI18N
+        msg_Info.setForeground(new java.awt.Color(204, 0, 0));
+        msg_Info.setText("?");
+        msg_Info.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                msg_InfoMouseEntered(evt);
+            }
+        });
+
+        consola_Info.setFont(new java.awt.Font("Arial", 3, 24)); // NOI18N
+        consola_Info.setForeground(new java.awt.Color(204, 0, 0));
+        consola_Info.setText("?");
+        consola_Info.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                consola_InfoMouseEntered(evt);
+            }
+        });
+
+        btn_info.setFont(new java.awt.Font("Arial", 3, 24)); // NOI18N
+        btn_info.setForeground(new java.awt.Color(204, 0, 0));
+        btn_info.setText("?");
+        btn_info.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btn_infoMouseEntered(evt);
+            }
+        });
+
+        buttons_Info.setFont(new java.awt.Font("Arial", 3, 24)); // NOI18N
+        buttons_Info.setForeground(new java.awt.Color(204, 0, 0));
+        buttons_Info.setText("?");
+        buttons_Info.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                buttons_InfoMouseEntered(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelOpcionesLayout = new javax.swing.GroupLayout(panelOpciones);
         panelOpciones.setLayout(panelOpcionesLayout);
         panelOpcionesLayout.setHorizontalGroup(
@@ -266,18 +375,15 @@ public class MainPage extends javax.swing.JFrame {
                 .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelOpcionesLayout.createSequentialGroup()
                         .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(sync_SendCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(panelOpcionesLayout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(direccionamiento_Info))
                             .addComponent(sync_ReceiveCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(panelOpcionesLayout.createSequentialGroup()
                                 .addGap(10, 10, 10)
                                 .addComponent(queueCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(direc_direcRadio)
-                            .addGroup(panelOpcionesLayout.createSequentialGroup()
-                                .addGap(21, 21, 21)
-                                .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(direc_receiveCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel9)))
                             .addGroup(panelOpcionesLayout.createSequentialGroup()
                                 .addGap(126, 126, 126)
                                 .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -288,18 +394,39 @@ public class MainPage extends javax.swing.JFrame {
                                 .addComponent(formatCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(formatField, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel4)
                             .addGroup(panelOpcionesLayout.createSequentialGroup()
                                 .addGap(10, 10, 10)
                                 .addComponent(jLabel10))
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel11)
-                            .addComponent(jLabel8)
+                            .addGroup(panelOpcionesLayout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(colas_Info))
+                            .addGroup(panelOpcionesLayout.createSequentialGroup()
+                                .addComponent(jLabel11)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(size_ColaInfo))
+                            .addGroup(panelOpcionesLayout.createSequentialGroup()
+                                .addComponent(jLabel8)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(cant_ProcesosInfo))
                             .addComponent(processSlider, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(queueSize, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2)
+                            .addGroup(panelOpcionesLayout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(18, 18, 18)
+                                .addComponent(syn_Info))
+                            .addComponent(jLabel7)
+                            .addComponent(sync_SendCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6)
-                            .addComponent(jLabel7))
+                            .addGroup(panelOpcionesLayout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addGap(18, 18, 18)
+                                .addComponent(formatoMsj_Info))
+                            .addGroup(panelOpcionesLayout.createSequentialGroup()
+                                .addGap(21, 21, 21)
+                                .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(direc_receiveCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel9))))
                         .addGap(39, 39, 39)
                         .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane2)
@@ -315,15 +442,28 @@ public class MainPage extends javax.swing.JFrame {
                                         .addComponent(displayProcessBtn)
                                         .addGap(30, 30, 30)
                                         .addComponent(createProcessBtn))
-                                    .addComponent(jLabel12)
-                                    .addComponent(jLabel13)
-                                    .addComponent(jLabel15))
+                                    .addGroup(panelOpcionesLayout.createSequentialGroup()
+                                        .addComponent(jLabel12)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(log_Help))
+                                    .addGroup(panelOpcionesLayout.createSequentialGroup()
+                                        .addComponent(jLabel13)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(msg_Info))
+                                    .addGroup(panelOpcionesLayout.createSequentialGroup()
+                                        .addComponent(jLabel15)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(consola_Info)))
                                 .addGap(0, 113, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btn_info)
                         .addContainerGap())
                     .addGroup(panelOpcionesLayout.createSequentialGroup()
                         .addComponent(startButton)
                         .addGap(18, 18, 18)
                         .addComponent(commandFileBtn)
+                        .addGap(18, 18, 18)
+                        .addComponent(buttons_Info)
                         .addGap(0, 0, Short.MAX_VALUE))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelOpcionesLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -336,22 +476,43 @@ public class MainPage extends javax.swing.JFrame {
             panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelOpcionesLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel12))
                 .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelOpcionesLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel12)
+                            .addComponent(log_Help, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(14, 14, 14)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelOpcionesLayout.createSequentialGroup()
+                                .addComponent(jLabel13)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel15)
+                                    .addComponent(consola_Info, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(panelOpcionesLayout.createSequentialGroup()
+                                .addComponent(msg_Info, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                    .addGroup(panelOpcionesLayout.createSequentialGroup()
+                        .addComponent(syn_Info, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(13, 13, 13)
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(sync_SendCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(35, 35, 35)
+                        .addGap(23, 23, 23)
                         .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(sync_ReceiveCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
-                        .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(sync_ReceiveCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(direccionamiento_Info))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(direc_direcRadio)
                             .addComponent(direc_indirectRadio))
@@ -362,38 +523,36 @@ public class MainPage extends javax.swing.JFrame {
                             .addComponent(direc_receiveCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(direc_indirecCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel4)
+                        .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(formatoMsj_Info, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4))
                         .addGap(18, 18, 18)
                         .addComponent(jLabel10)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(formatCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(formatField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(31, 31, 31))
-                    .addGroup(panelOpcionesLayout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel13)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel15)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                        .addGap(31, 31, 31)))
                 .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelOpcionesLayout.createSequentialGroup()
-                        .addComponent(jLabel5)
+                        .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(colas_Info, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(queueCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel8)
+                        .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel8)
+                            .addComponent(cant_ProcesosInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(3, 3, 3)
                         .addComponent(processSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel11)
+                        .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel11)
+                            .addComponent(size_ColaInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(panelOpcionesLayout.createSequentialGroup()
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addComponent(jScrollPane3)
                         .addGap(60, 60, 60)))
                 .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(queueSize, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -401,22 +560,19 @@ public class MainPage extends javax.swing.JFrame {
                     .addComponent(receiveProcessBtn)
                     .addComponent(displayProcessBtn)
                     .addComponent(createProcessBtn)
-                    .addComponent(senderProcessField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(senderProcessField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_info, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel14)
-                .addGap(28, 28, 28)
-                .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(startButton)
-                    .addComponent(commandFileBtn))
+                .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelOpcionesLayout.createSequentialGroup()
+                        .addComponent(jLabel14)
+                        .addGap(28, 28, 28)
+                        .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(startButton)
+                            .addComponent(commandFileBtn)))
+                    .addComponent(buttons_Info, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
-
-        helpButton.setText("Ayuda");
-        helpButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                helpButtonActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -430,22 +586,15 @@ public class MainPage extends javax.swing.JFrame {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(panelOpciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 115, Short.MAX_VALUE)
-                        .addComponent(helpButton, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(23, 23, 23))))
+                        .addGap(23, 204, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(helpButton))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(panelOpciones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(14, 14, 14)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelOpciones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -559,11 +708,6 @@ public class MainPage extends javax.swing.JFrame {
   
     }//GEN-LAST:event_startButtonActionPerformed
 
-    private void helpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_helpButtonActionPerformed
-        HelpWindow help = new HelpWindow();
-        help.setVisible(true);
-    }//GEN-LAST:event_helpButtonActionPerformed
-
     private void sync_SendComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sync_SendComboActionPerformed
       
     }//GEN-LAST:event_sync_SendComboActionPerformed
@@ -630,6 +774,76 @@ public class MainPage extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_displayProcessBtnActionPerformed
 
+    private void syn_InfoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_syn_InfoMouseEntered
+       JOptionPane.showMessageDialog(null, "Se puede escoger la sincronización del message passing. \n En la opcion send"
+               + "se puede escoger si el envío del proceso es Blocking o Nonblocking. El reciever se puede configurar para"
+               + "que sea Blocking, Nonblocking o prueba de llegada."
+                    , "Informacion de sincronización", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_syn_InfoMouseEntered
+
+    private void direccionamiento_InfoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_direccionamiento_InfoMouseEntered
+               JOptionPane.showMessageDialog(null, "Se puede escoger el tipo de direccionamiento del message passing."
+                       + " \n Seleccione si desea que sea directo o indirecto. Si escogio direccionamiento directo, podra escoger si el proceso de recieve es implícito"
+                       + "o explícito. \n"
+                       + "Si escoge la opción de indirecto, podra luego seleccionar si requiere que sea estático o dinámico."
+                    , "Informacion de sincronización", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_direccionamiento_InfoMouseEntered
+
+    private void formatoMsj_InfoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formatoMsj_InfoMouseEntered
+                JOptionPane.showMessageDialog(null, "Si lo desea puede modificar el formato del mensaje. \n"
+                        + "Puede modificar el largo del mensaje y hacerlo variable, seleccionando esta opción y escribiendo a la par el tamaño deseado. De lo contrario, el largo se asignara por default"
+                    , "Informacion de sincronización", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_formatoMsj_InfoMouseEntered
+
+    private void colas_InfoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_colas_InfoMouseEntered
+         JOptionPane.showMessageDialog(null, "Se puede escoger el manejo de colas, el default es el manejo FIFO(First In First Out). \n"
+                 + "Si lo desea, puede asignar el manejo por prioridad, y la prioridad será asignada en el mensaje"
+                    , "Informacion de sincronización", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_colas_InfoMouseEntered
+
+    private void cant_ProcesosInfoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cant_ProcesosInfoMouseEntered
+        JOptionPane.showMessageDialog(null, "Se puede seleccionar la cantidad máxima de procesos a ejecutar"
+                    , "Informacion de sincronización", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_cant_ProcesosInfoMouseEntered
+
+    private void size_ColaInfoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_size_ColaInfoMouseEntered
+        JOptionPane.showMessageDialog(null, "Seleccione el tamaño máximo de la cola de mensajes"
+                    , "Informacion de sincronización", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_size_ColaInfoMouseEntered
+
+    private void log_HelpMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_log_HelpMouseEntered
+        JOptionPane.showMessageDialog(null, "En esta pantalla se muestra el log general de los eventos. \n"
+                + "Esto es infromación general de procesos y mensajes, si necesita más información detallada por proceso, diríjase al comando Display."
+                    , "Informacion de sincronización", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_log_HelpMouseEntered
+
+    private void msg_InfoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_msg_InfoMouseEntered
+       JOptionPane.showMessageDialog(null, "Escriba únicamente el mensaje que se va a envíar entre los procesos"
+                    , "Informacion de sincronización", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_msg_InfoMouseEntered
+
+    private void consola_InfoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_consola_InfoMouseEntered
+        JOptionPane.showMessageDialog(null, "La consola será la encargada de ejecutar todos los comandos para realizar la simulación. \n"
+                + "Este consola prermite cuatro comandos base. create(), send(), recieve() y display(). \n"
+                + "El comando create se encarga de crear un proceso con la respectiva configuración anteriormente seleccionada. \n"
+                + "El comando send envia el mensaje al proceso el cual es el encargado de enviarlo, por alguna de las formas que corresponden a la configuración asignada. \n"
+                + "El comando receive se encarga de activar el thread que recive los mensajes anteriormente enviados por el hilo productor del mensaje. \n"
+                + "Finalmente, el comando display es el encargado de mostrar la información detallada de un proceso y cada uno de los paso que ha llevado a cabo."
+                    , "Informacion de sincronización", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_consola_InfoMouseEntered
+
+    private void btn_infoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_infoMouseEntered
+                JOptionPane.showMessageDialog(null, "Los botones cumplen la misma función de la consola, pero de forma interactiva. \n"
+                        + "Cada boton tiene realiza una funcionalidad diferente, el campo de ID de proceso esta reservado para usarlo cada vez que se crea un proces explícito, ya que este necesita un proceso del cual enviar otro. \n"
+                    , "Informacion de sincronización", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_btn_infoMouseEntered
+
+    private void buttons_InfoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttons_InfoMouseEntered
+        JOptionPane.showMessageDialog(null, "El botón de Start Simulation guarda la configuración previamente seleccionada por el usuario para crear los procesos. \n"
+                + "El botón de cargar comandos, carga los comandos a la consola desde un archivo de texto"
+                    , "Informacion de sincronización", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_buttons_InfoMouseEntered
+
     
     /**
      * @param args the command line arguments
@@ -670,19 +884,25 @@ public class MainPage extends javax.swing.JFrame {
     //        Message message = new Message(MessageType.valueOf(queueCombo.getSelectedItem().toString()),2,1,Integer.parseInt(formatField.getText()),msgArea.getText());
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel btn_info;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JLabel buttons_Info;
+    private javax.swing.JLabel cant_ProcesosInfo;
+    private javax.swing.JLabel colas_Info;
     private javax.swing.JButton commandFileBtn;
+    private javax.swing.JLabel consola_Info;
     private javax.swing.JTextArea consoleArea;
     private javax.swing.JButton createProcessBtn;
     private javax.swing.JRadioButton direc_direcRadio;
     private javax.swing.JComboBox<String> direc_indirecCombo;
     private javax.swing.JRadioButton direc_indirectRadio;
     private javax.swing.JComboBox<String> direc_receiveCombo;
+    private javax.swing.JLabel direccionamiento_Info;
     private javax.swing.JButton displayProcessBtn;
     private javax.swing.JTextArea eventLogArea;
     private javax.swing.JComboBox<String> formatCombo;
     private javax.swing.JTextField formatField;
-    private javax.swing.JButton helpButton;
+    private javax.swing.JLabel formatoMsj_Info;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -701,7 +921,9 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JLabel log_Help;
     private javax.swing.JTextArea msgArea;
+    private javax.swing.JLabel msg_Info;
     private javax.swing.JPanel panelOpciones;
     private javax.swing.JSlider processSlider;
     private javax.swing.JComboBox<String> queueCombo;
@@ -709,7 +931,9 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JButton receiveProcessBtn;
     private javax.swing.JButton sendProcessBtn;
     private javax.swing.JTextField senderProcessField;
+    private javax.swing.JLabel size_ColaInfo;
     private javax.swing.JButton startButton;
+    private javax.swing.JLabel syn_Info;
     private javax.swing.JComboBox<String> sync_ReceiveCombo;
     private javax.swing.JComboBox<String> sync_SendCombo;
     // End of variables declaration//GEN-END:variables
