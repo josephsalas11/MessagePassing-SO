@@ -32,7 +32,7 @@ public class Log {
         System.out.println(message);
     }
 
-    public ArrayList getLogs() {
+    public ArrayList<LogMessage> getLogs() {
         return logs;
     }
     

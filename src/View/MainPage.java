@@ -22,6 +22,8 @@ import java.awt.event.KeyEvent;
 import Controller.FunctionManager;
 import java.io.File;
 import Controller.BashFile;
+import Model.Log;
+import Model.LogMessage;
 import java.io.FileNotFoundException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -776,6 +778,14 @@ public class MainPage extends javax.swing.JFrame {
             
             System.out.println(consoleArea.getText());
             consoleArea.setText("");
+            String logs = "";
+            for (int i = 0; i < Log.getInstance().getLogs().size(); i++) 
+            {
+                LogMessage lm;
+                logs += Log.getInstance().getLogs().get(i).getMessage() + "\n";
+                
+            }
+            eventLogArea.setText(logs);
         }
         
     }//GEN-LAST:event_consoleAreaKeyPressed
