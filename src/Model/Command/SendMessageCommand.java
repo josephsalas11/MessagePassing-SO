@@ -5,6 +5,7 @@
  */
 package Model.Command;
 
+import View.MainPage;
 import java.util.ArrayList;
 
 /**
@@ -13,22 +14,38 @@ import java.util.ArrayList;
  */
 public class SendMessageCommand implements ICommand{
     
+    private int sourceId;
     private int destinyId;
     private String message;
+    private int priority = 0;
 
-    public SendMessageCommand(int destinyId, String message) {
+    public SendMessageCommand(int sourceId, int destinyId, String message) {
+        this.sourceId = sourceId;
         this.destinyId = destinyId;
         this.message = message;
     }
 
+    public SendMessageCommand(int sourceId, int destinyId, String message, int priority) {
+        this.sourceId = sourceId;
+        this.destinyId = destinyId;
+        this.message = message;
+        this.priority = priority;
+    }
+
     @Override
     public void execute(ArrayList params) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        MainPage mainPage = (MainPage)params.get(0);
+        //mainPage.sendMessage(sourceId, destinyId, message, priority);
     }
 
     @Override
     public String getCommandText() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String commandText = "send sourceId: "+sourceId+" destinyId: "+destinyId+" message: "+message+" priority: "+priority;
+        return commandText;
+    }
+
+    public int getSourceId() {
+        return sourceId;
     }
 
     public int getDestinyId() {
@@ -38,7 +55,9 @@ public class SendMessageCommand implements ICommand{
     public String getMessage() {
         return message;
     }
-    
-    
+
+    public int getPriority() {
+        return priority;
+    }    
     
 }

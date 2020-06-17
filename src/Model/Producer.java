@@ -28,7 +28,8 @@ public class Producer extends Thread implements IProducer{
         try {
             while(true){
                 putMessage();
-                }
+                sleep(1000);
+            }
             } catch (InterruptedException  e) {
         }
     }

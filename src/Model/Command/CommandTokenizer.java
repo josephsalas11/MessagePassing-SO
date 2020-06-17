@@ -27,15 +27,23 @@ public class CommandTokenizer {
         String[] tokens = commandString.split(" ");
         
         if(tokens[0].equals("create")){
-            outputCommand = new CreateProcessCommand();
+            if(tokens.length > 1)
+                outputCommand = new CreateProcessCommand(Integer.parseInt(tokens[1]));
+            else
+                outputCommand = new CreateProcessCommand();
+
         }
         else if(tokens[0].equals("send")){
             //send destinyId message
-            outputCommand = new SendMessageCommand(Integer.parseInt(tokens[1]), tokens[2]);
+            if(tokens.length > 4)
+                outputCommand = new SendMessageCommand(Integer.parseInt(tokens[1]), Integer.parseInt(tokens[2]), tokens[3], Integer.parseInt(tokens[4]));
+            else
+                outputCommand = new SendMessageCommand(Integer.parseInt(tokens[1]), Integer.parseInt(tokens[2]), tokens[3]);
+
         }
         else if(tokens[0].equals("receive")){
             //receive sourceId
-            outputCommand = new ReceiveMessageCommand(Integer.parseInt(tokens[1]));
+            outputCommand = new ReceiveMessageCommand(Integer.parseInt(tokens[1]), Integer.parseInt(tokens[2]));
         }
         else if(tokens[0].equals("display")){
             //display processId

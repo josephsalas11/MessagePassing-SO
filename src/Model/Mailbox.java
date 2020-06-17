@@ -13,13 +13,14 @@ import java.util.ArrayList;
  */
 public class Mailbox implements IProducer{
     
+    private int id;
     private IMessageQueue messageQueue;
     private ArrayList<IProducer> producers;
     private ArrayList<IReceiver> receivers;
     private int lastMessageCounter = 0;
     
 
-    public Mailbox(int queueSize, QueueType queueType) {
+    public Mailbox(int id, int queueSize, QueueType queueType) {
         if(queueType == QueueType.FIFO){
             messageQueue = new FIFOQueue(queueSize);
         }

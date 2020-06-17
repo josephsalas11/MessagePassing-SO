@@ -15,10 +15,12 @@ import java.util.ArrayList;
 public class ReceiveMessageCommand implements ICommand{
     
     private int sourceId;
+    private int destinyId;
 
-    public ReceiveMessageCommand(int sourceId) {
+    public ReceiveMessageCommand(int destinyId, int sourceId) {
         this.sourceId = sourceId;
-    }    
+        this.destinyId = destinyId;
+    }
     
 
     @Override
@@ -35,7 +37,9 @@ public class ReceiveMessageCommand implements ICommand{
         return sourceId;
     }
 
-    
+    public int getDestinyId() {
+        return destinyId;
+    }
     
     
 }

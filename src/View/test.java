@@ -26,9 +26,9 @@ public class test{
 	{
             
             
-            Message m1 = new Message(MessageType.FIFO, 2, 1, 10, "Soy un pura mierda 3",3);
-            Message m2 = new Message(MessageType.FIFO, 2, 1, 10, "Soy un pura mierda 1",1);
-            Message m3 = new Message(MessageType.FIFO, 2, 1, 10, "Soy un pura mierda 2",2);
+            Message m1 = new Message(MessageType.FIXED, 2, 1, 10, "Soy un pura mierda 3",3);
+            Message m2 = new Message(MessageType.FIXED, 2, 1, 10, "Soy un pura mierda 1",1);
+            Message m3 = new Message(MessageType.FIXED, 2, 1, 10, "Soy un pura mierda 2",2);
             
             /*
             Process p1 = new Process(1, SynchronizationType.NONBLOCKING, QueueType.PRIORITY, 5, SynchronizationType.NONBLOCKING);
@@ -38,7 +38,7 @@ public class test{
             */
             
             Process p1 = new Process(1, SynchronizationType.NONBLOCKING, QueueType.PRIORITY, 5, SynchronizationType.BLOCKING);
-            Mailbox mailbox = new Mailbox(5, QueueType.PRIORITY);
+            Mailbox mailbox = new Mailbox(1, 5, QueueType.PRIORITY);
             Process p2 = new Process(2, SynchronizationType.BLOCKING, QueueType.PRIORITY, 5, SynchronizationType.BLOCKING, mailbox);
             Process p3 = new Process(3, SynchronizationType.BLOCKING, QueueType.PRIORITY, 5, SynchronizationType.BLOCKING, mailbox);
 
