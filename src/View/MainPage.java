@@ -532,6 +532,8 @@ public class MainPage extends javax.swing.JFrame {
         {
             queueType = QueueType.PRIORITY;
         }
+        processList.put(processCounter, new Process(processCounter, synchronizationTypeProducer,
+                queueType,queueSizeType,synchronizationTypeReceiver));
         
         
   
