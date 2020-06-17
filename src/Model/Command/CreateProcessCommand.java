@@ -9,6 +9,7 @@ import Model.IProducer;
 import Model.Process;
 import Model.QueueType;
 import Model.SynchronizationType;
+import java.awt.List;
 import java.util.ArrayList;
 import java.util.Hashtable;
 
@@ -40,5 +41,7 @@ public class CreateProcessCommand implements ICommand{
         String commandText = "create";
         return commandText;
     }
+
+  
     
 }

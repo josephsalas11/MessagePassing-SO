@@ -5,6 +5,7 @@
  */
 package Model.Command;
 
+import java.awt.List;
 import java.util.ArrayList;
 
 /**
@@ -33,6 +34,8 @@ public class ReceiveMessageCommand implements ICommand{
     public int getSourceId() {
         return sourceId;
     }
+
+    
     
     
 }
