@@ -462,6 +462,7 @@ public class MainPage extends javax.swing.JFrame {
         {
             direc_receiveCombo.disable();
             direc_indirecCombo.enable();
+            
         }
        
     }//GEN-LAST:event_direc_indirectRadioActionPerformed
@@ -534,6 +535,7 @@ public class MainPage extends javax.swing.JFrame {
         }
         processList.put(processCounter, new Process(processCounter, synchronizationTypeProducer,
                 queueType,queueSizeType,synchronizationTypeReceiver));
+        //Se incrementa el contador de procesos
         processCounter++;
         
         

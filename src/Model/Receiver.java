@@ -45,6 +45,7 @@ public class Receiver extends Thread implements IReceiver{
     public synchronized void getProducerMessage() throws InterruptedException{
         if(synchronizationType == SynchronizationType.BLOCKING){
             //while se obtiene el mensaje: wait
+            //D
             Message message = producer.getMessage(this);
             wait();
             System.out.println(message.getContent());
