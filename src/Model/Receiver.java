@@ -28,9 +28,7 @@ public class Receiver extends Thread implements IReceiver{
             while(true){
                 if(producer != null && allowReceive){
                     if(producer.getMessageQueue().isQueueEmpty()){ //hacer validacion si se cumple condicion sleep(1)
-                        //Message m4 = new Message(MessageType.FIFO, 2, 1, 10, "Soy un pura mierda 4");
-                        //producer.getMessageQueue().addMessage(m4);
-                        sleep(1);
+                        sleep(1000);
                     }
                     else{
                         getProducerMessage();
@@ -47,7 +45,6 @@ public class Receiver extends Thread implements IReceiver{
         if(message != null){
             if(synchronizationType == SynchronizationType.BLOCKING && producer.getClass() != Mailbox.class){
                 //while se obtiene el mensaje: wait
-                System.out.println("caca");
                 wait();
                 System.out.println(message.getContent());
                 sleep(1000);

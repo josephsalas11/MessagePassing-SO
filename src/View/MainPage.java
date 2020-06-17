@@ -734,11 +734,11 @@ public class MainPage extends javax.swing.JFrame {
             {
                 if(direc_receiveCombo.getSelectedItem().toString()== "Estático")
                 {
-                    functionManager.createIndirectProcess(processCounter, synchronizationTypeProducer, queueType, queueSizeType, synchronizationTypeProducer, new Mailbox(queueSizeType,queueType));
+                    functionManager.createIndirectProcess(processCounter, synchronizationTypeProducer, queueType, queueSizeType, synchronizationTypeProducer, 1);
                 }else
                 {
-                    functionManager.createIndirectProcess(processCounter, synchronizationTypeProducer, queueType, queueSizeType, synchronizationTypeProducer, new Mailbox(queueSizeType,queueType));
-                }
+                    functionManager.createIndirectProcess(processCounter, synchronizationTypeProducer, queueType, queueSizeType, synchronizationTypeProducer, 2);
+                } //MAILBOX SE DEBEN TRATAR DIFERENTE
             }
             processCounter++;
             createdProcess++; 
@@ -752,6 +752,10 @@ public class MainPage extends javax.swing.JFrame {
         if(evt.getKeyCode() == KeyEvent.VK_ENTER)
         {
             currentCommand = commandTokenizer.analyzeCommand(consoleArea.getText());
+            ArrayList<Object> params = new ArrayList<>();
+            params.add(this);
+            currentCommand.execute(params);
+            
             System.out.println(consoleArea.getText());
             consoleArea.setText("");
         }
@@ -936,4 +940,35 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> sync_ReceiveCombo;
     private javax.swing.JComboBox<String> sync_SendCombo;
     // End of variables declaration//GEN-END:variables
+
+    public void createProcess(int idAux){
+        if(createdProcess < numProcess)
+            {
+                if(direc_direcRadio.isSelected())
+                {
+                    if(direc_receiveCombo.getSelectedItem().toString()== "Explícito")
+                    {
+                        functionManager.createExplicitProcess(processCounter, synchronizationTypeProducer, queueType, queueSizeType, synchronizationTypeProducer, 
+                                idAux);
+                    }else{
+                        functionManager.createImplicitProcess(processCounter, synchronizationTypeProducer, queueType, queueSizeType, synchronizationTypeProducer);
+
+                    }
+                }
+                else if(direc_indirectRadio.isSelected())
+                {
+                    if(direc_receiveCombo.getSelectedItem().toString()== "Estático")
+                    {
+                        functionManager.createIndirectProcess(processCounter, synchronizationTypeProducer, queueType, queueSizeType, synchronizationTypeProducer, idAux);
+                    }else
+                    {
+                        functionManager.createIndirectProcess(processCounter, synchronizationTypeProducer, queueType, queueSizeType, synchronizationTypeProducer, idAux);
+                    }
+                }
+                processCounter++;
+                createdProcess++; 
+            }else{JOptionPane.showMessageDialog(null, "Ha llegado al límite de procesos establecidos"
+                        , "Error", JOptionPane.ERROR_MESSAGE);}
+    }
+
 }

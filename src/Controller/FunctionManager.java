@@ -18,30 +18,34 @@ import Model.IProducer;
 public class FunctionManager {
 
     Hashtable<Integer, Process> processList;
+    Hashtable<Integer, Mailbox> mailboxList;
     
     public FunctionManager() {
         processList = new Hashtable<Integer, Process>();
-    }
-    
-    
-    public void createExplicitProcess(int processCounter,SynchronizationType STP,QueueType queueType, int queueSizeType,SynchronizationType STR, int ID_SP)
-    {
-        System.out.println(ID_SP);
-        Process SP = processList.get(1);
-        processList.put(processCounter, new Process(processCounter, STP, queueType,queueSizeType,STR, SP));
+        mailboxList = new Hashtable<Integer, Mailbox>();
 
     }
     
-    public void createImplicitProcess(int processCounter,SynchronizationType STP,QueueType queueType, int queueSizeType,SynchronizationType STR)
+    
+    public void createExplicitProcess(int processCounter,SynchronizationType STP,QueueType queueType, int queueSizeType, SynchronizationType STR, int ID_SP)
     {
-         processList.put(processCounter, new Process(processCounter, STP,
-                queueType,queueSizeType,STR));
+        System.out.println(ID_SP);
+        Process SP = processList.get(1);
+        processList.put(processCounter, new Process(processCounter, STP, queueType, queueSizeType, STR, SP));
+
     }
     
-    public void createIndirectProcess(int processCounter,SynchronizationType STP,QueueType queueType, int queueSizeType,SynchronizationType STR, Mailbox mailbox)
+    public void createImplicitProcess(int processCounter,SynchronizationType STP,QueueType queueType, int queueSizeType, SynchronizationType STR)
     {
+         processList.put(processCounter, new Process(processCounter, STP,
+                queueType, queueSizeType,STR));
+    }
+    
+    public void createIndirectProcess(int processCounter,SynchronizationType STP,QueueType queueType, int queueSizeType, SynchronizationType STR, int ID_MB)
+    {
+        Mailbox mailbox = mailboxList.get(ID_MB);
         processList.put(processCounter, new Process(processCounter, STP,
-                queueType,queueSizeType,STR, mailbox));
+                queueType, queueSizeType,STR, mailbox));
     }
     
     public void sendDirectProcess(int idSourceProcess, int idDestinationProcess, MessageType messageType, int messageLength, String messageContent, int priority)
