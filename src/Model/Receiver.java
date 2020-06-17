@@ -43,22 +43,26 @@ public class Receiver extends Thread implements IReceiver{
     
     @Override
     public synchronized void getProducerMessage() throws InterruptedException{
-        if(synchronizationType == SynchronizationType.BLOCKING){
-            //while se obtiene el mensaje: wait
-            //D
-            Message message = producer.getMessage(this);
-            wait();
-            System.out.println(message.getContent());
-            sleep(1000);
+        Message message = producer.getMessage(this);
+        if(message != null){
+            if(synchronizationType == SynchronizationType.BLOCKING && producer.getClass() != Mailbox.class){
+                //while se obtiene el mensaje: wait
+                System.out.println("caca");
+                wait();
+                System.out.println(message.getContent());
+                sleep(1000);
+            }
+            else { //if(synchronizationType == SynchronizationType.NONBLOCKING)
+                System.out.println(message.getContent());
+                sleep(1000);
+            }
+
         }
-        else if(synchronizationType == SynchronizationType.NONBLOCKING){
-            Message message = producer.getMessage(this);
-            System.out.println(message.getContent());
-            sleep(1000);
+        else{
+            System.out.println("El receiver no está autorizado para acceder a este recurso");
         }
         if(waitReceive)
             allowReceive = false; //para esperar comando de receive()
-        //System.out.println(allowReceive);
     }
     
     @Override
