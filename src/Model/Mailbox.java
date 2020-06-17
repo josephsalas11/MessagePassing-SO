@@ -30,6 +30,8 @@ public class Mailbox implements IProducer{
         
         producers = new ArrayList<>();
         receivers = new ArrayList<>();
+        //LOG
+        Log.getInstance().addLog(-1, "El mailbox "+id+" ha sido creado exitosamente");
     }
     
     //PRODUCER

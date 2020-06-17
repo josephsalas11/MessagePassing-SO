@@ -732,6 +732,8 @@ public class MainPage extends javax.swing.JFrame {
             Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+        executeBash(commands);
+        
         
     }//GEN-LAST:event_commandFileBtnActionPerformed
 
@@ -856,11 +858,13 @@ public class MainPage extends javax.swing.JFrame {
 
     private void consola_InfoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_consola_InfoMouseClicked
         JOptionPane.showMessageDialog(null, "La consola será la encargada de ejecutar todos los comandos para realizar la simulación. \n"
-                + "Este consola prermite cuatro comandos base. create(), send(), recieve() y display(). \n"
-                + "El comando create se encarga de crear un proceso con la respectiva configuración anteriormente seleccionada. \n"
-                + "El comando send envia el mensaje al proceso el cual es el encargado de enviarlo, por alguna de las formas que corresponden a la configuración asignada. \n"
-                + "El comando receive se encarga de activar el thread que recive los mensajes anteriormente enviados por el hilo productor del mensaje. \n"
-                + "Finalmente, el comando display es el encargado de mostrar la información detallada de un proceso y cada uno de los paso que ha llevado a cabo."
+                + "Este consola prermite 6 comandos base con diversos parámetros. create(), send(), recieve(), display(),create-mailbox() y addRecceiverMailbox. \n"
+                + "El comando create, recibe diferentes parámetros dependiendo si el direccionamiento es directo-implícito/explícito o indirecto \n"
+                + "Si es explícito deberá pasar como parámetro un id que corresponde al proceso destino que va a recibir el mensaje. De lo contrario este comando create irá sin parámetros \n"
+                + "Si la creación es indirecta, primero se deberá crear el mailbox para recibir los mensajes, para esto se debe utilizr el comando create-mailbox que creara uno nuevo. \n"
+                + "Una vez tengamos los procesos deseados creados, el comando send enviara el mensaje desde el source hasta el destinatario. \n"
+                + "El comando send recibe 3 parámetros, el ID del source, el ID del destino y el mensaje que se quiere enviar. Al acabar el mensaje solo deberá presionar enter para enviarlo. \n"
+                + "El comando receive unicamente recibirá el ID del destino y el ID fuente del mensaje en ese orden. "
                     , "Informacion de sincronización", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_consola_InfoMouseClicked
 
@@ -1051,4 +1055,22 @@ public class MainPage extends javax.swing.JFrame {
             functionManager.addReceiverMailbox(mailboxId, receiverId);
         }
 
+        public void executeBash(ArrayList<String> commands)
+        {
+            for (int i = 0; i < commands.size(); i++) {
+            currentCommand = commandTokenizer.analyzeCommand(commands.get(i));
+            ArrayList<Object> params = new ArrayList<>();
+            params.add(this);
+            currentCommand.execute(params);
+            String logs = "";
+            for (int y = 0; y < Log.getInstance().getLogs().size(); y++) 
+            {
+                logs += Log.getInstance().getLogs().get(y).getMessage() + "\n";
+                
+            }
+            eventLogArea.setText(logs);
+                
+            }
+
+        }
 }
