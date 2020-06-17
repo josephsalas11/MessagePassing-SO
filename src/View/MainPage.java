@@ -1002,5 +1002,11 @@ public class MainPage extends javax.swing.JFrame {
                 else{JOptionPane.showMessageDialog(null, "Ha llegado al límite de procesos establecidos"
                         , "Error", JOptionPane.ERROR_MESSAGE);}
     }
+        
+        
+        public void receiveMessage(int destinyID,int sourceID)
+        {
+            functionManager.receiveMessage(sourceID,destinyID);
+        }
 
 }

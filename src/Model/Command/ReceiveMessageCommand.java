@@ -27,7 +27,7 @@ public class ReceiveMessageCommand implements ICommand{
     @Override
     public void execute(ArrayList params) {
         MainPage mainPage = (MainPage)params.get(0);
-        //mainPage.receiveMessage(destinyId, sourceId);
+        mainPage.receiveMessage(destinyId, sourceId);
     }
 
     @Override

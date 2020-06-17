@@ -78,6 +78,13 @@ public class FunctionManager {
         
     }
     
+    public void receiveMessage(int idSourceProcess, int idDestinationProcess)
+    {
+        Process source = processList.get(idSourceProcess);
+        Process destination = processList.get(idDestinationProcess);
+        destination.receive(source);
+    }
+    
     
     public Hashtable<Integer, Process> getProcessList() {
         return processList;
