@@ -40,11 +40,11 @@ public class MainPage extends javax.swing.JFrame {
     private String queueHandle;
     private int numProcess;
     private int queueSizeType;
-    private int processCounter;
+    private int processCounter = 1;
     private SynchronizationType synchronizationTypeProducer; 
     private SynchronizationType synchronizationTypeReceiver;
     private QueueType queueType;
-    private int createdProcess = 1; 
+    private int createdProcess = 0; 
     private CommandTokenizer commandTokenizer = CommandTokenizer.getInstance();
     private ICommand currentCommand ;
     private FunctionManager functionManager = new FunctionManager();
@@ -231,6 +231,11 @@ public class MainPage extends javax.swing.JFrame {
         receiveProcessBtn.setText("Receive");
 
         displayProcessBtn.setText("Display");
+        displayProcessBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                displayProcessBtnActionPerformed(evt);
+            }
+        });
 
         createProcessBtn.setText("Create");
         createProcessBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -616,6 +621,14 @@ public class MainPage extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_sendProcessBtnActionPerformed
+
+    private void displayProcessBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_displayProcessBtnActionPerformed
+        Hashtable<Integer, Process> hashPrueba  = functionManager.getProcessList();
+        System.out.println(hashPrueba.size());
+        for (int i = 1; i <= hashPrueba.size() ; i++) {
+            System.out.println(hashPrueba.get(i).toString());
+        }
+    }//GEN-LAST:event_displayProcessBtnActionPerformed
 
     
     /**

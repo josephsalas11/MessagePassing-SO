@@ -26,9 +26,9 @@ public class FunctionManager {
     
     public void createExplicitProcess(int processCounter,SynchronizationType STP,QueueType queueType, int queueSizeType,SynchronizationType STR, int ID_SP)
     {
-        Process SP = processList.get(ID_SP);
-        processList.put(processCounter, new Process(processCounter, STP,
-                queueType,queueSizeType,STR, SP));
+        System.out.println(ID_SP);
+        Process SP = processList.get(1);
+        processList.put(processCounter, new Process(processCounter, STP, queueType,queueSizeType,STR, SP));
 
     }
     
