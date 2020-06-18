@@ -21,6 +21,7 @@ public class Mailbox implements IProducer{
     
 
     public Mailbox(int id, int queueSize, QueueType queueType) {
+        this.id = id;
         if(queueType == QueueType.FIFO){
             messageQueue = new FIFOQueue(queueSize);
         }
@@ -75,6 +76,10 @@ public class Mailbox implements IProducer{
                 lastMessageCounter = 0;
                 //putMessage();
             }
+            
+            //LOG
+            Log.getInstance().addLog(message.getDestinyID(), "El proceso "+message.getDestinyID()+" ha recibido un mensaje del proceso "+message.getSourceID()+
+                    " con el mensaje "+message.getContent());
             return message;
         }
         return null;

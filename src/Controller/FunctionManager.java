@@ -63,10 +63,12 @@ public class FunctionManager {
         
     }
     
-    public void sendIndirectProcess(int idSourceProcess, int idDestinationProcess, MessageType messageType, int messageLength, String messageContent, int priority) throws InterruptedException
+public void sendIndirectProcess(int idSourceProcess, int idDestinationProcess, MessageType messageType, int messageLength, String messageContent, int priority) throws InterruptedException
     {
         Process source = processList.get(idSourceProcess);
         Process destination = processList.get(idDestinationProcess);
+        Mailbox mailbox = mailboxList.get(idDestinationProcess);
+
         Message message = null;
         
         if(priority != -1)
@@ -74,7 +76,7 @@ public class FunctionManager {
         else
             message = source.createMessagePriority(destination, messageContent, messageType, messageLength, priority);
         
-        source.sendMailbox((Mailbox)(IProducer)destination.getProducer(), message);
+        source.sendMailbox(mailbox, message);
         
     }
     

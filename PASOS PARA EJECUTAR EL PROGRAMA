@@ -1,0 +1,25 @@
+PASOS PARA EJECUTAR EL PROGRAMA
+
+1- Seleccionar todas las categorías de configuración
+2- Presionar el botón "Start Simulation", este cargará el ambiente y creará un proceso directo implícito para ser usado si se seleccionara la opción de direccionamiento expícito.
+3- Utilizar la consola con los comandos:
+	create: comando para crear procesos
+	- Si es direccionamiento implícito: create
+	- Si es direccionamiento explícito: create *id_sender_process*
+	- Si es direccionamiento indirecto: create *id_mailbox*
+
+	create-mailbox: comando para crear mailboxes
+	- create-mailbox
+
+	add-receiver-mailbox: comando para agregar procesos a la lista de permitida del mailbox
+	- add-receiver-mailbox *id_mailbox* *id_proceso*
+
+	send: comando para enviar un mensaje a otro proceso
+	- Si es directo: send *id_proceso_sender* *id_proceso_receiver*
+	- Si es indirecto: send *id_proceso_sender* *id_mailbox* 
+
+	receive: comando para recibir mensajes enviados
+	- receive *id_proceso_destino* *id_proceso_fuente*
+
+	display: comando para mostrar el log de un proceso
+	- display *id_proceso*

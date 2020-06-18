@@ -27,7 +27,7 @@ public class Receiver extends Thread implements IReceiver{
         try {
             while(true){
                 if(producer != null && allowReceive){
-                    System.out.println("asdasdasda");
+                    //System.out.println("asdasdasda");
                     if(producer.getMessageQueue().isQueueEmpty()){ //hacer validacion si se cumple condicion sleep(1)
                         sleep(1000);
                     }

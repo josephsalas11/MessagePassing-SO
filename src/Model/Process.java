@@ -5,6 +5,8 @@
  */
 package Model;
 
+import Model.Command.CommandTokenizer;
+
 /**
  *
  * @author Paulo
@@ -84,9 +86,13 @@ public class Process {
             Log.getInstance().addLog(id, "El proceso "+id+" no puede recibir el mensaje porque el proceso "+source.id+" no está autorizado eb este proceso");
         }
         else{
-            //recibir mensaje
-            receiver.setProducer(source.getProducer());
-            receiver.setAllowReceive(true);
+           //recibir mensaje
+           if(CommandTokenizer.getInstance().indirect == false)
+           {
+               receiver.setProducer(source.getProducer());
+           }
+            //receiver.setProducer(source.getProducer());
+            receiver.setAllowReceive(true);         
             Log.getInstance().addLog(id, "El proceso "+id+" ha enviado el comando para recibir un mensaje del proceso "+source.id);
         }
     }

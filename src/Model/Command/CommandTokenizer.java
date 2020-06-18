@@ -11,6 +11,8 @@ package Model.Command;
  */
 public class CommandTokenizer {
     private static CommandTokenizer singleton = null;
+    
+    public boolean indirect = false;
 
     public CommandTokenizer() {
     }
