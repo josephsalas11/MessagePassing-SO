@@ -120,6 +120,7 @@ public class MainPage extends javax.swing.JFrame {
         log_Help = new javax.swing.JLabel();
         consola_Info = new javax.swing.JLabel();
         buttons_Info = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Message Passing");
@@ -317,6 +318,13 @@ public class MainPage extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setText("Reset");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelOpcionesLayout = new javax.swing.GroupLayout(panelOpciones);
         panelOpciones.setLayout(panelOpcionesLayout);
         panelOpcionesLayout.setHorizontalGroup(
@@ -397,8 +405,10 @@ public class MainPage extends javax.swing.JFrame {
                     .addGroup(panelOpcionesLayout.createSequentialGroup()
                         .addComponent(startButton)
                         .addGap(18, 18, 18)
+                        .addComponent(jButton1)
+                        .addGap(21, 21, 21)
                         .addComponent(commandFileBtn)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(buttons_Info)
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
@@ -483,7 +493,8 @@ public class MainPage extends javax.swing.JFrame {
                         .addGap(48, 48, 48)
                         .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(startButton)
-                            .addComponent(commandFileBtn)))
+                            .addComponent(commandFileBtn)
+                            .addComponent(jButton1)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelOpcionesLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttons_Info, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -739,6 +750,10 @@ public class MainPage extends javax.swing.JFrame {
                     , "Informacion de sincronización", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_log_HelpMouseClicked
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     
     /**
      * @param args the command line arguments
@@ -795,6 +810,7 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> formatCombo;
     private javax.swing.JTextField formatField;
     private javax.swing.JLabel formatoMsj_Info;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
