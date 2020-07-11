@@ -18,17 +18,16 @@ import static java.lang.Thread.sleep;
  */
 public class test{
     public static void main(String [] args) throws InterruptedException
-	{
-            
-            
-            Message m1 = new Message(MessageType.FIXED, 2, 1, 10, "Soy 3",3);
-            Message m2 = new Message(MessageType.FIXED, 2, 1, 10, "Soy 1",1);
-            Message m3 = new Message(MessageType.FIXED, 2, 1, 10, "Soy 2",2);
-            
+	{   
             Process p1 = new Process(1, SynchronizationType.NONBLOCKING, QueueType.FIFO, 5, SynchronizationType.NONBLOCKING);
             Process p2 = new Process(2, SynchronizationType.NONBLOCKING, QueueType.FIFO, 5, SynchronizationType.NONBLOCKING);
             p1.setWaitReceive(false);
             p2.setWaitReceive(false);
+            
+            
+            Message m1 = new Message(MessageType.FIXED, 2, 1, 10, "Soy 3",3, p1, p2);
+            Message m2 = new Message(MessageType.FIXED, 2, 1, 10, "Soy 1",1, p1, p2);
+            Message m3 = new Message(MessageType.FIXED, 2, 1, 10, "Soy 2",2, p1, p2);
             
             /*
             Process p1 = new Process(1, SynchronizationType.NONBLOCKING, QueueType.PRIORITY, 5, SynchronizationType.BLOCKING);
@@ -54,7 +53,8 @@ public class test{
             p1.send(p2, m1);
             p1.send(p2, m2);
             p1.send(p2, m3);
-                        
+            sleep(3000);
+            
             p2.receive(p1);
             //p3.receive(p1); 
             sleep(3000);
@@ -79,4 +79,4 @@ public class test{
 
             //p.start();
             //Receiver r = new Receiver(p, SynchronizationType.NONBLOCKING);
-            //r.start();
+            //r.sart();

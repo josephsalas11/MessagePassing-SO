@@ -35,17 +35,19 @@ public class Receiver extends Thread implements IReceiver{
     public void run(){
         try {
             while(true){
-                if(producer != null && allowReceive){
-                    //System.out.println("asdasdasda");
-                    if(messageQueue.isQueueEmpty()){
-                        sleep(1000);
-                    }
-                    else{
-                        retreiveMessage();
-                    }
-                }
-                else if(synchronizationType == SynchronizationType.BLOCKING){
+                if(synchronizationType == SynchronizationType.BLOCKING){
                     wait();
+                }
+                if(allowReceive){
+                    //System.out.println("asdasdasda");
+                    messageQueue.getSize();
+                    //if(messageQueue.isQueueEmpty()){
+                    //    sleep(1000);
+                    //}
+                    //else{
+                        System.out.println("sadasd");
+                        retreiveMessage(); 
+                    //}     
                 }
             }
         } catch (InterruptedException e) {
@@ -56,16 +58,14 @@ public class Receiver extends Thread implements IReceiver{
         Message messageTmp = searchMessage();
         System.out.println(messageTmp.getContent()); //eliminar
         
-        if(synchronizationType == SynchronizationType.BLOCKING && producer.getClass() != Mailbox.class){ //revisar if de mailbox
-            
-        }
         //se hace Log
         System.out.println("El mensaje fue recibido por el proceso "+messageTmp.getDestinyID());
         
         //desbloqueo de producer
-        if(producer.getSynchronizationType() == SynchronizationType.BLOCKING){
-            producer.notify();
+        if(messageTmp.getSource().getProducer().getSynchronizationType() == SynchronizationType.BLOCKING){
+            messageTmp.getSource().getProducer().notify();
         }
+        allowReceive = false;
     }
     
     private Message searchMessage(){
@@ -123,6 +123,7 @@ public class Receiver extends Thread implements IReceiver{
     @Override
     public void setAllowReceive(boolean allowReceive) {
         this.allowReceive = allowReceive;
+        //System.out.println(producer.getSynchronizationType());
         if(synchronizationType == SynchronizationType.BLOCKING){
             notify();
         }

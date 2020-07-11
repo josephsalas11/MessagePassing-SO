@@ -57,7 +57,8 @@ public class Process {
     }
     
     public void send(Process destination, Message message){
-        producer.setReceiver(receiver); //cambiar
+        //producer.setReceiver(destination.getReceiver());
+        //destination.setProducer(producer); //cambiar
         if(producer.addMessage(message) == false){
             System.out.println("No se pudo ingresar el mensaje porque la cola esta llena");
         }
@@ -107,9 +108,13 @@ public class Process {
     public IReceiver getReceiver() {
         return receiver;
     }
-    
-    
-    
-    
+
+    public void setReceiver(IReceiver receiver) {
+        this.receiver = receiver;
+    }
+
+    public void setProducer(Producer producer) {
+        this.producer = producer;
+    }
     
 }
