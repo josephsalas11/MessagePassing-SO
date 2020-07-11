@@ -10,17 +10,19 @@ package Model;
  * @author Paulo
  */
 public class Producer extends Thread implements IProducer{
-    private IMessageQueue messageQueue;
     private SynchronizationType synchronizationType;
     private IReceiver receiver;
+    private IMessageQueue messageQueue;
 
-    public Producer(int queueSize, SynchronizationType synchronizationType, QueueType queueType) {
+
+    public Producer(SynchronizationType synchronizationType, QueueType queueType, int queueSize) {
+        this.synchronizationType = synchronizationType;
+        
         if(queueType == QueueType.FIFO)
             messageQueue = new FIFOQueue(queueSize);
         else if(queueType == QueueType.PRIORITY){
             messageQueue = new QueuePriority(queueSize);
         }
-        this.synchronizationType = synchronizationType;
     }
 
     @Override
@@ -36,6 +38,11 @@ public class Producer extends Thread implements IProducer{
 
     @Override
     public void putMessage() throws InterruptedException {
+        
+        /*Si es nonblocking, se envia mensaje a cola de mensaje del receiver
+        Si es blocking, y el receiver esta bloqueado, espera para meterlo en la cola de mensajes*/
+        
+        
         if(synchronizationType == SynchronizationType.BLOCKING){ //&& no se envia a mailbox
             //System.out.println("entro b");
             putMessageBlocking();
@@ -54,33 +61,37 @@ public class Producer extends Thread implements IProducer{
     //lo sustituye create message en process
 
     private synchronized void putMessageBlocking() throws InterruptedException{
-        while(messageQueue.getQueueSize() == messageQueue.getSize()){ //sleep?
-
-            wait();
+        Message messageTmp = messageQueue.poll();
+        if(messageTmp != null){
+            boolean sentFlag = false;
+            while(sentFlag == false){ //constantemente esta tratando de meter el mensaje en la cola del receiver
+                if(receiver.addMessage(messageTmp) == false){
+                    sleep(1000);
+                }
+                else{
+                    sentFlag = true;
+                }
+            }
+            wait(); //para esperar que el receiver ecplicitamente reciba el mensaje
         }
-        //messageQueue.addMessage(message); ver como manejar mensajes
-        wait(); //para esperar que el otro hilo (receiver) responda
-
-        if(receiver != null && receiver.getSynchronizationType() == SynchronizationType.BLOCKING){
-            receiver.receiveMessage();
-            receiver = null;
-        }
-        notify();
     }
     
 
     private synchronized void putMessageNonblocking() throws InterruptedException{
-        while(messageQueue.getQueueSize() == messageQueue.getSize()){
-
-            wait();
+        Message messageTmp = messageQueue.poll();
+        
+        if(messageTmp != null){
+            boolean sentFlag = false;
+            while(sentFlag == false){ //constantemente esta tratando de meter el mensaje en la cola del receiver
+                //Aqui se debe sacar el receiver de la lista de procesos para poder agregar el mensaje posteriormente
+                if(receiver.addMessage(messageTmp) == false){
+                    sleep(1000);
+                }
+                else{
+                    sentFlag = true;
+                }
+            }
         }
-        //messageQueue.addElement(message); ver como manejar mensajes
-
-        if(receiver != null && receiver.getSynchronizationType() == SynchronizationType.BLOCKING){
-            receiver.receiveMessage();
-            receiver = null;
-        }
-        //notify();
     }
     
     @Override
@@ -109,9 +120,6 @@ public class Producer extends Thread implements IProducer{
         return message;
     }
 
-    public IMessageQueue getMessageQueue() {
-        return messageQueue;
-    }
 
     @Override
     public void sendMessage() {
@@ -119,7 +127,24 @@ public class Producer extends Thread implements IProducer{
             notify();
         }
     }
+
+    @Override
+    public boolean addMessage(Message message) {
+        if(messageQueue.addMessage(message) == false){ //aqui se agrega
+            System.out.println("No se pueden agregar más procesos, la cola está llena");
+            return false;
+        }
+        return true;
+    }
     
-    
+    @Override
+    public SynchronizationType getSynchronizationType() {
+        return synchronizationType;
+    }
+
+    @Override
+    public void setReceiver(IReceiver receiver) {
+        this.receiver = receiver;
+    }
     
 }

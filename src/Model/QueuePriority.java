@@ -72,8 +72,21 @@ public class QueuePriority implements IMessageQueue{
     }
     
     @Override
-    public void poll() {
-        priorityQueue.poll();
+    public Message poll() {
+        return priorityQueue.poll();
+    }
+    
+    @Override
+    public Message getMessage(int sourceId) {
+        Message message = null;
+        for(Message m:priorityQueue){
+            if(m.getSourceID() == sourceId){
+                message = m;
+                priorityQueue.remove(m);
+                break;
+            }
+        }
+        return message;
     }
     
 }

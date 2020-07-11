@@ -71,8 +71,21 @@ public class FIFOQueue implements IMessageQueue{
     }
 
     @Override
-    public void poll() {
-        queue.poll();
+    public Message poll() {
+        return queue.poll();
+    }
+
+    @Override
+    public Message getMessage(int sourceId) {
+        Message message = null;
+        for(Message m:queue){
+            if(m.getSourceID() == sourceId){
+                message = m;
+                queue.remove(m);
+                break;
+            }
+        }
+        return message;
     }
     
     

@@ -15,11 +15,20 @@ public class Receiver extends Thread implements IReceiver{
     private IProducer producer;
     private SynchronizationType synchronizationType;
     private boolean allowReceive = false;
-    private boolean waitReceive = true;
+    private boolean waitReceive = true; //creo que se va por nuevas condiciones
+    
+    private IMessageQueue messageQueue;
+    private int currentId = -1;
 
-    public Receiver(IProducer producer, SynchronizationType synchronizationType) {
+    public Receiver(IProducer producer, SynchronizationType synchronizationType, QueueType queueType, int queueSize) {
         this.producer = producer;
         this.synchronizationType = synchronizationType;
+        
+        if(queueType == QueueType.FIFO)
+            messageQueue = new FIFOQueue(queueSize);
+        else if(queueType == QueueType.PRIORITY){
+            messageQueue = new QueuePriority(queueSize);
+        }
     }
     
     @Override
@@ -28,16 +37,48 @@ public class Receiver extends Thread implements IReceiver{
             while(true){
                 if(producer != null && allowReceive){
                     //System.out.println("asdasdasda");
-                    if(producer.getMessageQueue().isQueueEmpty()){ //hacer validacion si se cumple condicion sleep(1)
+                    if(messageQueue.isQueueEmpty()){
                         sleep(1000);
                     }
                     else{
-                        getProducerMessage();
+                        retreiveMessage();
                     }
+                }
+                else if(synchronizationType == SynchronizationType.BLOCKING){
+                    wait();
                 }
             }
         } catch (InterruptedException e) {
         }
+    }
+    
+    public void retreiveMessage(){
+        Message messageTmp = searchMessage();
+        System.out.println(messageTmp.getContent()); //eliminar
+        
+        if(synchronizationType == SynchronizationType.BLOCKING && producer.getClass() != Mailbox.class){ //revisar if de mailbox
+            
+        }
+        //se hace Log
+        System.out.println("El mensaje fue recibido por el proceso "+messageTmp.getDestinyID());
+        
+        //desbloqueo de producer
+        if(producer.getSynchronizationType() == SynchronizationType.BLOCKING){
+            producer.notify();
+        }
+    }
+    
+    private Message searchMessage(){
+        Message messageTmp = null;
+        if(currentId == -1){//para ver si es implicito o explicito
+            messageTmp = messageQueue.poll();
+        }
+        else{
+            messageTmp = messageQueue.getMessage(currentId);
+        }
+        currentId = -1; //para volver a estado anterior
+        //notify();
+        return messageTmp;
     }
     
     @Override
@@ -65,7 +106,9 @@ public class Receiver extends Thread implements IReceiver{
     
     @Override
     public synchronized void receiveMessage(){
-        notify();
+        if(synchronizationType == SynchronizationType.BLOCKING){
+            notify();
+        }
     }
 
     @Override
@@ -80,6 +123,9 @@ public class Receiver extends Thread implements IReceiver{
     @Override
     public void setAllowReceive(boolean allowReceive) {
         this.allowReceive = allowReceive;
+        if(synchronizationType == SynchronizationType.BLOCKING){
+            notify();
+        }
     }
 
     public boolean isWaitReceive() {
@@ -99,9 +145,20 @@ public class Receiver extends Thread implements IReceiver{
     @Override
     public IProducer getProducer() {
         return producer;
+    }   
+
+    @Override
+    public boolean addMessage(Message message) {
+        if(messageQueue.addMessage(message) == false){ //aqui se agrega
+            System.out.println("No se pueden agregar más procesos, la cola está llena");
+            return false;
+        }
+        return true;
     }
-    
-    
-    
+
+    @Override
+    public void setCurrentId(int id) {
+        currentId = id;
+    }
     
 }

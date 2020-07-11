@@ -10,13 +10,15 @@ package Model;
  * @author Paulo
  */
 public interface IReceiver{
-   void getProducerMessage() throws InterruptedException;
-   void receiveMessage();
-   SynchronizationType getSynchronizationType();
-   void start();
+    void getProducerMessage() throws InterruptedException;
+    void receiveMessage();
+    SynchronizationType getSynchronizationType();
+    void start();
    
-   void setAllowReceive(boolean allowReceive);
-   void setWaitReceive(boolean waitReceive);
-   void setProducer(IProducer producer);
-   IProducer getProducer();
+    void setAllowReceive(boolean allowReceive);
+    void setWaitReceive(boolean waitReceive);
+    void setProducer(IProducer producer);
+    IProducer getProducer();
+    boolean addMessage(Message message);
+    void setCurrentId(int id);
 }

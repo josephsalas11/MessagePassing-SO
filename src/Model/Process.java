@@ -23,8 +23,8 @@ public class Process {
     //para direccionamiento directo
     public Process(int id, SynchronizationType synchronizationTypeProducer, QueueType queueType, int queueSize, SynchronizationType synchronizationTypeReceiver){
         this.id = id;
-        this.producer = new Producer(queueSize, synchronizationTypeProducer, queueType);
-        this.receiver = new Receiver(null, synchronizationTypeReceiver);
+        this.producer = new Producer(synchronizationTypeProducer, queueType, queueSize);
+        this.receiver = new Receiver(null, synchronizationTypeReceiver, queueType, queueSize);
         
         //LOG
         Log.getInstance().addLog(id, "El proceso "+id+" de tipo "+synchronizationTypeProducer.toString()+"-"+synchronizationTypeReceiver.toString()+" directo implicito ha sido creado exitosamente");
@@ -36,8 +36,8 @@ public class Process {
     //para direccionamiento indirecto
     public Process(int id, SynchronizationType synchronizationTypeProducer, QueueType queueType, int queueSize, SynchronizationType synchronizationTypeReceiver, IProducer mailbox){
         this.id = id;
-        this.producer = new Producer(queueSize, synchronizationTypeProducer, queueType);
-        this.receiver = new Receiver(mailbox, synchronizationTypeReceiver);
+        this.producer = new Producer(synchronizationTypeProducer, queueType, queueSize);
+        this.receiver = new Receiver(mailbox, synchronizationTypeReceiver, queueType, queueSize);
         
         //LOG
         Log.getInstance().addLog(id, "El proceso "+id+" de tipo "+synchronizationTypeProducer.toString()+"-"+synchronizationTypeReceiver.toString()+" indirecto ha sido creado exitosamente");
@@ -57,7 +57,10 @@ public class Process {
     }
     
     public void send(Process destination, Message message){
-        producer.getMessageQueue().addMessage(message);
+        producer.setReceiver(receiver); //cambiar
+        if(producer.addMessage(message) == false){
+            System.out.println("No se pudo ingresar el mensaje porque la cola esta llena");
+        }
         //LOG
         Log.getInstance().addLog(id, "El proceso "+id+" ha enviado el comando para enviar un mensaje al proceso "+destination.id);
     }
@@ -69,14 +72,21 @@ public class Process {
         //mailbox.putMessage();
     }
     
+    //implicito
+    public void receive(){
+        receiver.setAllowReceive(true);         
+        Log.getInstance().addLog(id, "El proceso "+id+" ha enviado el comando para recibir un mensaje");
+    }
+    
+    //explicito
     public void receive(Process source){
 
        //recibir mensaje
        if(CommandTokenizer.getInstance().indirect == false)
-       {
+        {
            receiver.setProducer(source.getProducer());
-       }
-        //receiver.setProducer(source.getProducer());
+        }
+        receiver.setCurrentId(source.getId());
         receiver.setAllowReceive(true);         
         Log.getInstance().addLog(id, "El proceso "+id+" ha enviado el comando para recibir un mensaje del proceso "+source.id);
     }

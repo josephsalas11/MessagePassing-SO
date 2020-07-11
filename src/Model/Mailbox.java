@@ -55,7 +55,7 @@ public class Mailbox implements IProducer{
                 IReceiver receiver = receivers.get(i);
                 
                 if(receiver != null && receiver.getSynchronizationType() == SynchronizationType.BLOCKING){
-                    receiver.receiveMessage();
+                    receiver.receiveMessage(); //CAMBIAR
                     System.out.println("asd");
                 }
             }
@@ -85,10 +85,6 @@ public class Mailbox implements IProducer{
         return null;
     }
 
-    @Override
-    public IMessageQueue getMessageQueue() {
-        return messageQueue;
-    }
     
     @Override
     public void sendMessage() {
@@ -108,10 +104,13 @@ public class Mailbox implements IProducer{
         Log.getInstance().addLog(receiver.getId(), "El proceso "+receiver.getId()+" ha sido agregado a la lista del mailbox "+id);
     }
     
-    public void addMessage(Message message){
+    @Override
+    public boolean addMessage(Message message){
         if(messageQueue.addMessage(message) == false){ //aqui se agrega
             System.out.println("No se pueden agregar más procesos, la cola está llena");
+            return false;
         }
+        return true;
     }
     
     public boolean isReceiverAllowed(IReceiver receiver){
