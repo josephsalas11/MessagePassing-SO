@@ -29,8 +29,14 @@ public class Producer extends Thread implements IProducer{
     public void run(){
         try {
             while(true){
-                putMessage();
-                sleep(1000);
+                if(messageQueue.isQueueEmpty()){
+                        sleep(1000);
+                }
+                else{
+                    putMessage();
+                    sleep(1000);
+                }
+
             }
             } catch (InterruptedException  e) {
         }
@@ -46,13 +52,13 @@ public class Producer extends Thread implements IProducer{
         if(synchronizationType == SynchronizationType.BLOCKING){ //&& no se envia a mailbox
             //System.out.println("entro b");
             putMessageBlocking();
-            sleep(1000);
+            //sleep(1000);
             //getProducer
         }                
         else if(synchronizationType == SynchronizationType.NONBLOCKING){
             //System.out.println("entro nb");
             putMessageNonblocking();
-            sleep(1000);    
+            //sleep(1000);    
         }
 
     }
@@ -65,7 +71,7 @@ public class Producer extends Thread implements IProducer{
         if(messageTmp != null){
             boolean sentFlag = false;
             while(sentFlag == false){ //constantemente esta tratando de meter el mensaje en la cola del receiver
-                if(receiver.addMessage(messageTmp) == false){
+                if(messageTmp.getDestiny().getReceiver().addMessage(messageTmp) == false){
                     sleep(1000);
                 }
                 else{
@@ -79,15 +85,15 @@ public class Producer extends Thread implements IProducer{
 
     private synchronized void putMessageNonblocking() throws InterruptedException{
         Message messageTmp = messageQueue.poll();
-        
         if(messageTmp != null){
             boolean sentFlag = false;
             while(sentFlag == false){ //constantemente esta tratando de meter el mensaje en la cola del receiver
                 //Aqui se debe sacar el receiver de la lista de procesos para poder agregar el mensaje posteriormente
-                if(receiver.addMessage(messageTmp) == false){
+                if(messageTmp.getDestiny().getReceiver().addMessage(messageTmp) == false){
                     sleep(1000);
                 }
                 else{
+                    System.out.println(":(");
                     sentFlag = true;
                 }
             }

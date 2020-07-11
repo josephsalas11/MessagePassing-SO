@@ -125,6 +125,16 @@ public class Mailbox implements IProducer{
     public int getId() {
         return id;
     }
+
+    @Override
+    public SynchronizationType getSynchronizationType() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void setReceiver(IReceiver receiver) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     
 }
