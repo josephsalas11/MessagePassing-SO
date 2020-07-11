@@ -613,12 +613,6 @@ public class MainPage extends javax.swing.JFrame {
             queueType = QueueType.PRIORITY;
         }
        
-        functionManager.createImplicitProcess(processCounter, synchronizationTypeProducer, queueType, queueSizeType, synchronizationTypeProducer);
-        //Se incrementa el contador de procesos
-        processCounter++;
-        
-  
-  
     }//GEN-LAST:event_startButtonActionPerformed
 
     private void sync_SendComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sync_SendComboActionPerformed
