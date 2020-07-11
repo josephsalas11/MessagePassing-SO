@@ -600,7 +600,7 @@ public class MainPage extends javax.swing.JFrame {
             numProcess = processSlider.getValue();
             queueSizeType = Integer.parseInt(queueSize.getText());
         }
-        if(sync_ReceiveCombo.getSelectedItem().toString() ==  "BLOCKING")
+        if(sync_SendCombo.getSelectedItem().toString() ==  "BLOCKING")
         {
             synchronizationTypeProducer = SynchronizationType.BLOCKING;
         }else
@@ -608,7 +608,7 @@ public class MainPage extends javax.swing.JFrame {
             synchronizationTypeProducer = SynchronizationType.NONBLOCKING;
         }
         
-        if(sync_SendCombo.getSelectedItem().toString() ==  "BLOCKING")
+        if(sync_ReceiveCombo.getSelectedItem().toString() ==  "BLOCKING")
         {
             synchronizationTypeReceiver = SynchronizationType.BLOCKING;
         }else
@@ -624,12 +624,6 @@ public class MainPage extends javax.swing.JFrame {
             queueType = QueueType.PRIORITY;
         }
        
-        functionManager.createImplicitProcess(processCounter, synchronizationTypeProducer, queueType, queueSizeType, synchronizationTypeProducer);
-        //Se incrementa el contador de procesos
-        processCounter++;
-        
-  
-  
     }//GEN-LAST:event_startButtonActionPerformed
 
     private void sync_SendComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sync_SendComboActionPerformed
@@ -845,10 +839,10 @@ public class MainPage extends javax.swing.JFrame {
                 {
                     if(direc_receiveCombo.getSelectedItem().toString()== "Explícito")
                     {
-                        functionManager.createExplicitProcess(processCounter, synchronizationTypeProducer, queueType, queueSizeType, synchronizationTypeProducer, 
+                        functionManager.createExplicitProcess(processCounter, synchronizationTypeProducer, queueType, queueSizeType, synchronizationTypeReceiver, 
                                 idAux);
                     }else{
-                        functionManager.createImplicitProcess(processCounter, synchronizationTypeProducer, queueType, queueSizeType, synchronizationTypeProducer);
+                        functionManager.createImplicitProcess(processCounter, synchronizationTypeProducer, queueType, queueSizeType, synchronizationTypeReceiver);
 
                     }
                 }
@@ -857,10 +851,10 @@ public class MainPage extends javax.swing.JFrame {
                     CommandTokenizer.getInstance().indirect = true;
                     if(direc_receiveCombo.getSelectedItem().toString()== "Estático")
                     {
-                        functionManager.createIndirectProcess(processCounter, synchronizationTypeProducer, queueType, queueSizeType, synchronizationTypeProducer, idAux);
+                        functionManager.createIndirectProcess(processCounter, synchronizationTypeProducer, queueType, queueSizeType, synchronizationTypeReceiver, idAux);
                     }else
                     {
-                        functionManager.createIndirectProcess(processCounter, synchronizationTypeProducer, queueType, queueSizeType, synchronizationTypeProducer, idAux);
+                        functionManager.createIndirectProcess(processCounter, synchronizationTypeProducer, queueType, queueSizeType, synchronizationTypeReceiver, idAux);
                     }
                 }
                 processCounter++;

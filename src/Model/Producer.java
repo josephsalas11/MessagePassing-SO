@@ -54,12 +54,12 @@ public class Producer extends Thread implements IProducer{
     //lo sustituye create message en process
 
     private synchronized void putMessageBlocking() throws InterruptedException{
-        while(messageQueue.getQueueSize() == messageQueue.getSize()){
+        while(messageQueue.getQueueSize() == messageQueue.getSize()){ //sleep?
 
             wait();
         }
         //messageQueue.addMessage(message); ver como manejar mensajes
-        wait(); //para esperar que el otro hilo responda
+        wait(); //para esperar que el otro hilo (receiver) responda
 
         if(receiver != null && receiver.getSynchronizationType() == SynchronizationType.BLOCKING){
             receiver.receiveMessage();

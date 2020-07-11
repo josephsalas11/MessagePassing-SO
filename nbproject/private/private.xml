@@ -3,12 +3,16 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Joseph%20Salas/Desktop/TEC/IX%20Semestre/Sistemas%20Operativos/ProyectoI-%20MessagePassing/MessagePassingSO/src/View/MainPage.java</file>
-            <file>file:/C:/Users/Joseph%20Salas/Desktop/TEC/IX%20Semestre/Sistemas%20Operativos/ProyectoI-%20MessagePassing/MessagePassingSO/src/Model/Command/CreateProcessCommand.java</file>
-            <file>file:/C:/Users/Joseph%20Salas/Desktop/TEC/IX%20Semestre/Sistemas%20Operativos/ProyectoI-%20MessagePassing/MessagePassingSO/src/Model/Producer.java</file>
-            <file>file:/C:/Users/Joseph%20Salas/Desktop/TEC/IX%20Semestre/Sistemas%20Operativos/ProyectoI-%20MessagePassing/MessagePassingSO/src/Model/Mailbox.java</file>
-            <file>file:/C:/Users/Joseph%20Salas/Desktop/TEC/IX%20Semestre/Sistemas%20Operativos/ProyectoI-%20MessagePassing/MessagePassingSO/src/Controller/FunctionManager.java</file>
-            <file>file:/C:/Users/Joseph%20Salas/Desktop/TEC/IX%20Semestre/Sistemas%20Operativos/ProyectoI-%20MessagePassing/MessagePassingSO/src/View/test.java</file>
+            <file>file:/C:/Users/Paulo/Desktop/MessagePassing-SO/src/Model/Command/CommandTokenizer.java</file>
+            <file>file:/C:/Users/Paulo/Desktop/MessagePassing-SO/src/Controller/FunctionManager.java</file>
+            <file>file:/C:/Users/Paulo/Desktop/MessagePassing-SO/src/Model/Command/AddReceiverMailboxCommand.java</file>
+            <file>file:/C:/Users/Paulo/Desktop/MessagePassing-SO/src/Model/Receiver.java</file>
+            <file>file:/C:/Users/Paulo/Desktop/MessagePassing-SO/src/Model/Command/SendMessageCommand.java</file>
+            <file>file:/C:/Users/Paulo/Desktop/MessagePassing-SO/src/Model/Producer.java</file>
+            <file>file:/C:/Users/Paulo/Desktop/MessagePassing-SO/src/View/test.java</file>
+            <file>file:/C:/Users/Paulo/Desktop/MessagePassing-SO/src/Model/Mailbox.java</file>
+            <file>file:/C:/Users/Paulo/Desktop/MessagePassing-SO/src/Model/Process.java</file>
+            <file>file:/C:/Users/Paulo/Desktop/MessagePassing-SO/src/View/MainPage.java</file>
         </group>
     </open-files>
 </project-private>
