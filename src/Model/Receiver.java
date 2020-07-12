@@ -32,21 +32,20 @@ public class Receiver extends Thread implements IReceiver{
     }
     
     @Override
-    public void run(){
+    public synchronized void run(){
         try {
             while(true){
+                sleep(100);
                 if(synchronizationType == SynchronizationType.BLOCKING){
                     wait();
                 }
                 if(allowReceive){
-                    //System.out.println("asdasdasda");
                     messageQueue.getSize();
                     //if(messageQueue.isQueueEmpty()){
                     //    sleep(1000);
                     //}
                     //else{
-                        System.out.println("sadasd");
-                        retreiveMessage(); 
+                    retreiveMessage(); 
                     //}     
                 }
             }
@@ -56,15 +55,15 @@ public class Receiver extends Thread implements IReceiver{
     
     public void retreiveMessage(){
         Message messageTmp = searchMessage();
-        System.out.println(messageTmp.getContent()); //eliminar
         
         //se hace Log
         System.out.println("El mensaje fue recibido por el proceso "+messageTmp.getDestinyID());
         
         //desbloqueo de producer
         if(messageTmp.getSource().getProducer().getSynchronizationType() == SynchronizationType.BLOCKING){
-            messageTmp.getSource().getProducer().notify();
+            messageTmp.getSource().getProducer().freeProducer();
         }
+        System.out.println(messageTmp.getContent());
         allowReceive = false;
     }
     
@@ -81,6 +80,7 @@ public class Receiver extends Thread implements IReceiver{
         return messageTmp;
     }
     
+    /*
     @Override
     public synchronized void getProducerMessage() throws InterruptedException{
         Message message = producer.getMessage(this);
@@ -103,6 +103,7 @@ public class Receiver extends Thread implements IReceiver{
         if(waitReceive)
             allowReceive = false; //para esperar comando de receive()
     }
+    */
     
     @Override
     public synchronized void receiveMessage(){
@@ -121,7 +122,7 @@ public class Receiver extends Thread implements IReceiver{
     }
 
     @Override
-    public void setAllowReceive(boolean allowReceive) {
+    public synchronized void setAllowReceive(boolean allowReceive) {
         this.allowReceive = allowReceive;
         //System.out.println(producer.getSynchronizationType());
         if(synchronizationType == SynchronizationType.BLOCKING){

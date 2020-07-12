@@ -61,7 +61,8 @@ public class Mailbox implements IProducer{
             }
         }
     }
-
+    
+    /*
     @Override
     public Message getMessage(IReceiver receiver) throws InterruptedException {
         //aqui habria que poner el sendMessage del producer correspondiente
@@ -84,7 +85,7 @@ public class Mailbox implements IProducer{
         }
         return null;
     }
-
+    */
     
     @Override
     public void sendMessage() {
@@ -132,8 +133,8 @@ public class Mailbox implements IProducer{
     }
 
     @Override
-    public void setReceiver(IReceiver receiver) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void freeProducer() {
+        notify();
     }
     
     

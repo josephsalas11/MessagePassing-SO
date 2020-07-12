@@ -10,7 +10,7 @@ package Model;
  * @author Paulo
  */
 public interface IReceiver{
-    void getProducerMessage() throws InterruptedException;
+    //void getProducerMessage() throws InterruptedException;
     void receiveMessage();
     SynchronizationType getSynchronizationType();
     void start();

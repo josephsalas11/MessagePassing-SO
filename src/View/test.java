@@ -19,8 +19,8 @@ import static java.lang.Thread.sleep;
 public class test{
     public static void main(String [] args) throws InterruptedException
 	{   
-            Process p1 = new Process(1, SynchronizationType.NONBLOCKING, QueueType.FIFO, 5, SynchronizationType.NONBLOCKING);
-            Process p2 = new Process(2, SynchronizationType.NONBLOCKING, QueueType.FIFO, 5, SynchronizationType.NONBLOCKING);
+            Process p1 = new Process(1, SynchronizationType.BLOCKING, QueueType.FIFO, 5, SynchronizationType.BLOCKING);
+            Process p2 = new Process(2, SynchronizationType.BLOCKING, QueueType.FIFO, 5, SynchronizationType.BLOCKING);
             p1.setWaitReceive(false);
             p2.setWaitReceive(false);
             
@@ -55,7 +55,7 @@ public class test{
             p1.send(p2, m3);
             sleep(3000);
             
-            p2.receive(p1);
+            p2.receive();
             //p3.receive(p1); 
             sleep(3000);
 

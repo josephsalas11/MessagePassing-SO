@@ -11,9 +11,9 @@ package Model;
  */
 public interface IProducer {
     void putMessage() throws InterruptedException;
-    Message getMessage(IReceiver receiver) throws InterruptedException;
+    //Message getMessage(IReceiver receiver) throws InterruptedException;
     void sendMessage();
     boolean addMessage(Message message);
     SynchronizationType getSynchronizationType();
-    void setReceiver(IReceiver receiver);
+    void freeProducer();
 }

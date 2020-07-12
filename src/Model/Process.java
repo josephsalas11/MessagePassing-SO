@@ -85,10 +85,10 @@ public class Process {
        //recibir mensaje
        if(CommandTokenizer.getInstance().indirect == false)
         {
-           receiver.setProducer(source.getProducer());
+           //receiver.setProducer(source.getProducer());
         }
         receiver.setCurrentId(source.getId());
-        receiver.setAllowReceive(true);         
+        receiver.setAllowReceive(true);
         Log.getInstance().addLog(id, "El proceso "+id+" ha enviado el comando para recibir un mensaje del proceso "+source.id);
     }
     

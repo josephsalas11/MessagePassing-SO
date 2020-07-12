@@ -78,9 +78,9 @@ public class FIFOQueue implements IMessageQueue{
     @Override
     public Message getMessage(int sourceId) {
         Message message = null;
-        System.out.println(queue.size());
+        //System.out.println(queue.size());
         for(Message m:queue){
-            System.out.println(m.getContent());
+            //System.out.println(m.getContent());
             if(m.getSourceID() == sourceId){
                 message = m;
                 queue.remove(m);
