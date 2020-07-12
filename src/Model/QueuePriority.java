@@ -77,7 +77,7 @@ public class QueuePriority implements IMessageQueue{
     }
     
     @Override
-    public Message getMessage(int sourceId) {
+    public Message getMessageProducer(int sourceId) {
         Message message = null;
         for(Message m:priorityQueue){
             if(m.getSourceID() == sourceId){
@@ -89,4 +89,16 @@ public class QueuePriority implements IMessageQueue{
         return message;
     }
     
+    @Override
+    public Message getMessageReceiver(int destinyId) {
+        Message message = null;
+        for(Message m:priorityQueue){
+            if(m.getDestinyID() == destinyId){
+                message = m;
+                priorityQueue.remove(m);
+                break;
+            }
+        }
+        return message;
+    }
 }

@@ -133,7 +133,7 @@ public class Producer extends Thread implements IProducer{
     */
 
     @Override
-    public void sendMessage() {
+    public synchronized void sendMessage() {
         if(synchronizationType == SynchronizationType.BLOCKING){
             notify();
         }

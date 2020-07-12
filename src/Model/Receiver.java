@@ -15,6 +15,7 @@ public class Receiver extends Thread implements IReceiver{
     private IProducer producer;
     private SynchronizationType synchronizationType;
     private boolean allowReceive = false;
+    private Mailbox currentMailbox = null;
     private boolean waitReceive = true; //creo que se va por nuevas condiciones
     
     private IMessageQueue messageQueue;
@@ -40,12 +41,14 @@ public class Receiver extends Thread implements IReceiver{
                     wait();
                 }
                 if(allowReceive){
-                    messageQueue.getSize();
                     //if(messageQueue.isQueueEmpty()){
                     //    sleep(1000);
                     //}
                     //else{
-                    retreiveMessage(); 
+                    if(currentMailbox != null)
+                        retreiveMessageMailbox();
+                    else
+                        retreiveMessage(); 
                     //}     
                 }
             }
@@ -67,13 +70,21 @@ public class Receiver extends Thread implements IReceiver{
         allowReceive = false;
     }
     
+    public void retreiveMessageMailbox(){
+        Message messsageTmp = currentMailbox.retreiveMessage(this);
+        if(messsageTmp != null){
+            System.out.println(messsageTmp.getContent()+" :)");
+            //AQUI HACER LOG
+        }
+    }
+    
     private Message searchMessage(){
         Message messageTmp = null;
         if(currentId == -1){//para ver si es implicito o explicito
             messageTmp = messageQueue.poll();
         }
         else{
-            messageTmp = messageQueue.getMessage(currentId);
+            messageTmp = messageQueue.getMessageProducer(currentId);
         }
         currentId = -1; //para volver a estado anterior
         //notify();
@@ -162,5 +173,16 @@ public class Receiver extends Thread implements IReceiver{
     public void setCurrentId(int id) {
         currentId = id;
     }
+
+    public Mailbox getCurrentMailbox() {
+        return currentMailbox;
+    }
+
+    @Override
+    public void setCurrentMailbox(Mailbox currentMailbox) {
+        this.currentMailbox = currentMailbox;
+    }
+    
+    
     
 }

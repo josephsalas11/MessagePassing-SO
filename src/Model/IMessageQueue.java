@@ -21,5 +21,6 @@ public interface IMessageQueue {
     Message getMessage();
     void remove(Message message);
     Message poll();
-    Message getMessage(int sourceId);
+    Message getMessageProducer(int sourceId);
+    Message getMessageReceiver(int destinyId);
 }

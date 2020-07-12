@@ -21,4 +21,5 @@ public interface IReceiver{
     IProducer getProducer();
     boolean addMessage(Message message);
     void setCurrentId(int id);
+    void setCurrentMailbox(Mailbox currentMailbox);
 }
