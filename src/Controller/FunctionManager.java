@@ -27,25 +27,50 @@ public class FunctionManager {
     }
     
     
-    public void createExplicitProcess(int processCounter,SynchronizationType STP,QueueType queueType, int queueSizeType, SynchronizationType STR, int ID_SP)
-    {
-        //System.out.println(ID_SP);
-        processList.put(processCounter, new Process(processCounter, STP, queueType, queueSizeType, STR));
 
-    }
-    
-    public void createImplicitProcess(int processCounter,SynchronizationType STP,QueueType queueType, int queueSizeType, SynchronizationType STR)
+    public void createDirectProcess(int processCounter,SynchronizationType STP,QueueType queueType, int queueSizeType, SynchronizationType STR)
     {
          processList.put(processCounter, new Process(processCounter, STP,
                 queueType, queueSizeType,STR));
     }
     
-    public void createIndirectProcess(int processCounter,SynchronizationType STP,QueueType queueType, int queueSizeType, SynchronizationType STR, int ID_MB)
+    /*public void createIndirectProcess(int processCounter,SynchronizationType STP,QueueType queueType, int queueSizeType, SynchronizationType STR, int ID_MB)
     {
         Mailbox mailbox = mailboxList.get(ID_MB);
         processList.put(processCounter, new Process(processCounter, STP,
                 queueType, queueSizeType,STR, mailbox));
     }
+    */
+    
+    
+        public void createStaticProcess(int processCounter,SynchronizationType STP,QueueType queueType, int queueSizeType, SynchronizationType STR)
+    {
+        createMailbox(mailboxList.size()+1,queueSizeType,queueType);
+        processList.put(processCounter, new Process(processCounter, STP,
+                queueType, queueSizeType,STR));
+        addReceiverMailbox(mailboxList.size()+1,processCounter);
+    }
+    
+        
+        
+        public void createDynamicProcess(int processCounter,SynchronizationType STP,QueueType queueType, int queueSizeType, SynchronizationType STR)
+    {
+        //createMailbox(mailboxList.size()+1,queueSizeType,queueType);
+        processList.put(processCounter, new Process(processCounter, STP,
+                queueType, queueSizeType,STR));
+    }
+    
+    public void resetSystem()
+    {
+        for (int i = 1; i <= processList.size(); i++) {
+            processList.get(i).stopProcess();    
+        }
+        processList.clear();
+        mailboxList.clear();
+    }
+    
+    
+    
     
     public boolean sendDirectProcess(int idSourceProcess, int idDestinationProcess, MessageType messageType, int messageLength, String messageContent, int priority)
     { 
@@ -109,12 +134,22 @@ public boolean sendIndirectProcess(int idSourceProcess, int idDestinationProcess
     } 
     
     public void addReceiverMailbox(int mailboxId,int receiverId)
-    {
-        
+    {   
         Mailbox mailbox = mailboxList.get(mailboxId);
         Process receiver = processList.get(receiverId);
         mailbox.addReceiver(receiver);
     }
+    
+    
+        
+    public void addProducerMailbox(int mailboxId,int producerId)
+    {   
+        //Añadir excepción si no encuentra el producer o sino encuentra el mailbox
+        Mailbox mailbox = mailboxList.get(mailboxId);
+        Process producer = processList.get(producerId);
+        mailbox.addProducer(producer);
+    }
+    
     
     public Process display(int processID)
     {
@@ -128,7 +163,18 @@ public boolean sendIndirectProcess(int idSourceProcess, int idDestinationProcess
 
     public void setProcessList(Hashtable<Integer, Process> processList) {
         this.processList = processList;
+        
     }
+
+    public Hashtable<Integer, Mailbox> getMailboxList() {
+        return mailboxList;
+    }
+
+    public void setMailboxList(Hashtable<Integer, Mailbox> mailboxList) {
+        this.mailboxList = mailboxList;
+    }
+    
+    
     
     
 }

@@ -14,6 +14,7 @@ public interface IReceiver{
     void receiveMessage();
     SynchronizationType getSynchronizationType();
     void start();
+    void stop();
    
     void setAllowReceive(boolean allowReceive);
     void setWaitReceive(boolean waitReceive);

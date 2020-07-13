@@ -46,7 +46,7 @@ public class CreateProcessCommand implements ICommand{
         if(process != null)
             hash.put((Integer)params.get(1), process);*/
         MainPage mainPage = (MainPage)params.get(0);
-        mainPage.createProcess(idAux);
+        mainPage.createProcess();
     }
 
     @Override

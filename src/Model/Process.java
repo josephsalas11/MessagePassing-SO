@@ -34,7 +34,7 @@ public class Process {
     }
     
     //para direccionamiento indirecto
-    public Process(int id, SynchronizationType synchronizationTypeProducer, QueueType queueType, int queueSize, SynchronizationType synchronizationTypeReceiver, IProducer mailbox){
+    /*public Process(int id, SynchronizationType synchronizationTypeProducer, QueueType queueType, int queueSize, SynchronizationType synchronizationTypeReceiver, IProducer mailbox){
         this.id = id;
         this.producer = new Producer(synchronizationTypeProducer, queueType, queueSize);
         this.receiver = new Receiver(mailbox, synchronizationTypeReceiver, queueType, queueSize);
@@ -45,6 +45,7 @@ public class Process {
         producer.start();
         receiver.start();
     }
+*/
     
     public Message createMessage(Process destination, String messageContent, MessageType messageType, int messageLength){
         Message message = new Message(messageType, destination.id, id, messageLength, messageContent);
@@ -100,6 +101,12 @@ public class Process {
         receiver.setCurrentMailbox(mailbox);
         receiver.setAllowReceive(true);
         //LOG de peticion
+    }
+    
+    public void stopProcess()
+    {
+        producer.stop();
+        receiver.stop();
     }
     
 

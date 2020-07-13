@@ -58,6 +58,7 @@ public class MainPage extends javax.swing.JFrame {
     private int mailboxCounter = 1;
     private File file;
     private ArrayList<String> commands;
+    private boolean resetConfig = false; //Bandera para reiniciar la configuración
     
     
     /**
@@ -120,7 +121,7 @@ public class MainPage extends javax.swing.JFrame {
         log_Help = new javax.swing.JLabel();
         consola_Info = new javax.swing.JLabel();
         buttons_Info = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        resetBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Message Passing");
@@ -202,9 +203,9 @@ public class MainPage extends javax.swing.JFrame {
 
         processSlider.setMajorTickSpacing(15);
         processSlider.setMaximum(15);
+        processSlider.setMinimum(1);
         processSlider.setMinorTickSpacing(1);
         processSlider.setPaintTicks(true);
-        processSlider.setValue(0);
 
         startButton.setText("Start Simulation");
         startButton.addActionListener(new java.awt.event.ActionListener() {
@@ -318,10 +319,10 @@ public class MainPage extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Reset");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        resetBtn.setText("Reset");
+        resetBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                resetBtnActionPerformed(evt);
             }
         });
 
@@ -405,7 +406,7 @@ public class MainPage extends javax.swing.JFrame {
                     .addGroup(panelOpcionesLayout.createSequentialGroup()
                         .addComponent(startButton)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton1)
+                        .addComponent(resetBtn)
                         .addGap(21, 21, 21)
                         .addComponent(commandFileBtn)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -494,7 +495,7 @@ public class MainPage extends javax.swing.JFrame {
                         .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(startButton)
                             .addComponent(commandFileBtn)
-                            .addComponent(jButton1)))
+                            .addComponent(resetBtn)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelOpcionesLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttons_Info, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -559,15 +560,6 @@ public class MainPage extends javax.swing.JFrame {
 
     private void startButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startButtonActionPerformed
 
-       
-        if(sync_SendCombo.getSelectedItem().toString() == "BLOCKING" 
-                & sync_ReceiveCombo.getSelectedItem().toString() == "NONBLOCKING")
-        {
-            JOptionPane.showMessageDialog(null, "La sincronización no puede recibir los parámetros indicados"
-                    , "Error", JOptionPane.ERROR_MESSAGE);
-        }
-        else
-        {
             direc_receiveCombo.disable();
             direc_indirecCombo.disable();
             direc_indirectRadio.disable();
@@ -585,13 +577,13 @@ public class MainPage extends javax.swing.JFrame {
             if(direc_direcRadio.isSelected())
             {
                 direccionamientoDirecto = true;
-                direccionamientoIndirecto = false;
             }
+
             else if(direc_indirectRadio.isSelected())
             {
-                direccionamientoIndirecto = true;
                 direccionamientoDirecto = false;
             }
+             
             direc_receiveType = direc_receiveCombo.getSelectedItem().toString();
             direc_indirecType = direc_indirecCombo.getSelectedItem().toString();
             formatType = formatCombo.getSelectedItem().toString();
@@ -599,7 +591,6 @@ public class MainPage extends javax.swing.JFrame {
             queueHandle  = queueCombo.getSelectedItem().toString();
             numProcess = processSlider.getValue();
             queueSizeType = Integer.parseInt(queueSize.getText());
-        }
         if(sync_SendCombo.getSelectedItem().toString() ==  "BLOCKING")
         {
             synchronizationTypeProducer = SynchronizationType.BLOCKING;
@@ -623,7 +614,9 @@ public class MainPage extends javax.swing.JFrame {
         {
             queueType = QueueType.PRIORITY;
         }
-       
+        
+        createProcesses(numProcess);
+
     }//GEN-LAST:event_startButtonActionPerformed
 
     private void sync_SendComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sync_SendComboActionPerformed
@@ -744,9 +737,29 @@ public class MainPage extends javax.swing.JFrame {
                     , "Informacion de sincronización", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_log_HelpMouseClicked
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void resetBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetBtnActionPerformed
+      
+        direc_receiveCombo.enable();
+        direc_indirecCombo.enable();
+        direc_indirectRadio.enable();
+        direc_direcRadio.enable();
+        sync_SendCombo.enable();
+        sync_ReceiveCombo.enable();
+        formatCombo.enable();
+        formatField.enable();
+        queueCombo.enable();
+        processSlider.enable();
+        queueSize.enable();
+        formatField.setText("");
+        queueSize.setText("");
+        processSlider.setValue(1);
+        direc_direcRadio.setSelected(false);
+        direc_indirectRadio.setSelected(false);
+        functionManager.resetSystem();
+        System.out.println(functionManager.getProcessList().size());
+        System.out.println(functionManager.getMailboxList().size());
+        
+    }//GEN-LAST:event_resetBtnActionPerformed
 
     
     /**
@@ -804,7 +817,6 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> formatCombo;
     private javax.swing.JTextField formatField;
     private javax.swing.JLabel formatoMsj_Info;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -825,6 +837,7 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JSlider processSlider;
     private javax.swing.JComboBox<String> queueCombo;
     private javax.swing.JTextField queueSize;
+    private javax.swing.JButton resetBtn;
     private javax.swing.JLabel size_ColaInfo;
     private javax.swing.JButton startButton;
     private javax.swing.JLabel syn_Info;
@@ -832,35 +845,27 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> sync_SendCombo;
     // End of variables declaration//GEN-END:variables
 
-    public void createProcess(int idAux){
-        if(createdProcess < numProcess)
-            {
+    public void createProcess(){
                 if(direc_direcRadio.isSelected())
                 {
-                    if(direc_receiveCombo.getSelectedItem().toString()== "Explícito")
-                    {
-                        functionManager.createExplicitProcess(processCounter, synchronizationTypeProducer, queueType, queueSizeType, synchronizationTypeReceiver, 
-                                idAux);
-                    }else{
-                        functionManager.createImplicitProcess(processCounter, synchronizationTypeProducer, queueType, queueSizeType, synchronizationTypeReceiver);
-
-                    }
+                    functionManager.createDirectProcess(processCounter, synchronizationTypeProducer, queueType, queueSizeType, 
+                                synchronizationTypeReceiver);
+  
                 }
                 else if(direc_indirectRadio.isSelected())
                 {
                     CommandTokenizer.getInstance().indirect = true;
                     if(direc_receiveCombo.getSelectedItem().toString()== "Estático")
                     {
-                        functionManager.createIndirectProcess(processCounter, synchronizationTypeProducer, queueType, queueSizeType, synchronizationTypeReceiver, idAux);
+                        functionManager.createStaticProcess(processCounter, synchronizationTypeProducer, queueType, queueSizeType, synchronizationTypeReceiver);
                     }else
                     {
-                        functionManager.createIndirectProcess(processCounter, synchronizationTypeProducer, queueType, queueSizeType, synchronizationTypeReceiver, idAux);
+                        System.out.println("Proceso Dinamico");
+                        functionManager.createDynamicProcess(processCounter, synchronizationTypeProducer, queueType, queueSizeType, synchronizationTypeReceiver);
                     }
                 }
                 processCounter++;
                 createdProcess++; 
-            }else{JOptionPane.showMessageDialog(null, "Ha llegado al límite de procesos establecidos"
-                        , "Error", JOptionPane.ERROR_MESSAGE);}
     }
     
     
@@ -946,4 +951,12 @@ public class MainPage extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, logs
                         , "Logs del proceso " + sourceId, JOptionPane.INFORMATION_MESSAGE);
         }
+        
+        public void createProcesses(int numProc)
+        {
+            for (int i = 0; i < numProc; i++) {
+                createProcess();
+            }
+        }
+        
 }
