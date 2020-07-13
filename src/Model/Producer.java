@@ -93,13 +93,18 @@ public class Producer extends Thread implements IProducer{
                     sleep(1000);
                 }
                 else{
-                    System.out.println(":(");
                     sentFlag = true;
                 }
             }
         }
     }
     
+    @Override
+    public synchronized void freeProducer(){
+        notify();
+    }
+    
+    /*
     @Override
     public synchronized Message getMessage(IReceiver receiver) throws InterruptedException{
         this.receiver = receiver;
@@ -125,10 +130,10 @@ public class Producer extends Thread implements IProducer{
         System.out.println("aqui");
         return message;
     }
-
+    */
 
     @Override
-    public void sendMessage() {
+    public synchronized void sendMessage() {
         if(synchronizationType == SynchronizationType.BLOCKING){
             notify();
         }
@@ -146,11 +151,6 @@ public class Producer extends Thread implements IProducer{
     @Override
     public SynchronizationType getSynchronizationType() {
         return synchronizationType;
-    }
-
-    @Override
-    public void setReceiver(IReceiver receiver) {
-        this.receiver = receiver;
     }
     
 }

@@ -15,6 +15,7 @@ public class Receiver extends Thread implements IReceiver{
     private IProducer producer;
     private SynchronizationType synchronizationType;
     private boolean allowReceive = false;
+    private Mailbox currentMailbox = null;
     private boolean waitReceive = true; //creo que se va por nuevas condiciones
     
     private IMessageQueue messageQueue;
@@ -32,20 +33,21 @@ public class Receiver extends Thread implements IReceiver{
     }
     
     @Override
-    public void run(){
+    public synchronized void run(){
         try {
             while(true){
+                sleep(100);
                 if(synchronizationType == SynchronizationType.BLOCKING){
                     wait();
                 }
                 if(allowReceive){
-                    //System.out.println("asdasdasda");
-                    messageQueue.getSize();
                     //if(messageQueue.isQueueEmpty()){
                     //    sleep(1000);
                     //}
                     //else{
-                        System.out.println("sadasd");
+                    if(currentMailbox != null)
+                        retreiveMessageMailbox();
+                    else
                         retreiveMessage(); 
                     //}     
                 }
@@ -56,16 +58,24 @@ public class Receiver extends Thread implements IReceiver{
     
     public void retreiveMessage(){
         Message messageTmp = searchMessage();
-        System.out.println(messageTmp.getContent()); //eliminar
         
         //se hace Log
         System.out.println("El mensaje fue recibido por el proceso "+messageTmp.getDestinyID());
         
         //desbloqueo de producer
-        if(messageTmp.getSource().getProducer().getSynchronizationType() == SynchronizationType.BLOCKING){
-            messageTmp.getSource().getProducer().notify();
+        if(messageTmp.getSource().getProducer().getSynchronizationType() == SynchronizationType.BLOCKING){ //si producer es blocking
+            messageTmp.getSource().getProducer().freeProducer(); //se desbloquea
         }
+        System.out.println(messageTmp.getContent());
         allowReceive = false;
+    }
+    
+    public void retreiveMessageMailbox(){
+        Message messsageTmp = currentMailbox.retreiveMessage(this);
+        if(messsageTmp != null){
+            System.out.println(messsageTmp.getContent()+" :)");
+            //AQUI HACER LOG
+        }
     }
     
     private Message searchMessage(){
@@ -74,13 +84,14 @@ public class Receiver extends Thread implements IReceiver{
             messageTmp = messageQueue.poll();
         }
         else{
-            messageTmp = messageQueue.getMessage(currentId);
+            messageTmp = messageQueue.getMessageProducer(currentId);
         }
         currentId = -1; //para volver a estado anterior
         //notify();
         return messageTmp;
     }
     
+    /*
     @Override
     public synchronized void getProducerMessage() throws InterruptedException{
         Message message = producer.getMessage(this);
@@ -103,6 +114,7 @@ public class Receiver extends Thread implements IReceiver{
         if(waitReceive)
             allowReceive = false; //para esperar comando de receive()
     }
+    */
     
     @Override
     public synchronized void receiveMessage(){
@@ -121,7 +133,7 @@ public class Receiver extends Thread implements IReceiver{
     }
 
     @Override
-    public void setAllowReceive(boolean allowReceive) {
+    public synchronized void setAllowReceive(boolean allowReceive) {
         this.allowReceive = allowReceive;
         //System.out.println(producer.getSynchronizationType());
         if(synchronizationType == SynchronizationType.BLOCKING){
@@ -161,5 +173,16 @@ public class Receiver extends Thread implements IReceiver{
     public void setCurrentId(int id) {
         currentId = id;
     }
+
+    public Mailbox getCurrentMailbox() {
+        return currentMailbox;
+    }
+
+    @Override
+    public void setCurrentMailbox(Mailbox currentMailbox) {
+        this.currentMailbox = currentMailbox;
+    }
+    
+    
     
 }

@@ -76,11 +76,11 @@ public class FIFOQueue implements IMessageQueue{
     }
 
     @Override
-    public Message getMessage(int sourceId) {
+    public Message getMessageProducer(int sourceId) {
         Message message = null;
-        System.out.println(queue.size());
+        //System.out.println(queue.size());
         for(Message m:queue){
-            System.out.println(m.getContent());
+            //System.out.println(m.getContent());
             if(m.getSourceID() == sourceId){
                 message = m;
                 queue.remove(m);
@@ -90,5 +90,18 @@ public class FIFOQueue implements IMessageQueue{
         return message;
     }
     
-    
+    @Override
+    public Message getMessageReceiver(int destinyId) {
+        Message message = null;
+        //System.out.println(queue.size());
+        for(Message m:queue){
+            //System.out.println(m.getContent());
+            if(m.getDestinyID() == destinyId){
+                message = m;
+                queue.remove(m);
+                break;
+            }
+        }
+        return message;
+    }
 }

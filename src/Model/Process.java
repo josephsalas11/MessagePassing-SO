@@ -56,9 +56,9 @@ public class Process {
         return message;
     }
     
+    //directo
     public void send(Process destination, Message message){
-        //producer.setReceiver(destination.getReceiver());
-        //destination.setProducer(producer); //cambiar
+        
         if(producer.addMessage(message) == false){
             System.out.println("No se pudo ingresar el mensaje porque la cola esta llena");
         }
@@ -66,8 +66,11 @@ public class Process {
         Log.getInstance().addLog(id, "El proceso "+id+" ha enviado el comando para enviar un mensaje al proceso "+destination.id);
     }
     
+    //indirecto dinamico
     public void sendMailbox(Mailbox mailbox, Message message) throws InterruptedException{
-        mailbox.addMessage(message);
+        if(mailbox.addMessage(message) == false){
+            System.out.println("No se pudo ingresar el mensaje porque la cola esta llena");
+        }
         //LOG
         Log.getInstance().addLog(id, "El proceso "+message.getSourceID()+" ha enviado el comando para enviar un mensaje al proceso "+message.getDestinyID()+ " a través del mailbox "+mailbox.getId());
         //mailbox.putMessage();
@@ -85,11 +88,18 @@ public class Process {
        //recibir mensaje
        if(CommandTokenizer.getInstance().indirect == false)
         {
-           receiver.setProducer(source.getProducer());
+           //receiver.setProducer(source.getProducer());
         }
         receiver.setCurrentId(source.getId());
-        receiver.setAllowReceive(true);         
+        receiver.setAllowReceive(true);
         Log.getInstance().addLog(id, "El proceso "+id+" ha enviado el comando para recibir un mensaje del proceso "+source.id);
+    }
+    
+    //indirecto
+    public void receiveMailbox(Mailbox mailbox){
+        receiver.setCurrentMailbox(mailbox);
+        receiver.setAllowReceive(true);
+        //LOG de peticion
     }
     
 

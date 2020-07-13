@@ -38,7 +38,7 @@ public class Mailbox implements IProducer{
     //PRODUCER
 
     @Override
-    public synchronized void putMessage() throws InterruptedException {
+    public void putMessage() throws InterruptedException {
         /*while(messageQueue.getQueue().size() == messageQueue.getSize()){
             wait();
         }
@@ -61,7 +61,8 @@ public class Mailbox implements IProducer{
             }
         }
     }
-
+    
+    /*
     @Override
     public Message getMessage(IReceiver receiver) throws InterruptedException {
         //aqui habria que poner el sendMessage del producer correspondiente
@@ -84,17 +85,48 @@ public class Mailbox implements IProducer{
         }
         return null;
     }
-
+    */
     
     @Override
     public void sendMessage() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
+    public Message retreiveMessage(IReceiver receiver){
+        Message messageTmp = null;
+        if(isReceiverAllowed(receiver)){
+            messageTmp = messageQueue.poll();
+        }
+        else{
+            System.out.println("El proceso no tiene permitido acceder a este meilbox");
+        }
+        
+        if(messageTmp != null){
+            //desbloqueo de producer
+            if(messageTmp.getSource().getProducer().getSynchronizationType() == SynchronizationType.BLOCKING){
+                messageTmp.getSource().getProducer().freeProducer();
+            }
+            System.out.println(messageTmp.getContent());
+        }
+        else{
+            System.out.println("La cola de mensaje está vacia");
+        }
+        return messageTmp;
+    }
+    
+    //no usar?
+    private Message searchMessage(int receiverId){
+        Message messageTmp = messageQueue.getMessageReceiver(receiverId);
+        return messageTmp;
+    }
+    
     //MAILBOX
     
     public void addProducer(Process producer){
         producers.add(producer.getProducer());
+        
+        //LOG
+        Log.getInstance().addLog(producer.getId(), "El proceso "+producer.getId()+" ha sido agregado a la lista del mailbox "+id);
     }
     
     public void addReceiver(Process receiver){
@@ -121,6 +153,15 @@ public class Mailbox implements IProducer{
         }
         return false;
     }
+    
+    public boolean isProducerAllowed(IProducer producer){
+        for(int i=0; i<producers.size(); i++){
+            if(producers.get(i).equals(producer)){
+                return true;
+            }
+        }
+        return false;
+    }
 
     public int getId() {
         return id;
@@ -132,8 +173,8 @@ public class Mailbox implements IProducer{
     }
 
     @Override
-    public void setReceiver(IReceiver receiver) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public synchronized void freeProducer() {
+        notify();
     }
     
     

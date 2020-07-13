@@ -10,7 +10,7 @@ package Model;
  * @author Paulo
  */
 public interface IReceiver{
-    void getProducerMessage() throws InterruptedException;
+    //void getProducerMessage() throws InterruptedException;
     void receiveMessage();
     SynchronizationType getSynchronizationType();
     void start();
@@ -21,4 +21,5 @@ public interface IReceiver{
     IProducer getProducer();
     boolean addMessage(Message message);
     void setCurrentId(int id);
+    void setCurrentMailbox(Mailbox currentMailbox);
 }
