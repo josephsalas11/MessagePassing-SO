@@ -47,36 +47,53 @@ public class FunctionManager {
                 queueType, queueSizeType,STR, mailbox));
     }
     
-    public void sendDirectProcess(int idSourceProcess, int idDestinationProcess, MessageType messageType, int messageLength, String messageContent, int priority)
-    {
+    public boolean sendDirectProcess(int idSourceProcess, int idDestinationProcess, MessageType messageType, int messageLength, String messageContent, int priority)
+    { 
         Process source = processList.get(idSourceProcess);
         Process destination = processList.get(idDestinationProcess);
-        Message message = null;
         
-        if(priority != -1)
-            message = source.createMessage(destination, messageContent, messageType, messageLength);
-        else
-            message = source.createMessagePriority(destination, messageContent, messageType, messageLength, priority);
+        //validacion para determinar que el producer y el receiver existan en el controlador
+        if(source == null || destination == null){
+            System.out.println("Operacion invalida"); //hacer log de error
+            return false;
+        }
         
-        source.send(destination, message);
+        else{
+            Message message = null;
         
+            if(priority != -1)
+                message = source.createMessage(destination, messageContent, messageType, messageLength);
+            else
+                message = source.createMessagePriority(destination, messageContent, messageType, messageLength, priority);
+
+            source.send(destination, message);
+            return true;
+        }
     }
     
-public void sendIndirectProcess(int idSourceProcess, int idDestinationProcess, MessageType messageType, int messageLength, String messageContent, int priority) throws InterruptedException
-    {
+public boolean sendIndirectProcess(int idSourceProcess, int idDestinationProcess, MessageType messageType, int messageLength, String messageContent, int priority) throws InterruptedException
+    {        
         Process source = processList.get(idSourceProcess);
         Process destination = processList.get(idDestinationProcess);
         Mailbox mailbox = mailboxList.get(idDestinationProcess);
+        
+        //validacion para determinar que el producer, el receiver y el mailbox existan en el controlador
+        if(source == null || destination == null || mailbox == null){
+            System.out.println("Operacion invalida"); //hacer log de error
+            return false;
+        }
+        
+        else{
+            Message message = null;
+        
+            if(priority != -1)
+                message = source.createMessage(destination, messageContent, messageType, messageLength);
+            else
+                message = source.createMessagePriority(destination, messageContent, messageType, messageLength, priority);
 
-        Message message = null;
-        
-        if(priority != -1)
-            message = source.createMessage(destination, messageContent, messageType, messageLength);
-        else
-            message = source.createMessagePriority(destination, messageContent, messageType, messageLength, priority);
-        
-        source.sendMailbox(mailbox, message);
-        
+            source.sendMailbox(mailbox, message);
+            return true;
+        } 
     }
     
     public void receiveMessage(int idSourceProcess, int idDestinationProcess)

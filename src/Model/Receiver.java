@@ -63,8 +63,8 @@ public class Receiver extends Thread implements IReceiver{
         System.out.println("El mensaje fue recibido por el proceso "+messageTmp.getDestinyID());
         
         //desbloqueo de producer
-        if(messageTmp.getSource().getProducer().getSynchronizationType() == SynchronizationType.BLOCKING){
-            messageTmp.getSource().getProducer().freeProducer();
+        if(messageTmp.getSource().getProducer().getSynchronizationType() == SynchronizationType.BLOCKING){ //si producer es blocking
+            messageTmp.getSource().getProducer().freeProducer(); //se desbloquea
         }
         System.out.println(messageTmp.getContent());
         allowReceive = false;

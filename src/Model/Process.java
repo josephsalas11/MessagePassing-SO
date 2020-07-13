@@ -58,8 +58,7 @@ public class Process {
     
     //directo
     public void send(Process destination, Message message){
-        //producer.setReceiver(destination.getReceiver());
-        //destination.setProducer(producer); //cambiar
+        
         if(producer.addMessage(message) == false){
             System.out.println("No se pudo ingresar el mensaje porque la cola esta llena");
         }

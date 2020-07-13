@@ -47,7 +47,7 @@ public class test{
             
             //CON MAILBOX
             
-            Process p1 = new Process(1, SynchronizationType.NONBLOCKING, QueueType.PRIORITY, 5, SynchronizationType.BLOCKING);
+            Process p1 = new Process(1, SynchronizationType.BLOCKING, QueueType.PRIORITY, 5, SynchronizationType.BLOCKING);
             Mailbox mailbox = new Mailbox(1, 5, QueueType.PRIORITY);
             Process p2 = new Process(2, SynchronizationType.BLOCKING, QueueType.PRIORITY, 5, SynchronizationType.BLOCKING, mailbox);
             Process p3 = new Process(3, SynchronizationType.BLOCKING, QueueType.PRIORITY, 5, SynchronizationType.BLOCKING, mailbox);
