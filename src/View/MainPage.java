@@ -855,7 +855,6 @@ public class MainPage extends javax.swing.JFrame {
                 else if(direc_indirectRadio.isSelected())
                 {
                     CommandTokenizer.getInstance().indirect = true;
-                    System.out.println(direc_receiveCombo.getSelectedItem().toString());
                     if(direc_indirecCombo.getSelectedItem().toString()== "Estático")
                     {
                         functionManager.createStaticProcess(processCounter, synchronizationTypeProducer, queueType, queueSizeType, synchronizationTypeReceiver);
@@ -903,8 +902,16 @@ public class MainPage extends javax.swing.JFrame {
         
         public void receiveMessage(int destinyID,int sourceID)
         {
-            if(direc_direcRadio.isSelected())
-                functionManager.receiveMessage(sourceID,destinyID);
+            if(direc_direcRadio.isSelected()) 
+            {    
+                if(direc_receiveType == "Explícito")
+                {functionManager.receiveMessage(sourceID,destinyID);}
+                else
+                {
+                 functionManager.receiveImplicitMessage(destinyID);
+                } 
+                
+            }     
             else if(direc_indirectRadio.isSelected())
                 functionManager.receiveIndirectMessage(sourceID,destinyID);
 
@@ -962,6 +969,14 @@ public class MainPage extends javax.swing.JFrame {
             for (int i = 0; i < numProc; i++) {
                 createProcess();
             }
+            String logs = "";
+            for (int i = 0; i < Log.getInstance().getLogs().size(); i++) 
+            {
+                LogMessage lm;
+                logs += Log.getInstance().getLogs().get(i).getDetail()+ "\n";
+                
+            }
+            eventLogArea.setText(logs);
         }
         
 }

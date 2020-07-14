@@ -128,6 +128,12 @@ public boolean sendIndirectProcess(int idSourceProcess, int idDestinationProcess
         destination.receive(source);
     }
     
+    public void receiveImplicitMessage(int idDestinationProcess)
+    {
+        Process destination = processList.get(idDestinationProcess);
+        destination.receive();
+    }
+    
     public void receiveIndirectMessage(int mailboxId, int idDestinationProcess)
     {
         Mailbox mailbox = mailboxList.get(mailboxId);

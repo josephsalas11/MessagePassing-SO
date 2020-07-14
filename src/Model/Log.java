@@ -6,6 +6,7 @@
 package Model;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -16,6 +17,7 @@ import java.util.Date;
 public class Log {
     private ArrayList<LogMessage> logs;
     private static Log singleton = null;
+    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
 
     private Log() {
         logs = new ArrayList<>();
@@ -29,9 +31,10 @@ public class Log {
     }
     
     public void addLog(int associatedId, String detail, boolean isProcess){ 
-        LocalDateTime now = LocalDateTime.now();  
         
-        LogMessage logMessage = new LogMessage(associatedId, detail, now, isProcess);
+        LocalDateTime now = LocalDateTime.now();  
+        String finalDetail = dtf.format(now)+": "+detail;
+        LogMessage logMessage = new LogMessage(associatedId, finalDetail, now, isProcess);
         logs.add(logMessage);
         System.out.println(detail);
     }

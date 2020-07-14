@@ -42,9 +42,9 @@ public class CommandTokenizer {
                 outputCommand = new SendMessageCommand(Integer.parseInt(tokens[1]), Integer.parseInt(tokens[2]), tokens[3]);
         }
         else if(tokens[0].equals("receive")){
-            if(tokens.length > 1){
+            if(tokens.length < 3){
                 //receive
-                //outputCommand = new 
+                outputCommand = new ImplicitReceiveMessageCommand(Integer.parseInt(tokens[1]));
             }
             else{
                 //receive sourceId
@@ -67,6 +67,7 @@ public class CommandTokenizer {
             //add-producer-mailbox mailboxId processProducerId
             outputCommand = new AddReceiverMailboxCommand(Integer.parseInt(tokens[1]), Integer.parseInt(tokens[2]));
         }
+        
         return outputCommand;
     }
 }
