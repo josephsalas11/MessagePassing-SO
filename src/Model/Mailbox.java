@@ -32,7 +32,7 @@ public class Mailbox implements IProducer{
         producers = new ArrayList<>();
         receivers = new ArrayList<>();
         //LOG
-        Log.getInstance().addLog(-1, "El mailbox "+id+" ha sido creado exitosamente");
+        Log.getInstance().addLog(id, "El mailbox "+id+" ha sido creado exitosamente", false);
     }
     
     //PRODUCER
@@ -98,18 +98,20 @@ public class Mailbox implements IProducer{
             messageTmp = messageQueue.poll();
         }
         else{
-            System.out.println("El proceso no tiene permitido acceder a este meilbox");
+            Log.getInstance().addLog(id, "El mailbox "+id+" ha denegado el acceso para obtener un mensaje", false);
+            return messageTmp;
         }
         
         if(messageTmp != null){
             //desbloqueo de producer
             if(messageTmp.getSource().getProducer().getSynchronizationType() == SynchronizationType.BLOCKING){
                 messageTmp.getSource().getProducer().freeProducer();
+                Log.getInstance().addLog(messageTmp.getSourceID(), "El proceso "+messageTmp.getSourceID()+" se ha desbloqueado exitosamente", true);
             }
-            System.out.println(messageTmp.getContent());
+            Log.getInstance().addLog(id, "El mailbox "+id+" ha enviado el mensaje '"+messageTmp.getContent()+"' del proceso "+messageTmp.getSourceID(), false);
         }
         else{
-            System.out.println("La cola de mensaje está vacia");
+            Log.getInstance().addLog(id, "La cola de mensajes del mailbox "+id+" está vacia", false);
         }
         return messageTmp;
     }
@@ -127,22 +129,27 @@ public class Mailbox implements IProducer{
         producers.add(producer.getProducer());
         
         //LOG
-        Log.getInstance().addLog(producer.getId(), "El proceso "+producer.getId()+" ha sido agregado a la lista del mailbox "+id);
+        Log.getInstance().addLog(id, "El proceso "+producer.getId()+" ha sido agregado a la lista del mailbox "+id, false);
     }
     
     public void addReceiver(Process receiver){
         receivers.add(receiver.getReceiver());
         
         //LOG
-        Log.getInstance().addLog(receiver.getId(), "El proceso "+receiver.getId()+" ha sido agregado a la lista del mailbox "+id);
+        Log.getInstance().addLog(id, "El proceso "+receiver.getId()+" ha sido agregado a la lista del mailbox "+id, false);
     }
     
     @Override
     public boolean addMessage(Message message){
         if(messageQueue.addMessage(message) == false){ //aqui se agrega
-            System.out.println("No se pueden agregar más procesos, la cola está llena");
+            Log.getInstance().addLog(id, "La cola de mensajes del mailbox "+id+" está llena, no se pueden agregar más mensajes", false);
             return false;
         }
+        if(message.getDestinyID() == -1)
+            Log.getInstance().addLog(id, "El mailbox "+id+" ha recibido el mensaje '"+message.getContent()+" para el proceso "+message.getDestinyID(), false);
+        else
+            Log.getInstance().addLog(id, "El mailbox "+id+" ha recibido el mensaje '"+message.getContent()+"' del proceso "+message.getSourceID()+" para el proceso "+message.getDestinyID(), false);
+
         return true;
     }
     

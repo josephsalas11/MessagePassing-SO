@@ -655,7 +655,7 @@ public class MainPage extends javax.swing.JFrame {
             for (int i = 0; i < Log.getInstance().getLogs().size(); i++) 
             {
                 LogMessage lm;
-                logs += Log.getInstance().getLogs().get(i).getMessage() + "\n";
+                logs += Log.getInstance().getLogs().get(i).getDetail()+ "\n";
                 
             }
             eventLogArea.setText(logs);
@@ -903,7 +903,11 @@ public class MainPage extends javax.swing.JFrame {
         
         public void receiveMessage(int destinyID,int sourceID)
         {
-            functionManager.receiveMessage(sourceID,destinyID);
+            if(direc_direcRadio.isSelected())
+                functionManager.receiveMessage(sourceID,destinyID);
+            else if(direc_indirectRadio.isSelected())
+                functionManager.receiveIndirectMessage(sourceID,destinyID);
+
         }
         
         public void createMailbox()
@@ -931,7 +935,7 @@ public class MainPage extends javax.swing.JFrame {
             String logs = "";
             for (int y = 0; y < Log.getInstance().getLogs().size(); y++) 
             {
-                logs += Log.getInstance().getLogs().get(y).getMessage() + "\n";
+                logs += Log.getInstance().getLogs().get(y).getDetail() + "\n";
                 
             }
             eventLogArea.setText(logs);
@@ -946,7 +950,7 @@ public class MainPage extends javax.swing.JFrame {
            String logs = "";
             for (int y = 0; y < logMessages.size(); y++) 
             {
-                logs += Log.getInstance().getLogs().get(y).getMessage() + "\n";
+                logs += Log.getInstance().getLogs().get(y).getDetail() + "\n";
                 
             }
             JOptionPane.showMessageDialog(null, logs

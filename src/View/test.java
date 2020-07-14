@@ -55,9 +55,9 @@ public class test{
             mailbox.addReceiver(p2);
             mailbox.addReceiver(p3);
             
-            Message m1 = new Message(MessageType.FIXED, 2, 1, 10, "Soy 3",3, p1, p2);
-            Message m2 = new Message(MessageType.FIXED, 2, 1, 10, "Soy 1",1, p1, p2);
-            Message m3 = new Message(MessageType.FIXED, 2, 1, 10, "Soy 2",2, p1, p2);
+            Message m1 = new Message(MessageType.FIXED, 2, 1, 10, "Soy 3",3, p1, p2, true);
+            Message m2 = new Message(MessageType.FIXED, 2, 1, 10, "Soy 1",1, p1, p2, true);
+            Message m3 = new Message(MessageType.FIXED, 2, 1, 10, "Soy 2",2, p1, p2, true);
             
             p1.sendMailbox(mailbox, m1);
             p1.sendMailbox(mailbox, m2);

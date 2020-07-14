@@ -21,25 +21,20 @@ public class Message implements Serializable, Comparable<Message>{
     
     private Process source;
     private Process destiny;
+    private boolean isMailbox;
 
-    public Message(MessageType messageType, int destinyID, int sourceID, int length, String content) {
+    public Message(MessageType messageType, int destinyID, int sourceID, int length, String content, Process source, Process destiny, boolean isMailbox) {
         this.messageType = messageType;
         this.destinyID = destinyID;
         this.sourceID = sourceID;
         this.length = length;
         this.content = content;
+        this.source = source;
+        this.destiny = destiny;
+        this.isMailbox = isMailbox;
     }
     
-        public Message(MessageType messageType, int destinyID, int sourceID, int length, String content, int priorityFlag) {
-        this.messageType = messageType;
-        this.destinyID = destinyID;
-        this.sourceID = sourceID;
-        this.length = length;
-        this.content = content;
-        this.priorityFlag = priorityFlag;
-    }
-
-    public Message(MessageType messageType, int destinyID, int sourceID, int length, String content, int priorityFlag, Process source, Process destiny) {
+        public Message(MessageType messageType, int destinyID, int sourceID, int length, String content, int priorityFlag, Process source, Process destiny, boolean isMailbox) {
         this.messageType = messageType;
         this.destinyID = destinyID;
         this.sourceID = sourceID;
@@ -48,9 +43,8 @@ public class Message implements Serializable, Comparable<Message>{
         this.priorityFlag = priorityFlag;
         this.source = source;
         this.destiny = destiny;
+        this.isMailbox = isMailbox;
     }
-        
-    
 
     public MessageType getMessageType() {
         return messageType;

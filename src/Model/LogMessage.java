@@ -5,25 +5,43 @@
  */
 package Model;
 
+import java.time.LocalDateTime;
+import java.util.Date;
+
 /**
  *
  * @author Paulo
  */
 public class LogMessage {
-    private int associatedProcessId;
-    private String message;
+    private int associatedId; //process o mailbox id
+    private String detail;
+    private LocalDateTime timestamp;
+    private boolean isProcess; //si es false es mailbox
 
-    public LogMessage(int associatedProcessId, String message) {
-        this.associatedProcessId = associatedProcessId;
-        this.message = message;
+    public LogMessage(int associatedId, String detail, LocalDateTime timestamp, boolean isProcess) {
+        this.associatedId = associatedId;
+        this.detail = detail;
+        this.timestamp = timestamp;
+        this.isProcess = isProcess;
     }
 
-    public int getAssociatedProcessId() {
-        return associatedProcessId;
+    public int getAssociatedId() {
+        return associatedId;
     }
 
-    public String getMessage() {
-        return message;
+    public String getDetail() {
+        return detail;
     }
+
+    public LocalDateTime getTimestamp() {
+        return timestamp;
+    }
+
+    public boolean isIsProcess() {
+        return isProcess;
+    }
+
+    
+
     
 }

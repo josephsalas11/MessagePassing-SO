@@ -87,9 +87,9 @@ public class FunctionManager {
             Message message = null;
         
             if(priority != -1)
-                message = source.createMessage(destination, messageContent, messageType, messageLength);
+                message = source.createMessage(destination, messageContent, messageType, messageLength, processList.get(idSourceProcess), false);
             else
-                message = source.createMessagePriority(destination, messageContent, messageType, messageLength, priority);
+                message = source.createMessagePriority(destination, messageContent, messageType, messageLength, priority, processList.get(idSourceProcess), false);
 
             source.send(destination, message);
             return true;
@@ -99,12 +99,12 @@ public class FunctionManager {
 public boolean sendIndirectProcess(int idSourceProcess, int idDestinationProcess, MessageType messageType, int messageLength, String messageContent, int priority) throws InterruptedException
     {        
         Process source = processList.get(idSourceProcess);
-        Process destination = processList.get(idDestinationProcess);
+        Process destination = null;
         Mailbox mailbox = mailboxList.get(idDestinationProcess);
         
         //validacion para determinar que el producer, el receiver y el mailbox existan en el controlador
-        if(source == null || destination == null || mailbox == null){
-            System.out.println("Operacion invalida"); //hacer log de error
+        if(source == null || mailbox == null){
+            System.out.println("Operacion invalida" +idSourceProcess+" "+idDestinationProcess); //hacer log de error
             return false;
         }
         
@@ -112,9 +112,9 @@ public boolean sendIndirectProcess(int idSourceProcess, int idDestinationProcess
             Message message = null;
         
             if(priority != -1)
-                message = source.createMessage(destination, messageContent, messageType, messageLength);
+                message = source.createMessage(destination, messageContent, messageType, messageLength, processList.get(idSourceProcess), true);
             else
-                message = source.createMessagePriority(destination, messageContent, messageType, messageLength, priority);
+                message = source.createMessagePriority(destination, messageContent, messageType, messageLength, priority, processList.get(idSourceProcess), true);
 
             source.sendMailbox(mailbox, message);
             return true;
@@ -128,6 +128,13 @@ public boolean sendIndirectProcess(int idSourceProcess, int idDestinationProcess
         destination.receive(source);
     }
     
+    public void receiveIndirectMessage(int mailboxId, int idDestinationProcess)
+    {
+        Mailbox mailbox = mailboxList.get(mailboxId);
+        Process destination = processList.get(idDestinationProcess);
+        destination.receiveMailbox(mailbox);
+    }
+    
     public void createMailbox(int ID, int queueSize, QueueType queueType)
     {
         mailboxList.put(ID, new Mailbox(ID,queueSize, queueType));
@@ -138,6 +145,7 @@ public boolean sendIndirectProcess(int idSourceProcess, int idDestinationProcess
         Mailbox mailbox = mailboxList.get(mailboxId);
         Process receiver = processList.get(receiverId);
         mailbox.addReceiver(receiver);
+        //LOG
     }
     
     
@@ -148,6 +156,7 @@ public boolean sendIndirectProcess(int idSourceProcess, int idDestinationProcess
         Mailbox mailbox = mailboxList.get(mailboxId);
         Process producer = processList.get(producerId);
         mailbox.addProducer(producer);
+        //LOG
     }
     
     

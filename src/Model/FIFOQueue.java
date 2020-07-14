@@ -21,6 +21,12 @@ public class FIFOQueue implements IMessageQueue{
         this.size = size;
         queue = new LinkedList<Message>();
     }
+    
+    /*
+    Display informativo:
+    ID del proceso
+    Tamaño de la cola: 
+    */
 
     public void setQueue(Queue<Message> queue) {
         this.queue = queue;
@@ -42,6 +48,7 @@ public class FIFOQueue implements IMessageQueue{
         }
         else{
             queue.add(message);
+            //HACE LOG
             return true;
         }
     }
@@ -49,6 +56,7 @@ public class FIFOQueue implements IMessageQueue{
     @Override
     public Message getMessage() {
         return queue.element();
+        //HACE LOG
     }
 
     @Override

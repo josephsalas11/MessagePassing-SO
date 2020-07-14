@@ -20,10 +20,12 @@ public class Receiver extends Thread implements IReceiver{
     
     private IMessageQueue messageQueue;
     private int currentId = -1;
+    private int idProcess;
 
-    public Receiver(IProducer producer, SynchronizationType synchronizationType, QueueType queueType, int queueSize) {
+    public Receiver(IProducer producer, SynchronizationType synchronizationType, QueueType queueType, int queueSize, int idProcess) {
         this.producer = producer;
         this.synchronizationType = synchronizationType;
+        this.idProcess = idProcess;
         
         if(queueType == QueueType.FIFO)
             messageQueue = new FIFOQueue(queueSize);
@@ -66,6 +68,7 @@ public class Receiver extends Thread implements IReceiver{
         if(messageTmp.getSource().getProducer().getSynchronizationType() == SynchronizationType.BLOCKING){ //si producer es blocking
             messageTmp.getSource().getProducer().freeProducer(); //se desbloquea
         }
+        Log.getInstance().addLog(messageTmp.getDestinyID(), "El proceso "+messageTmp.getDestinyID()+ " ha recibido el mensaje '"+messageTmp.getContent()+"' mensaje del proceso "+messageTmp.getSourceID(), false);
         System.out.println(messageTmp.getContent());
         allowReceive = false;
     }
@@ -73,8 +76,12 @@ public class Receiver extends Thread implements IReceiver{
     public void retreiveMessageMailbox(){
         Message messsageTmp = currentMailbox.retreiveMessage(this);
         if(messsageTmp != null){
-            System.out.println(messsageTmp.getContent()+" :)");
-            //AQUI HACER LOG
+            //System.out.println(messsageTmp.getContent()+" :)");
+            if(messsageTmp.getDestiny() == null){
+                Log.getInstance().addLog(idProcess, "El proceso "+idProcess+"  ha recibido el mensaje '"+messsageTmp.getContent()+"' del mailbox "+messsageTmp.getSourceID(), waitReceive);
+            }
+            else
+                Log.getInstance().addLog(messsageTmp.getDestinyID(), "El proceso "+messsageTmp.getDestinyID()+" ha recibido el mensaje '"+messsageTmp.getContent()+"' del mailbox "+messsageTmp.getSourceID(), waitReceive);
         }
     }
     

@@ -24,36 +24,42 @@ public class Process {
     public Process(int id, SynchronizationType synchronizationTypeProducer, QueueType queueType, int queueSize, SynchronizationType synchronizationTypeReceiver){
         this.id = id;
         this.producer = new Producer(synchronizationTypeProducer, queueType, queueSize);
-        this.receiver = new Receiver(null, synchronizationTypeReceiver, queueType, queueSize);
+        this.receiver = new Receiver(null, synchronizationTypeReceiver, queueType, queueSize, id);
         
         //LOG
-        Log.getInstance().addLog(id, "El proceso "+id+" de tipo "+synchronizationTypeProducer.toString()+"-"+synchronizationTypeReceiver.toString()+" directo implicito ha sido creado exitosamente");
+        Log.getInstance().addLog(id, "El proceso "+id+" de tipo "+synchronizationTypeProducer.toString()+"-"+synchronizationTypeReceiver.toString()+" directo implicito ha sido creado exitosamente", true);
 
         producer.start();
         receiver.start();
     }
     
-    //para direccionamiento indirecto
-    /*public Process(int id, SynchronizationType synchronizationTypeProducer, QueueType queueType, int queueSize, SynchronizationType synchronizationTypeReceiver, IProducer mailbox){
+    //para direccionamiento indirecto SE USA SOLO EL DE ARRIBA
+    public Process(int id, SynchronizationType synchronizationTypeProducer, QueueType queueType, int queueSize, SynchronizationType synchronizationTypeReceiver, IProducer mailbox){
         this.id = id;
         this.producer = new Producer(synchronizationTypeProducer, queueType, queueSize);
-        this.receiver = new Receiver(mailbox, synchronizationTypeReceiver, queueType, queueSize);
+        this.receiver = new Receiver(mailbox, synchronizationTypeReceiver, queueType, queueSize, id);
         
         //LOG
-        Log.getInstance().addLog(id, "El proceso "+id+" de tipo "+synchronizationTypeProducer.toString()+"-"+synchronizationTypeReceiver.toString()+" indirecto ha sido creado exitosamente");
+        Log.getInstance().addLog(id, "El proceso "+id+" de tipo "+synchronizationTypeProducer.toString()+"-"+synchronizationTypeReceiver.toString()+" indirecto ha sido creado exitosamente", true);
         
         producer.start();
         receiver.start();
     }
-*/
     
-    public Message createMessage(Process destination, String messageContent, MessageType messageType, int messageLength){
-        Message message = new Message(messageType, destination.id, id, messageLength, messageContent);
+    public Message createMessage(Process destination, String messageContent, MessageType messageType, int messageLength, Process source, boolean isMailbox){
+        Message message = null;
+        if(destination == null){
+            message = new Message(messageType, -1, id, messageLength, messageContent, source, destination, isMailbox);
+
+        }
+        else{
+            message = new Message(messageType, destination.id, id, messageLength, messageContent, source, destination, isMailbox);
+        }
         return message;
     }
     
-    public Message createMessagePriority(Process destination, String messageContent, MessageType messageType, int messageLength, int priority){
-        Message message = new Message(messageType, destination.id, id, messageLength, messageContent, priority);
+    public Message createMessagePriority(Process destination, String messageContent, MessageType messageType, int messageLength, int priority, Process source, boolean isMailbox){
+        Message message = new Message(messageType, destination.id, id, messageLength, messageContent, priority, source, destination, isMailbox);
         return message;
     }
     
@@ -64,7 +70,7 @@ public class Process {
             System.out.println("No se pudo ingresar el mensaje porque la cola esta llena");
         }
         //LOG
-        Log.getInstance().addLog(id, "El proceso "+id+" ha enviado el comando para enviar un mensaje al proceso "+destination.id);
+        Log.getInstance().addLog(id, "El proceso "+id+" ha enviado el comando para enviar el mensaje '"+message.getContent()+"' al proceso "+destination.id, true);
     }
     
     //indirecto dinamico
@@ -72,15 +78,17 @@ public class Process {
         if(mailbox.addMessage(message) == false){
             System.out.println("No se pudo ingresar el mensaje porque la cola esta llena");
         }
-        //LOG
-        Log.getInstance().addLog(id, "El proceso "+message.getSourceID()+" ha enviado el comando para enviar un mensaje al proceso "+message.getDestinyID()+ " a través del mailbox "+mailbox.getId());
+        if(message.getDestinyID() == -1)
+            Log.getInstance().addLog(id, "El proceso "+message.getSourceID()+" ha enviado el comando para enviar el mensaje '"+message.getContent()+"' a través del mailbox "+mailbox.getId(), true);
+        else
+            Log.getInstance().addLog(id, "El proceso "+message.getSourceID()+" ha enviado el comando para enviar el mensaje '"+message.getContent()+"' al proceso "+message.getDestinyID()+ " a través del mailbox "+mailbox.getId(), true);
         //mailbox.putMessage();
     }
     
     //implicito
     public void receive(){
         receiver.setAllowReceive(true);         
-        Log.getInstance().addLog(id, "El proceso "+id+" ha enviado el comando para recibir un mensaje");
+        Log.getInstance().addLog(id, "El proceso "+id+" ha enviado el comando para recibir un mensaje", true);
     }
     
     //explicito
@@ -93,14 +101,14 @@ public class Process {
         }
         receiver.setCurrentId(source.getId());
         receiver.setAllowReceive(true);
-        Log.getInstance().addLog(id, "El proceso "+id+" ha enviado el comando para recibir un mensaje del proceso "+source.id);
+        Log.getInstance().addLog(id, "El proceso "+id+" ha enviado el comando para recibir un mensaje del proceso "+source.id, true);
     }
     
     //indirecto
     public void receiveMailbox(Mailbox mailbox){
         receiver.setCurrentMailbox(mailbox);
         receiver.setAllowReceive(true);
-        //LOG de peticion
+        Log.getInstance().addLog(id, "El proceso "+id+" ha enviado el comando para recibir un mensaje del mailbox "+mailbox.getId(), true);
     }
     
 
