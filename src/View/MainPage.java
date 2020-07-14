@@ -855,7 +855,8 @@ public class MainPage extends javax.swing.JFrame {
                 else if(direc_indirectRadio.isSelected())
                 {
                     CommandTokenizer.getInstance().indirect = true;
-                    if(direc_receiveCombo.getSelectedItem().toString()== "Estático")
+                    System.out.println(direc_receiveCombo.getSelectedItem().toString());
+                    if(direc_indirecCombo.getSelectedItem().toString()== "Estático")
                     {
                         functionManager.createStaticProcess(processCounter, synchronizationTypeProducer, queueType, queueSizeType, synchronizationTypeReceiver);
                     }else

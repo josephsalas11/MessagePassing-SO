@@ -44,4 +44,5 @@ public class Log {
         }
         return result;
     }
+    
 }
