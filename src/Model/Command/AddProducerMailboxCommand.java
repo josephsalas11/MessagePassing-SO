@@ -12,27 +12,25 @@ import java.util.ArrayList;
  *
  * @author Paulo
  */
-public class AddReceiverMailboxCommand implements ICommand{
-    
+public class AddProducerMailboxCommand implements ICommand{
     private int mailboxId;
-    private int receiverId;
+    private int producerId;
 
-    public AddReceiverMailboxCommand(int mailboxId, int receiverId) {
+    public AddProducerMailboxCommand(int mailboxId, int producerId) {
         this.mailboxId = mailboxId;
-        this.receiverId = receiverId;
-        
-    }    
-    
+        this.producerId = producerId;
+    }
+
     @Override
     public void execute(ArrayList params) {
         MainPage mainPage = (MainPage)params.get(0);
-        mainPage.addReceiverMailbox(mailboxId,receiverId);
-    }
+        mainPage.addReceiverMailbox(mailboxId, producerId);    }
 
     @Override
     public String getCommandText() {
-        String commandText = "add-receiver-mailbox receiverId= "+receiverId;
+        String commandText = "add-producer-mailbox producerId= "+producerId;
         return commandText;
     }
+    
     
 }

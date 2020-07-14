@@ -42,8 +42,14 @@ public class CommandTokenizer {
                 outputCommand = new SendMessageCommand(Integer.parseInt(tokens[1]), Integer.parseInt(tokens[2]), tokens[3]);
         }
         else if(tokens[0].equals("receive")){
-            //receive sourceId
-            outputCommand = new ReceiveMessageCommand(Integer.parseInt(tokens[1]), Integer.parseInt(tokens[2]));
+            if(tokens.length > 1){
+                //receive
+                //outputCommand = new 
+            }
+            else{
+                //receive sourceId
+                outputCommand = new ReceiveMessageCommand(Integer.parseInt(tokens[1]), Integer.parseInt(tokens[2]));
+            }
         }
         else if(tokens[0].equals("display")){
             //display processId
@@ -55,6 +61,10 @@ public class CommandTokenizer {
         }
         else if(tokens[0].equals("add-receiver-mailbox")){
             //add-receiver-mailbox mailboxId processReceiverId
+            outputCommand = new AddReceiverMailboxCommand(Integer.parseInt(tokens[1]), Integer.parseInt(tokens[2]));
+        }
+        else if(tokens[0].equals("add-producer-mailbox")){
+            //add-producer-mailbox mailboxId processProducerId
             outputCommand = new AddReceiverMailboxCommand(Integer.parseInt(tokens[1]), Integer.parseInt(tokens[2]));
         }
         return outputCommand;
