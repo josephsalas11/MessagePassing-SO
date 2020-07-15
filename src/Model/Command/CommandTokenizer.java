@@ -53,7 +53,18 @@ public class CommandTokenizer {
         }
         else if(tokens[0].equals("display")){
             //display processId
-            outputCommand = new DisplayProcessCommand(Integer.parseInt(tokens[1]));
+            //display m id Ncommands
+            //display pq id Ncommands
+            //display mq id Ncommands
+            
+            //display p id Ncommands
+            if(tokens[1].equals("p")){
+                if(tokens.length > 3)
+                    outputCommand = new DisplayProcessCommand(Integer.parseInt(tokens[2]), Integer.parseInt(tokens[3]));
+                else
+                    outputCommand = new DisplayProcessCommand(Integer.parseInt(tokens[2]));
+
+            }
         }
         else if(tokens[0].equals("create-mailbox")){
             //create-mailbox
@@ -65,7 +76,7 @@ public class CommandTokenizer {
         }
         else if(tokens[0].equals("add-producer-mailbox")){
             //add-producer-mailbox mailboxId processProducerId
-            outputCommand = new AddReceiverMailboxCommand(Integer.parseInt(tokens[1]), Integer.parseInt(tokens[2]));
+            outputCommand = new AddProducerMailboxCommand(Integer.parseInt(tokens[1]), Integer.parseInt(tokens[2]));
         }
         
         return outputCommand;

@@ -86,7 +86,7 @@ public class FunctionManager {
         else{
             Message message = null;
         
-            if(priority != -1)
+            if(priority == 0)
                 message = source.createMessage(destination, messageContent, messageType, messageLength, processList.get(idSourceProcess), false);
             else
                 message = source.createMessagePriority(destination, messageContent, messageType, messageLength, priority, processList.get(idSourceProcess), false);

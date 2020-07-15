@@ -46,8 +46,10 @@ public class Log {
     public ArrayList getProcessLog(int idProcess){
         ArrayList result = new ArrayList<>();
         for(int i=0; i<logs.size(); i++){
-            if(logs.get(i).getAssociatedId() == idProcess)
+            if(logs.get(i).getAssociatedId() == idProcess){
                 result.add(logs.get(i));
+                System.out.println(logs.get(i).getDetail());
+            }
         }
         return result;
     }

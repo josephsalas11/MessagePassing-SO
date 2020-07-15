@@ -17,15 +17,33 @@ import java.util.ArrayList;
 public class DisplayProcessCommand implements ICommand{
     
     private int processId;
+    private int commandsQty;
 
     public DisplayProcessCommand(int processId) {
         this.processId = processId;
+        commandsQty = -1;
     }
+
+    public DisplayProcessCommand(int processId, int commandsQty) {
+        this.processId = processId;
+        this.commandsQty = commandsQty;
+    }
+    
+    /*ID proceso
+    Estado
+    Tipo de direccionamiento
+    Tamaño de la cola
+    
+    Logs
+    -
+    - 
+    -
+    */
 
     @Override
     public void execute(ArrayList params) {
         MainPage mainPage = (MainPage)params.get(0);
-        mainPage.displayProcess(processId);
+        mainPage.displayProcess(processId, commandsQty);
     }
 
     @Override
