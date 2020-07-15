@@ -123,6 +123,9 @@ public class Message implements Serializable, Comparable<Message>{
         this.destiny = destiny;
     }
     
-    
+    public String toString(){
+        String result = "ID producer: "+sourceID+ "~~ ID receiver: "+destinyID+"~~ "+content;
+        return result;
+    }
     
 }

@@ -16,4 +16,8 @@ public interface IProducer {
     boolean addMessage(Message message);
     SynchronizationType getSynchronizationType();
     void freeProducer();
+    boolean isBlocked();
+    String stateToString();
+    int getQueueSize();
+    String getQueueMessages();
 }

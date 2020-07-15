@@ -166,7 +166,7 @@ public boolean sendIndirectProcess(int idSourceProcess, int idDestinationProcess
     }
     
     
-    public Process display(int processID)
+    public Process getProcess(int processID)
     {
         Process displayProcess = processList.get(processID);
         return displayProcess;

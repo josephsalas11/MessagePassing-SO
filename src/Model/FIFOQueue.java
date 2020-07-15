@@ -112,4 +112,13 @@ public class FIFOQueue implements IMessageQueue{
         }
         return message;
     }
+    
+    @Override
+    public String toString(){
+        String result = "";
+        for(Message m:queue){
+            result = result.concat(m.toString())+"\n";
+        }
+        return result;
+    }
 }

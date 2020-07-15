@@ -16,11 +16,12 @@ public class Receiver extends Thread implements IReceiver{
     private SynchronizationType synchronizationType;
     private boolean allowReceive = false;
     private Mailbox currentMailbox = null;
-    private boolean waitReceive = true; //creo que se va por nuevas condiciones
     
     private IMessageQueue messageQueue;
     private int currentId = -1;
     private int idProcess;
+    
+    private boolean blocked = false;
 
     public Receiver(IProducer producer, SynchronizationType synchronizationType, QueueType queueType, int queueSize, int idProcess) {
         this.producer = producer;
@@ -40,6 +41,7 @@ public class Receiver extends Thread implements IReceiver{
             while(true){
                 sleep(100);
                 if(synchronizationType == SynchronizationType.BLOCKING){
+                    blocked = true;
                     wait();
                 }
                 if(allowReceive){
@@ -62,7 +64,7 @@ public class Receiver extends Thread implements IReceiver{
         Message messageTmp = searchMessage();
         
         //se hace Log
-        System.out.println("El mensaje fue recibido por el proceso "+messageTmp.getDestinyID());
+        //System.out.println("El mensaje fue recibido por el proceso "+messageTmp.getDestinyID());
         
         //desbloqueo de producer
         if(messageTmp.getSource().getProducer().getSynchronizationType() == SynchronizationType.BLOCKING){ //si producer es blocking
@@ -78,10 +80,10 @@ public class Receiver extends Thread implements IReceiver{
         if(messsageTmp != null){
             //System.out.println(messsageTmp.getContent()+" :)");
             if(messsageTmp.getDestiny() == null){
-                Log.getInstance().addLog(idProcess, "El proceso "+idProcess+"  ha recibido el mensaje '"+messsageTmp.getContent()+"' del proceso "+messsageTmp.getSourceID(), waitReceive);
+                Log.getInstance().addLog(idProcess, "El proceso "+idProcess+"  ha recibido el mensaje '"+messsageTmp.getContent()+"' del proceso "+messsageTmp.getSourceID(), true);
             }
             else
-                Log.getInstance().addLog(messsageTmp.getDestinyID(), "El proceso "+messsageTmp.getDestinyID()+" ha recibido el mensaje '"+messsageTmp.getContent()+"' del proceso "+messsageTmp.getSourceID(), waitReceive); //se esta guardando el id del producer
+                Log.getInstance().addLog(messsageTmp.getDestinyID(), "El proceso "+messsageTmp.getDestinyID()+" ha recibido el mensaje '"+messsageTmp.getContent()+"' del proceso "+messsageTmp.getSourceID(), true); //se esta guardando el id del producer
         }
     }
     
@@ -98,34 +100,10 @@ public class Receiver extends Thread implements IReceiver{
         return messageTmp;
     }
     
-    /*
-    @Override
-    public synchronized void getProducerMessage() throws InterruptedException{
-        Message message = producer.getMessage(this);
-        if(message != null){
-            if(synchronizationType == SynchronizationType.BLOCKING && producer.getClass() != Mailbox.class){
-                //while se obtiene el mensaje: wait
-                wait();
-                System.out.println(message.getContent());
-                sleep(1000);
-            }
-            else { //if(synchronizationType == SynchronizationType.NONBLOCKING)
-                System.out.println(message.getContent());
-                sleep(1000);
-            }
-
-        }
-        else{
-            System.out.println("El receiver no está autorizado para acceder a este recurso");
-        }
-        if(waitReceive)
-            allowReceive = false; //para esperar comando de receive()
-    }
-    */
-    
     @Override
     public synchronized void receiveMessage(){
         if(synchronizationType == SynchronizationType.BLOCKING){
+            blocked = false;
             notify();
         }
     }
@@ -144,17 +122,9 @@ public class Receiver extends Thread implements IReceiver{
         this.allowReceive = allowReceive;
         //System.out.println(producer.getSynchronizationType());
         if(synchronizationType == SynchronizationType.BLOCKING){
+            blocked = false;
             notify();
         }
-    }
-
-    public boolean isWaitReceive() {
-        return waitReceive;
-    }
-
-    @Override
-    public void setWaitReceive(boolean waitReceive) {
-        this.waitReceive = waitReceive;
     }
 
     @Override
@@ -194,7 +164,31 @@ public class Receiver extends Thread implements IReceiver{
     public int getIdProcess() {
         return idProcess;
     }
+
+    @Override
+    public boolean isBlocked() {
+        return blocked;
+    }
     
+    @Override
+    public String stateToString() {
+        String result = "";
+        if(blocked){
+            result = "Bloqueado";
+        }
+        else{
+            result = "Desbloqueado";
+        }
+        return result;
+    }
     
-    
+    @Override
+    public int getQueueSize() {
+        return messageQueue.getQueueSize();
+    }
+
+    @Override
+    public String getQueueMessages() {
+        return messageQueue.toString();
+    }  
 }

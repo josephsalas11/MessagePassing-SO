@@ -184,6 +184,26 @@ public class Mailbox implements IProducer{
     public synchronized void freeProducer() {
         notify();
     }
+
+    @Override
+    public boolean isBlocked() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String stateToString() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int getQueueSize() {
+        return messageQueue.getQueueSize();
+    }
+
+    @Override
+    public String getQueueMessages() {
+        return messageQueue.toString(); //tal vez cambiar por el receiver
+    }
     
     
 }

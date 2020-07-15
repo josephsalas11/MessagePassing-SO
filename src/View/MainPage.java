@@ -968,12 +968,8 @@ public class MainPage extends javax.swing.JFrame {
             ArrayList<Object> params = new ArrayList<>();
             params.add(this);
             currentCommand.execute(params);
-            String logs = "";
-            for (int y = 0; y < Log.getInstance().getLogs().size(); y++) 
-            {
-                logs += Log.getInstance().getLogs().get(y).getDetail() + "\n";
-                
-            }
+            
+            String logs = getLogs();
             eventLogArea.setText(logs);
                 
             }
@@ -982,20 +978,11 @@ public class MainPage extends javax.swing.JFrame {
         
         public void displayProcess(int sourceId, int commandsQty)
         {
-            if(commandsQty == -1){
-                
-            }
-            else{
-                
-            }
-           ArrayList<String> logMessages = Log.getInstance().getProcessLog(sourceId) ;
-           String logs = "";
-            for (int y = 0; y < logMessages.size(); y++) 
-            {
-                logs += Log.getInstance().getLogs().get(y).getDetail() + "\n";
-                
-            }
-            JOptionPane.showMessageDialog(null, logs
+            String processDisplay = functionManager.getProcess(sourceId).toString(); //hacer funcion en process
+            String logs = getProcessLogs(sourceId, commandsQty);
+            
+            String result = processDisplay + logs;
+            JOptionPane.showMessageDialog(null, result
                         , "Logs del proceso " + sourceId, JOptionPane.INFORMATION_MESSAGE);
         }
         
@@ -1012,6 +999,41 @@ public class MainPage extends javax.swing.JFrame {
                 
             }
             eventLogArea.setText(logs);
+        }
+        
+        public String getLogs(){
+            String logs = "";
+            for (int y = 0; y < Log.getInstance().getLogs().size(); y++) 
+            {
+                logs += Log.getInstance().getLogs().get(y).getDetail() + "\n";
+                
+            }
+            return logs;
+        }
+        
+        public String getProcessLogs(int sourceId, int logsQuantity){
+            ArrayList<String> logMessages = Log.getInstance().getProcessLog(sourceId) ;
+            String logs = "";
+            if(logsQuantity == -1){
+                for (int y = 0; y < logMessages.size(); y++) 
+                {
+                    logs += Log.getInstance().getLogs().get(y).getDetail() + "\n";
+                }
+            }
+            else{
+                int index = logMessages.size()-1;
+                while(logsQuantity > 0 && index >=0){
+                    logs += Log.getInstance().getLogs().get(index).getDetail() + "\n";
+                    index--;
+                    logsQuantity--;
+                }/*
+                for (int y = 0; y < logsQuantity; y++) 
+                {
+                    logs += Log.getInstance().getLogs().get(y).getDetail() + "\n";
+                    index--;
+                }*/
+            }
+            return logs;
         }
         
 }

@@ -13,7 +13,8 @@ public class Producer extends Thread implements IProducer{
     private SynchronizationType synchronizationType;
     private IReceiver receiver;
     private IMessageQueue messageQueue;
-
+    
+    private boolean blocked = false;
 
     public Producer(SynchronizationType synchronizationType, QueueType queueType, int queueSize) {
         this.synchronizationType = synchronizationType;
@@ -77,6 +78,7 @@ public class Producer extends Thread implements IProducer{
                     sentFlag = true;
                 }
             }
+            blocked = true;
             wait(); //para esperar que el receiver ecplicitamente reciba el mensaje
         }
     }
@@ -100,36 +102,9 @@ public class Producer extends Thread implements IProducer{
     
     @Override
     public synchronized void freeProducer(){
+        blocked = false;
         notify();
     }
-    
-    /*
-    @Override
-    public synchronized Message getMessage(IReceiver receiver) throws InterruptedException{
-        this.receiver = receiver;
-        sleep(1000);
-        
-        //si el tipo de sincronizacion del producer es blocking
-        //se puede cambiar por sendMessage
-        if(synchronizationType == SynchronizationType.BLOCKING){
-            notify();
-        }
-        else if(synchronizationType == SynchronizationType.NONBLOCKING){
-
-        }
-        
-        while(messageQueue.isQueueEmpty())
-            sleep(5000);
-        Message message = messageQueue.getMessage(); 
-        messageQueue.remove(message);
-        
-        //LOG
-        Log.getInstance().addLog(message.getDestinyID(), "El proceso "+message.getDestinyID()+" ha recibido un mensaje del proceso "+message.getSourceID()+
-                " con el mensaje "+message.getContent());
-        System.out.println("aqui");
-        return message;
-    }
-    */
 
     @Override
     public synchronized void sendMessage() {
@@ -151,5 +126,33 @@ public class Producer extends Thread implements IProducer{
     public SynchronizationType getSynchronizationType() {
         return synchronizationType;
     }
+
+    @Override
+    public boolean isBlocked() {
+        return blocked;
+    }
+
+    @Override
+    public String stateToString() {
+        String result = "";
+        if(blocked){
+            result = "Bloqueado";
+        }
+        else{
+            result = "Desbloqueado";
+        }
+        return result;
+    }
+
+    @Override
+    public int getQueueSize() {
+        return messageQueue.getQueueSize();
+    }
+
+    @Override
+    public String getQueueMessages() {
+        return messageQueue.toString();
+    }
+    
     
 }

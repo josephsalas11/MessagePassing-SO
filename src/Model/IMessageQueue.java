@@ -23,4 +23,6 @@ public interface IMessageQueue {
     Message poll();
     Message getMessageProducer(int sourceId);
     Message getMessageReceiver(int destinyId);
+    @Override
+    String toString();
 }

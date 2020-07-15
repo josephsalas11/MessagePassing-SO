@@ -6,6 +6,8 @@
 package Model;
 
 import Model.Command.CommandTokenizer;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  *
@@ -118,10 +120,7 @@ public class Process {
         receiver.setAllowReceive(true);
         Log.getInstance().addLog(id, "Proceso "+id+" ha enviado la señal para recibir un mensaje del mailbox "+mailbox.getId(), true);
     }
-    
 
-    
-    
     public void stopProcess()
     {
         producer.stop();
@@ -131,10 +130,6 @@ public class Process {
 
     public int getId() {
         return id;
-    }
-
-    public void setWaitReceive(boolean waitReceive) {
-        receiver.setWaitReceive(false);
     }
 
     public Producer getProducer() {
@@ -153,4 +148,23 @@ public class Process {
         this.producer = producer;
     }
     
+    @Override
+    public String toString(){
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();  
+        
+        String result = dtf.format(now)+"\n"+
+                        "ID del proceso: "+id+"\n"+
+                        "Sender:\n"+
+                        "Estado: "+producer.stateToString()+"\n"+
+                        "Tamaño de la cola: "+producer.getQueueSize()+"\n"+
+                        "Mensajes:\n"+
+                        producer.getQueueMessages()+"\n\n"+
+                        "Receiver:\n"+
+                        "Estado: "+receiver.stateToString()+"\n"+
+                        "Tamaño de la cola: "+receiver.getQueueSize()+"\n"+
+                        receiver.getQueueMessages()+"\n\n";
+        
+        return result;
+    }
 }

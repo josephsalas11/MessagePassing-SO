@@ -17,11 +17,14 @@ public interface IReceiver{
     void stop();
    
     void setAllowReceive(boolean allowReceive);
-    void setWaitReceive(boolean waitReceive);
     void setProducer(IProducer producer);
     IProducer getProducer();
     boolean addMessage(Message message);
     void setCurrentId(int id);
     void setCurrentMailbox(Mailbox currentMailbox);
     int getIdProcess();
+    boolean isBlocked();
+    String stateToString();
+    int getQueueSize();
+    String getQueueMessages();
 }

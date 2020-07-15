@@ -52,11 +52,6 @@ public class CommandTokenizer {
             }
         }
         else if(tokens[0].equals("display")){
-            //display processId
-            //display m id Ncommands
-            //display pq id Ncommands
-            //display mq id Ncommands
-            
             //display p id Ncommands
             if(tokens[1].equals("p")){
                 if(tokens.length > 3)
@@ -65,6 +60,8 @@ public class CommandTokenizer {
                     outputCommand = new DisplayProcessCommand(Integer.parseInt(tokens[2]));
 
             }
+            //display m id Ncommands
+
         }
         else if(tokens[0].equals("create-mailbox")){
             //create-mailbox
