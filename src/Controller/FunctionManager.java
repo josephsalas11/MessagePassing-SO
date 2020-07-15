@@ -48,7 +48,7 @@ public class FunctionManager {
         createMailbox(mailboxList.size()+1,queueSizeType,queueType);
         processList.put(processCounter, new Process(processCounter, STP,
                 queueType, queueSizeType,STR));
-        addReceiverMailbox(mailboxList.size()+1,processCounter);
+        addReceiverMailbox(mailboxList.size(),processCounter);
     }
     
         
