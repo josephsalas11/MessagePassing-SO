@@ -122,6 +122,7 @@ public class MainPage extends javax.swing.JFrame {
         consola_Info = new javax.swing.JLabel();
         buttons_Info = new javax.swing.JLabel();
         resetBtn = new javax.swing.JButton();
+        updateLog = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Message Passing");
@@ -326,6 +327,13 @@ public class MainPage extends javax.swing.JFrame {
             }
         });
 
+        updateLog.setText("Actualizar Log");
+        updateLog.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateLogActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelOpcionesLayout = new javax.swing.GroupLayout(panelOpciones);
         panelOpciones.setLayout(panelOpcionesLayout);
         panelOpcionesLayout.setHorizontalGroup(
@@ -389,20 +397,25 @@ public class MainPage extends javax.swing.JFrame {
                                     .addComponent(jLabel9))))
                         .addGap(39, 39, 39)
                         .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane3)
                             .addGroup(panelOpcionesLayout.createSequentialGroup()
                                 .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(panelOpcionesLayout.createSequentialGroup()
-                                        .addComponent(jLabel12)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(log_Help))
+                                    .addComponent(jScrollPane3)
                                     .addGroup(panelOpcionesLayout.createSequentialGroup()
                                         .addComponent(jLabel15)
                                         .addGap(18, 18, 18)
-                                        .addComponent(consola_Info)))
-                                .addGap(0, 357, Short.MAX_VALUE))
-                            .addComponent(jScrollPane2))
-                        .addGap(29, 29, 29))
+                                        .addComponent(consola_Info)
+                                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addGap(29, 29, 29))
+                            .addGroup(panelOpcionesLayout.createSequentialGroup()
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 569, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(20, Short.MAX_VALUE))
+                            .addGroup(panelOpcionesLayout.createSequentialGroup()
+                                .addComponent(jLabel12)
+                                .addGap(18, 18, 18)
+                                .addComponent(log_Help)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(updateLog)
+                                .addGap(19, 19, 19))))
                     .addGroup(panelOpcionesLayout.createSequentialGroup()
                         .addComponent(startButton)
                         .addGap(18, 18, 18)
@@ -422,8 +435,9 @@ public class MainPage extends javax.swing.JFrame {
                         .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
                             .addComponent(jLabel12)
-                            .addComponent(log_Help, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(14, 14, 14)
+                            .addComponent(log_Help, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(updateLog))
+                        .addGap(9, 9, 9)
                         .addComponent(jScrollPane2))
                     .addGroup(panelOpcionesLayout.createSequentialGroup()
                         .addComponent(syn_Info, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -435,7 +449,7 @@ public class MainPage extends javax.swing.JFrame {
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(sync_ReceiveCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
                             .addComponent(direccionamiento_Info))
@@ -453,7 +467,7 @@ public class MainPage extends javax.swing.JFrame {
                         .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(formatoMsj_Info, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4))))
-                .addGap(18, 18, 18)
+                .addGap(27, 27, 27)
                 .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelOpcionesLayout.createSequentialGroup()
                         .addComponent(jLabel10)
@@ -486,7 +500,7 @@ public class MainPage extends javax.swing.JFrame {
                             .addComponent(size_ColaInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(panelOpcionesLayout.createSequentialGroup()
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                        .addComponent(jScrollPane3)
                         .addGap(60, 60, 60)))
                 .addComponent(queueSize, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -511,7 +525,7 @@ public class MainPage extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addComponent(panelOpciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(60, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -560,62 +574,71 @@ public class MainPage extends javax.swing.JFrame {
 
     private void startButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startButtonActionPerformed
 
-            direc_receiveCombo.disable();
-            direc_indirecCombo.disable();
-            direc_indirectRadio.disable();
-            direc_direcRadio.disable();
-            sync_SendCombo.disable();
-            sync_ReceiveCombo.disable();
-            formatCombo.disable();
-            formatField.disable();
-            queueCombo.disable();
-            processSlider.disable();
-            queueSize.disable();
-             
-            sync_ReceiveType = sync_ReceiveCombo.getSelectedItem().toString();
-            sync_SendType = sync_SendCombo.getSelectedItem().toString();
-            if(direc_direcRadio.isSelected())
-            {
-                direccionamientoDirecto = true;
-            }
+           if(direc_direcRadio.isSelected() || direc_indirectRadio.isSelected() )
+           {
+                direc_receiveCombo.disable();
+                direc_indirecCombo.disable();
+                direc_indirectRadio.disable();
+                direc_direcRadio.disable();
+                sync_SendCombo.disable();
+                sync_ReceiveCombo.disable();
+                formatCombo.disable();
+                formatField.disable();
+                queueCombo.disable();
+                processSlider.disable();
+                queueSize.disable();
 
-            else if(direc_indirectRadio.isSelected())
-            {
-                direccionamientoDirecto = false;
-            }
-             
-            direc_receiveType = direc_receiveCombo.getSelectedItem().toString();
-            direc_indirecType = direc_indirecCombo.getSelectedItem().toString();
-            formatType = formatCombo.getSelectedItem().toString();
-            formatSize = formatField.getText();
-            queueHandle  = queueCombo.getSelectedItem().toString();
-            numProcess = processSlider.getValue();
-            queueSizeType = Integer.parseInt(queueSize.getText());
-        if(sync_SendCombo.getSelectedItem().toString() ==  "BLOCKING")
-        {
-            synchronizationTypeProducer = SynchronizationType.BLOCKING;
-        }else
-        {
-            synchronizationTypeProducer = SynchronizationType.NONBLOCKING;
-        }
-        
-        if(sync_ReceiveCombo.getSelectedItem().toString() ==  "BLOCKING")
-        {
-            synchronizationTypeReceiver = SynchronizationType.BLOCKING;
-        }else
-        {
-            synchronizationTypeReceiver = SynchronizationType.NONBLOCKING;
-        }
-        
-        if(queueCombo.getSelectedItem().toString() ==  "FIFO")
-        {
-            queueType = QueueType.FIFO;
-        }else
-        {
-            queueType = QueueType.PRIORITY;
-        }
-        
-        createProcesses(numProcess);
+                sync_ReceiveType = sync_ReceiveCombo.getSelectedItem().toString();
+                sync_SendType = sync_SendCombo.getSelectedItem().toString();
+                if(direc_direcRadio.isSelected())
+                {
+                    direccionamientoDirecto = true;
+                }
+
+                else if(direc_indirectRadio.isSelected())
+                {
+                    direccionamientoDirecto = false;
+                }
+
+                direc_receiveType = direc_receiveCombo.getSelectedItem().toString();
+                direc_indirecType = direc_indirecCombo.getSelectedItem().toString();
+                formatType = formatCombo.getSelectedItem().toString();
+                formatSize = formatField.getText();
+                queueHandle  = queueCombo.getSelectedItem().toString();
+                numProcess = processSlider.getValue();
+                queueSizeType = Integer.parseInt(queueSize.getText());
+                if(sync_SendCombo.getSelectedItem().toString() ==  "BLOCKING")
+                {
+                    synchronizationTypeProducer = SynchronizationType.BLOCKING;
+                }else
+                {
+                    synchronizationTypeProducer = SynchronizationType.NONBLOCKING;
+                }
+
+                if(sync_ReceiveCombo.getSelectedItem().toString() ==  "BLOCKING")
+                {
+                    synchronizationTypeReceiver = SynchronizationType.BLOCKING;
+                }else
+                {
+                    synchronizationTypeReceiver = SynchronizationType.NONBLOCKING;
+                }
+
+                if(queueCombo.getSelectedItem().toString() ==  "FIFO")
+                {
+                    queueType = QueueType.FIFO;
+                }else
+                {
+                    queueType = QueueType.PRIORITY;
+                }
+
+                createProcesses(numProcess);
+           }
+           else
+           {
+               JOptionPane.showMessageDialog(null, "Seleccione algun tipo de direccionamiento"
+                    , "Error", JOptionPane.ERROR_MESSAGE);
+           }
+
 
     }//GEN-LAST:event_startButtonActionPerformed
 
@@ -722,8 +745,12 @@ public class MainPage extends javax.swing.JFrame {
                 + "add-receiver-mailbox: comando para agregar procesos a la lista de permitida del mailbox\n" +
 "	- add-receiver-mailbox *id_mailbox* *id_proceso* \n \n"
                 + "send: comando para enviar un mensaje a otro proceso\n" +
-"	- Si es directo: send *id_proceso_sender* *id_proceso_receiver*\n" +
-"	- Si es indirecto: send *id_proceso_sender* *id_mailbox*\n \n"
+"       Si la cola es de tipo FIFO:\n "+
+"               - Si es directo: send *id_proceso_sender* *id_proceso_receiver*\n" +
+"               - Si es indirecto: send *id_proceso_sender* *id_mailbox*\n \n"+
+"       Si la cola es de Prioridad:\n "     + 
+"                - Si es directo: send *id_proceso_sender* *id_proceso_receiver* *prioridad*\n" +
+"                - Si es indirecto: send *id_proceso_sender* *id_mailbox* *prioridad*\n \n"
                 + "receive: comando para recibir mensajes enviados\n" +
 "	- receive *id_proceso_destino* *id_proceso_fuente* \n \n"+
                 "display: comando para mostrar el log de un proceso\n" +
@@ -760,6 +787,18 @@ public class MainPage extends javax.swing.JFrame {
         System.out.println(functionManager.getMailboxList().size());
         
     }//GEN-LAST:event_resetBtnActionPerformed
+
+    private void updateLogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateLogActionPerformed
+        String logs = "";
+        for (int i = 0; i < Log.getInstance().getLogs().size(); i++) 
+        {
+            LogMessage lm;
+            logs += Log.getInstance().getLogs().get(i).getDetail()+ "\n";
+                
+        }
+        eventLogArea.setText(logs);
+      
+    }//GEN-LAST:event_updateLogActionPerformed
 
     
     /**
@@ -843,6 +882,7 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JLabel syn_Info;
     private javax.swing.JComboBox<String> sync_ReceiveCombo;
     private javax.swing.JComboBox<String> sync_SendCombo;
+    private javax.swing.JButton updateLog;
     // End of variables declaration//GEN-END:variables
 
     public void createProcess(){
