@@ -61,7 +61,13 @@ public class Process {
     }
     
     public Message createMessagePriority(Process destination, String messageContent, MessageType messageType, int messageLength, int priority, Process source, boolean isMailbox){
-        Message message = new Message(messageType, destination.id, id, messageLength, messageContent, priority, source, destination, isMailbox);
+        Message message = null;
+        if(destination == null){
+            message = new Message(messageType, -1, id, messageLength, messageContent, priority, source, destination, isMailbox);
+        }
+        else{
+            message = new Message(messageType, destination.id, id, messageLength, messageContent, priority, source, destination, isMailbox);
+        }
         return message;
     }
     

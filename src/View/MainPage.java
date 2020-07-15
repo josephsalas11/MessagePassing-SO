@@ -891,8 +891,7 @@ public class MainPage extends javax.swing.JFrame {
                                 , message, priority);
                     }else
                     {
-                        functionManager.sendIndirectProcess(sourceID, destinyID, MessageType.VARIABLE, Integer.parseInt(formatField.getText())
-                                , message, priority);
+                        functionManager.sendIndirectProcess(sourceID, destinyID, MessageType.VARIABLE, Integer.parseInt(formatField.getText()), message, priority);
                     }
                 }
                 else{JOptionPane.showMessageDialog(null, "Ha llegado al límite de procesos establecidos"

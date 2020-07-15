@@ -48,7 +48,7 @@ public class FunctionManager {
         createMailbox(mailboxList.size()+1,queueSizeType,queueType);
         processList.put(processCounter, new Process(processCounter, STP,
                 queueType, queueSizeType,STR));
-        addReceiverMailbox(mailboxList.size()+1,processCounter);
+        addReceiverMailbox(mailboxList.size(),processCounter);
     }
     
         
@@ -111,7 +111,7 @@ public boolean sendIndirectProcess(int idSourceProcess, int idDestinationProcess
         else{
             Message message = null;
         
-            if(priority != -1)
+            if(priority == 0)
                 message = source.createMessage(destination, messageContent, messageType, messageLength, processList.get(idSourceProcess), true);
             else
                 message = source.createMessagePriority(destination, messageContent, messageType, messageLength, priority, processList.get(idSourceProcess), true);

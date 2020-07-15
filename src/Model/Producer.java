@@ -60,7 +60,6 @@ public class Producer extends Thread implements IProducer{
             putMessageNonblocking();
             //sleep(1000);    
         }
-
     }
     
     

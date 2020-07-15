@@ -78,10 +78,10 @@ public class Receiver extends Thread implements IReceiver{
         if(messsageTmp != null){
             //System.out.println(messsageTmp.getContent()+" :)");
             if(messsageTmp.getDestiny() == null){
-                Log.getInstance().addLog(idProcess, "El proceso "+idProcess+"  ha recibido el mensaje '"+messsageTmp.getContent()+"' del mailbox "+messsageTmp.getSourceID(), waitReceive);
+                Log.getInstance().addLog(idProcess, "El proceso "+idProcess+"  ha recibido el mensaje '"+messsageTmp.getContent()+"' del proceso "+messsageTmp.getSourceID(), waitReceive);
             }
             else
-                Log.getInstance().addLog(messsageTmp.getDestinyID(), "El proceso "+messsageTmp.getDestinyID()+" ha recibido el mensaje '"+messsageTmp.getContent()+"' del mailbox "+messsageTmp.getSourceID(), waitReceive);
+                Log.getInstance().addLog(messsageTmp.getDestinyID(), "El proceso "+messsageTmp.getDestinyID()+" ha recibido el mensaje '"+messsageTmp.getContent()+"' del proceso "+messsageTmp.getSourceID(), waitReceive); //se esta guardando el id del producer
         }
     }
     
@@ -188,6 +188,11 @@ public class Receiver extends Thread implements IReceiver{
     @Override
     public void setCurrentMailbox(Mailbox currentMailbox) {
         this.currentMailbox = currentMailbox;
+    }
+
+    @Override
+    public int getIdProcess() {
+        return idProcess;
     }
     
     

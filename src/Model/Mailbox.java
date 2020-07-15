@@ -108,7 +108,7 @@ public class Mailbox implements IProducer{
                 messageTmp.getSource().getProducer().freeProducer();
                 Log.getInstance().addLog(messageTmp.getSourceID(), "El proceso "+messageTmp.getSourceID()+" se ha desbloqueado exitosamente", true);
             }
-            Log.getInstance().addLog(id, "El mailbox "+id+" ha enviado el mensaje '"+messageTmp.getContent()+"' del proceso "+messageTmp.getSourceID(), false);
+            Log.getInstance().addLog(id, "El mailbox "+id+" ha enviado el mensaje '"+messageTmp.getContent()+"' al proceso "+receiver.getIdProcess(), false);
         }
         else{
             Log.getInstance().addLog(id, "La cola de mensajes del mailbox "+id+" está vacia", false);

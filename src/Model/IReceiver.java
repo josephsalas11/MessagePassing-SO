@@ -23,4 +23,5 @@ public interface IReceiver{
     boolean addMessage(Message message);
     void setCurrentId(int id);
     void setCurrentMailbox(Mailbox currentMailbox);
+    int getIdProcess();
 }
