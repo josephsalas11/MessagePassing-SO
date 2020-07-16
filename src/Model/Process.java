@@ -156,15 +156,24 @@ public class Process {
         String result = dtf.format(now)+"\n"+
                         "ID del proceso: "+id+"\n"+
                         "Sender:\n"+
+                        "Sincronización: "+producer.getSynchronizationType().toString()+"\n"+
                         "Estado: "+producer.stateToString()+"\n"+
                         "Tamaño de la cola: "+producer.getQueueSize()+"\n"+
                         "Mensajes:\n"+
                         producer.getQueueMessages()+"\n\n"+
                         "Receiver:\n"+
+                        "Sincronización: "+receiver.getSynchronizationType().toString()+"\n"+
                         "Estado: "+receiver.stateToString()+"\n"+
                         "Tamaño de la cola: "+receiver.getQueueSize()+"\n"+
                         receiver.getQueueMessages()+"\n\n";
         
+        return result;
+    }
+
+    public String getQueueLog() {
+        String result = "";
+        result = result.concat("Cola del producer:\n"+producer.getQueueLog()+"\n\n");
+        result = result.concat("Cola del receiver:\n"+receiver.getQueueLog()+"\n");
         return result;
     }
 }

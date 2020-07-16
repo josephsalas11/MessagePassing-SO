@@ -25,4 +25,5 @@ public interface IMessageQueue {
     Message getMessageReceiver(int destinyId);
     @Override
     String toString();
+    String getLogToString();
 }

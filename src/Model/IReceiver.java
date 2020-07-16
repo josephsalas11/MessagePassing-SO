@@ -27,4 +27,5 @@ public interface IReceiver{
     String stateToString();
     int getQueueSize();
     String getQueueMessages();
+    String getQueueLog();
 }

@@ -67,7 +67,7 @@ public class MainPage extends javax.swing.JFrame {
     public MainPage() {
         initComponents();
         eventLogArea.setEditable(false);
-        
+        processSlider.setValue(1);
 
     }
 
@@ -663,17 +663,14 @@ public class MainPage extends javax.swing.JFrame {
                 currentCommand.execute(params);
             
             System.out.println(consoleArea.getText());
-            consoleArea.setText("");
-            String logs = "";
-            for (int i = 0; i < Log.getInstance().getLogs().size(); i++) 
-            {
-                LogMessage lm;
-                logs += Log.getInstance().getLogs().get(i).getDetail()+ "\n";
-                
-            }
+            
+            String logs = getLogs();
             eventLogArea.setText(logs);
+            
+            consoleArea.setText("");
+            consoleArea.setCaretPosition(0);
         }
-        
+
     }//GEN-LAST:event_consoleAreaKeyPressed
 
     private void syn_InfoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_syn_InfoMouseClicked
@@ -983,7 +980,28 @@ public class MainPage extends javax.swing.JFrame {
             
             String result = processDisplay + logs;
             JOptionPane.showMessageDialog(null, result
-                        , "Logs del proceso " + sourceId, JOptionPane.INFORMATION_MESSAGE);
+                        , "Log del proceso " + sourceId, JOptionPane.INFORMATION_MESSAGE);
+        }
+        
+        public void displayProcessQueue(int processId){
+            String processQueueDisplay = functionManager.getProcess(processId).getQueueLog();
+            
+            JOptionPane.showMessageDialog(null, processQueueDisplay
+                        , "Log de la cola del proceso " + processId, JOptionPane.INFORMATION_MESSAGE);
+        }
+        
+        public void displayMailbox(int mailboxId){
+            String mailboxDisplay = functionManager.getMailbox(mailboxId).toString();
+            
+            JOptionPane.showMessageDialog(null, mailboxDisplay
+                        , "Log del mailbox " + mailboxId, JOptionPane.INFORMATION_MESSAGE);
+        }
+        
+        public void displayMailboxQueue(int mailboxId){
+            String mailboxQueueDisplay = functionManager.getMailbox(mailboxId).getQueueLog();
+            
+            JOptionPane.showMessageDialog(null, mailboxQueueDisplay
+                        , "Log de la cola del mailbox " + mailboxId, JOptionPane.INFORMATION_MESSAGE);
         }
         
         public void createProcesses(int numProc)

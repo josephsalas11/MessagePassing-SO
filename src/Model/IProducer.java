@@ -20,4 +20,6 @@ public interface IProducer {
     String stateToString();
     int getQueueSize();
     String getQueueMessages();
+    String getQueueLog();
+
 }

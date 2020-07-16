@@ -5,6 +5,8 @@
  */
 package Model;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 /**
@@ -62,31 +64,6 @@ public class Mailbox implements IProducer{
         }
     }
     
-    /*
-    @Override
-    public Message getMessage(IReceiver receiver) throws InterruptedException {
-        //aqui habria que poner el sendMessage del producer correspondiente
-        
-        if(isReceiverAllowed(receiver)){
-            Message message = messageQueue.getMessage();
-            lastMessageCounter++;
-            //receiver.receiveMessage();
-
-            if(lastMessageCounter == receivers.size()){
-                messageQueue.poll();
-                lastMessageCounter = 0;
-                //putMessage();
-            }
-            
-            //LOG
-            Log.getInstance().addLog(message.getDestinyID(), "El proceso "+message.getDestinyID()+" ha recibido un mensaje del proceso "+message.getSourceID()+
-                    " con el mensaje "+message.getContent());
-            return message;
-        }
-        return null;
-    }
-    */
-    
     @Override
     public void sendMessage() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -108,7 +85,7 @@ public class Mailbox implements IProducer{
                 messageTmp.getSource().getProducer().freeProducer();
                 Log.getInstance().addLog(messageTmp.getSourceID(), "El proceso "+messageTmp.getSourceID()+" se ha desbloqueado exitosamente", true);
             }
-            Log.getInstance().addLog(id, "El mailbox "+id+" ha enviado el mensaje '"+messageTmp.getContent()+"' al proceso "+receiver.getIdProcess(), false);
+            Log.getInstance().addLog(id, "El mailbox "+id+" ha enviado el mensaje '"+messageTmp.getContent()+"' del proceso "+messageTmp.getSourceID(), false);
         }
         else{
             Log.getInstance().addLog(id, "La cola de mensajes del mailbox "+id+" está vacia", false);
@@ -146,7 +123,7 @@ public class Mailbox implements IProducer{
             return false;
         }
         if(message.getDestinyID() == -1)
-            Log.getInstance().addLog(id, "El mailbox "+id+" ha recibido el mensaje '"+message.getContent()+" para el proceso "+message.getDestinyID(), false);
+            Log.getInstance().addLog(id, "El mailbox "+id+" ha recibido el mensaje '"+message.getContent()+" del proceso "+message.getSourceID(), false);
         else
             Log.getInstance().addLog(id, "El mailbox "+id+" ha recibido el mensaje '"+message.getContent()+"' del proceso "+message.getSourceID()+" para el proceso "+message.getDestinyID(), false);
 
@@ -204,6 +181,23 @@ public class Mailbox implements IProducer{
     public String getQueueMessages() {
         return messageQueue.toString(); //tal vez cambiar por el receiver
     }
+
+    @Override
+    public String getQueueLog() {
+        return messageQueue.getLogToString();
+    }
     
-    
+    @Override
+    public String toString(){
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();  
+        
+        String result = dtf.format(now)+"\n"+
+                        "ID del mailbox: "+id+"\n"+
+                        "Tamaño de la cola: "+getQueueSize()+"\n"+
+                        "Mensajes:\n"+
+                        getQueueMessages()+"\n\n";
+        
+        return result;
+    }
 }

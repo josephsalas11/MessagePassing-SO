@@ -153,6 +153,11 @@ public class Producer extends Thread implements IProducer{
     public String getQueueMessages() {
         return messageQueue.toString();
     }
+
+    @Override
+    public String getQueueLog() {
+        return messageQueue.getLogToString();
+    }
     
     
 }

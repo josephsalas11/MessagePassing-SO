@@ -191,4 +191,9 @@ public class Receiver extends Thread implements IReceiver{
     public String getQueueMessages() {
         return messageQueue.toString();
     }  
+
+    @Override
+    public String getQueueLog() {
+        return messageQueue.getLogToString();
+    }
 }

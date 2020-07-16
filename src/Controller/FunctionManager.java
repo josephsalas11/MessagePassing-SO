@@ -172,6 +172,11 @@ public boolean sendIndirectProcess(int idSourceProcess, int idDestinationProcess
         return displayProcess;
     }
     
+    public Mailbox getMailbox(int mailboxID){
+        Mailbox mailbox = mailboxList.get(mailboxID);
+        return mailbox;
+    }
+    
     public Hashtable<Integer, Process> getProcessList() {
         return processList;
     }
