@@ -10,5 +10,5 @@ package Model;
  * @author Paulo
  */
 public enum SynchronizationType {
-    BLOCKING, NONBLOCKING;
+    BLOCKING, NONBLOCKING, PRUEBA_LLEGADA
 }

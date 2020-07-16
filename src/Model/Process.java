@@ -103,7 +103,6 @@ public class Process {
     
     //explicito
     public void receive(Process source){
-
        //recibir mensaje
        if(CommandTokenizer.getInstance().indirect == false)
         {

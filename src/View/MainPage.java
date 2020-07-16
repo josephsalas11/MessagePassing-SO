@@ -607,9 +607,12 @@ public class MainPage extends javax.swing.JFrame {
                 if(sync_ReceiveCombo.getSelectedItem().toString() ==  "BLOCKING")
                 {
                     synchronizationTypeReceiver = SynchronizationType.BLOCKING;
-                }else
+                }else if(sync_ReceiveCombo.getSelectedItem().toString() ==  "NONBLOCKING")
                 {
                     synchronizationTypeReceiver = SynchronizationType.NONBLOCKING;
+                }
+                else{//PRUEBA DE LLEGADA
+                    synchronizationTypeReceiver = SynchronizationType.PRUEBA_LLEGADA;
                 }
 
                 if(queueCombo.getSelectedItem().toString() ==  "FIFO")
@@ -773,6 +776,13 @@ public class MainPage extends javax.swing.JFrame {
         System.out.println(functionManager.getProcessList().size());
         System.out.println(functionManager.getMailboxList().size());
         
+        processCounter = 1;
+        mailboxCounter = 1;
+        createdProcess = 0;
+        
+        //LIMPIAR LOG
+        eventLogArea.setText("");
+        Log.getInstance().clearLog();
     }//GEN-LAST:event_resetBtnActionPerformed
 
     private void updateLogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateLogActionPerformed

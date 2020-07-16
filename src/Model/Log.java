@@ -54,4 +54,7 @@ public class Log {
         return result;
     }
     
+    public void clearLog(){
+        logs.clear();
+    }
 }

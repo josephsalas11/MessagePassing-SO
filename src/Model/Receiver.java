@@ -33,6 +33,10 @@ public class Receiver extends Thread implements IReceiver{
         else if(queueType == QueueType.PRIORITY){
             messageQueue = new QueuePriority(queueSize);
         }
+        
+        //PRUEBA DE LLEGADA
+        if(synchronizationType.equals(SynchronizationType.PRUEBA_LLEGADA))
+           this.allowReceive = true; 
     }
     
     @Override
@@ -41,20 +45,24 @@ public class Receiver extends Thread implements IReceiver{
             while(true){
                 sleep(100);
                 if(synchronizationType == SynchronizationType.BLOCKING){
-                    blocked = true;
+                    //blocked = true;
+                }
+                if(synchronizationType != SynchronizationType.PRUEBA_LLEGADA)
                     wait();
-                }
-                if(allowReceive){
-                    //if(messageQueue.isQueueEmpty()){
-                    //    sleep(1000);
-                    //}
-                    //else{
-                    if(currentMailbox != null)
-                        retreiveMessageMailbox();
-                    else
-                        retreiveMessage(); 
-                    //}     
-                }
+
+                //if(allowReceive){                    
+                    if(messageQueue.isQueueEmpty() && currentMailbox == null){
+                        sleep(100);
+                    }
+                    else{
+                        if(currentMailbox != null){
+                            retreiveMessageMailbox();
+                            System.out.println("entro");
+                        }
+                        else
+                            retreiveMessage(); 
+                    }     
+                //}
             }
         } catch (InterruptedException e) {
         }
@@ -63,22 +71,20 @@ public class Receiver extends Thread implements IReceiver{
     public void retreiveMessage(){
         Message messageTmp = searchMessage();
         
-        //se hace Log
-        //System.out.println("El mensaje fue recibido por el proceso "+messageTmp.getDestinyID());
-        
         //desbloqueo de producer
         if(messageTmp.getSource().getProducer().getSynchronizationType() == SynchronizationType.BLOCKING){ //si producer es blocking
             messageTmp.getSource().getProducer().freeProducer(); //se desbloquea
         }
         Log.getInstance().addLog(messageTmp.getDestinyID(), "Proceso: "+messageTmp.getDestinyID()+ " ha recibido el mensaje '"+messageTmp.getContent()+"' del proceso: "+messageTmp.getSourceID(), false);
         System.out.println(messageTmp.getContent());
-        allowReceive = false;
+        if(!synchronizationType.equals(SynchronizationType.PRUEBA_LLEGADA))
+            allowReceive = false;
     }
     
     public void retreiveMessageMailbox(){
         Message messsageTmp = currentMailbox.retreiveMessage(this);
+        System.out.println(messsageTmp.getContent());
         if(messsageTmp != null){
-            //System.out.println(messsageTmp.getContent()+" :)");
             if(messsageTmp.getDestiny() == null){
                 Log.getInstance().addLog(idProcess, "El proceso "+idProcess+"  ha recibido el mensaje '"+messsageTmp.getContent()+"' del proceso "+messsageTmp.getSourceID(), true);
             }
@@ -104,8 +110,8 @@ public class Receiver extends Thread implements IReceiver{
     public synchronized void receiveMessage(){
         if(synchronizationType == SynchronizationType.BLOCKING){
             blocked = false;
-            notify();
         }
+        notify();
     }
 
     @Override
@@ -119,12 +125,14 @@ public class Receiver extends Thread implements IReceiver{
 
     @Override
     public synchronized void setAllowReceive(boolean allowReceive) {
-        this.allowReceive = allowReceive;
-        //System.out.println(producer.getSynchronizationType());
+        if(!synchronizationType.equals(SynchronizationType.PRUEBA_LLEGADA)){
+            this.allowReceive = allowReceive;
+        }
+
         if(synchronizationType == SynchronizationType.BLOCKING){
             blocked = false;
-            notify();
         }
+        notify();
     }
 
     @Override
@@ -139,11 +147,19 @@ public class Receiver extends Thread implements IReceiver{
 
     @Override
     public boolean addMessage(Message message) {
-        if(messageQueue.addMessage(message) == false){ //aqui se agrega
+        if(blocked){
+            System.out.println("El proceso está bloqueado, no puede recibir mensajes");
+            return false;
+        }
+        else if(messageQueue.addMessage(message) == false){ //aqui se agrega
             System.out.println("No se pueden agregar más procesos, la cola está llena");
             return false;
         }
-        return true;
+        else{
+            if(synchronizationType == SynchronizationType.BLOCKING)
+                blocked = true;
+            return true;
+        }
     }
 
     @Override
