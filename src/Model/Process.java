@@ -54,7 +54,6 @@ public class Process {
         Message message = null;
         if(destination == null){
             message = new Message(messageType, -1, id, messageLength, messageContent, source, destination, isMailbox);
-
         }
         else{
             message = new Message(messageType, destination.id, id, messageLength, messageContent, source, destination, isMailbox);
@@ -77,7 +76,8 @@ public class Process {
     public void send(Process destination, Message message){
         
         if(producer.addMessage(message) == false){
-            System.out.println("No se pudo ingresar el mensaje porque la cola esta llena");
+            //System.out.println("No se pudo ingresar el mensaje porque la cola esta llena");
+            Log.getInstance().addLog(id, "No se pudo ingresar el mensaje porque la cola esta llena", true);
         }
         //LOG
         Log.getInstance().addLog(id, "Proceso: "+id+" ha enviado el comando para enviar el mensaje '"+message.getContent()+"' al proceso: "+destination.id, true);
@@ -86,7 +86,8 @@ public class Process {
     //indirecto dinamico
     public void sendMailbox(Mailbox mailbox, Message message) throws InterruptedException{
         if(mailbox.addMessage(message) == false){
-            System.out.println("No se pudo ingresar el mensaje porque la cola esta llena");
+            //System.out.println("No se pudo ingresar el mensaje porque la cola esta llena o el proceso no está autorizado en el mailbox");
+            Log.getInstance().addLog(id, "No se pudo ingresar el mensaje porque la cola esta llena o el proceso no está autorizado en el mailbox", true);
         }
         if(message.getDestinyID() == -1)
             Log.getInstance().addLog(id, "Proceso: "+message.getSourceID()+" ha enviado la señal para enviar el mensaje '"+message.getContent()+"' a través del mailbox: "+mailbox.getId(), true);

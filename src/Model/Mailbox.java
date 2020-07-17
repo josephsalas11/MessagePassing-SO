@@ -21,9 +21,12 @@ public class Mailbox implements IProducer{
     private ArrayList<IReceiver> receivers;
     private int lastMessageCounter = 0;
     
+    private boolean dynamic;
+    
 
-    public Mailbox(int id, int queueSize, QueueType queueType) {
+    public Mailbox(int id, int queueSize, QueueType queueType, boolean dynamic) {
         this.id = id;
+        this.dynamic = dynamic;
         if(queueType == QueueType.FIFO){
             messageQueue = new FIFOQueue(queueSize);
         }
@@ -104,7 +107,7 @@ public class Mailbox implements IProducer{
     
     public void addProducer(Process producer){
         producers.add(producer.getProducer());
-        
+
         //LOG
         Log.getInstance().addLog(id, "El proceso "+producer.getId()+" ha sido agregado a la lista del mailbox "+id, false);
     }
@@ -118,16 +121,23 @@ public class Mailbox implements IProducer{
     
     @Override
     public boolean addMessage(Message message){
-        if(messageQueue.addMessage(message) == false){ //aqui se agrega
-            Log.getInstance().addLog(id, "La cola de mensajes del mailbox "+id+" está llena, no se pueden agregar más mensajes", false);
+        if(isProducerAllowed(message.getSource().getProducer())){
+            if(messageQueue.addMessage(message) == false){ //aqui se agrega
+                Log.getInstance().addLog(id, "La cola de mensajes del mailbox "+id+" está llena, no se pueden agregar más mensajes", false);
+                return false;
+            }
+            if(message.getDestinyID() == -1)
+                Log.getInstance().addLog(id, "El mailbox "+id+" ha recibido el mensaje '"+message.getContent()+" del proceso "+message.getSourceID(), false);
+            else
+                Log.getInstance().addLog(id, "El mailbox "+id+" ha recibido el mensaje '"+message.getContent()+"' del proceso "+message.getSourceID()+" para el proceso "+message.getDestinyID(), false);
+
+            return true;
+        }
+        else{
+            Log.getInstance().addLog(id, "El mailbox "+id+" ha denegado el acceso para recibir un mensaje", false);
             return false;
         }
-        if(message.getDestinyID() == -1)
-            Log.getInstance().addLog(id, "El mailbox "+id+" ha recibido el mensaje '"+message.getContent()+" del proceso "+message.getSourceID(), false);
-        else
-            Log.getInstance().addLog(id, "El mailbox "+id+" ha recibido el mensaje '"+message.getContent()+"' del proceso "+message.getSourceID()+" para el proceso "+message.getDestinyID(), false);
-
-        return true;
+        
     }
     
     public boolean isReceiverAllowed(IReceiver receiver){
@@ -140,12 +150,16 @@ public class Mailbox implements IProducer{
     }
     
     public boolean isProducerAllowed(IProducer producer){
-        for(int i=0; i<producers.size(); i++){
-            if(producers.get(i).equals(producer)){
-                return true;
+        if(dynamic){
+            for(int i=0; i<producers.size(); i++){
+                if(producers.get(i).equals(producer)){
+                    System.out.println("true");
+                    return true;
+                }
             }
+            return false;
         }
-        return false;
+        return true;
     }
 
     public int getId() {

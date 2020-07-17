@@ -1,0 +1,8 @@
+send 1 2 Prueba1
+send 2 3 Prueba2
+send 2 1 Prueba3
+receive 1
+receive 3
+receive 2
+display p 1
+display p 2

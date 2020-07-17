@@ -640,7 +640,8 @@ public class MainPage extends javax.swing.JFrame {
 
     private void commandFileBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_commandFileBtnActionPerformed
         BashFile bashFile = new BashFile();
-        JFileChooser openFile = new JFileChooser();
+        File f = new File("Archivos de prueba");
+        JFileChooser openFile = new JFileChooser(f.getAbsolutePath());
         openFile.showOpenDialog(null);
         openFile.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES); 
         file = openFile.getSelectedFile();
@@ -650,7 +651,11 @@ public class MainPage extends javax.swing.JFrame {
             Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        executeBash(commands);
+        try {
+            executeBash(commands);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         
     }//GEN-LAST:event_commandFileBtnActionPerformed
@@ -662,6 +667,7 @@ public class MainPage extends javax.swing.JFrame {
             currentCommand = commandTokenizer.analyzeCommand(consoleArea.getText());
             ArrayList<Object> params = new ArrayList<>();
             params.add(this);
+
             if(currentCommand != null)
                 currentCommand.execute(params);
             
@@ -722,29 +728,37 @@ public class MainPage extends javax.swing.JFrame {
     }//GEN-LAST:event_buttons_InfoMouseClicked
 
     private void consola_InfoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_consola_InfoMouseClicked
-        JOptionPane.showMessageDialog(null, "La consola será la encargada de ejecutar todos los comandos para realizar la simulación. \n"
-                + "Este consola prermite 6 comandos base con diversos parámetros. create, send, recieve, display,create-mailbox y addRecceiverMailbox. \n"
-                + "El comando create, recibe diferentes parámetros dependiendo si el direccionamiento es directo-implícito/explícito o indirecto \n"
-                + "Utilizar la consola con los comandos:\n \n" +
-"	create: comando para crear procesos\n" +
-"	- Si es direccionamiento implícito: create\n" +
-"	- Si es direccionamiento explícito: create *id_sender_process*\n" +
-"	- Si es direccionamiento indirecto: create *id_mailbox* \n \n"
-                + "create-mailbox: comando para crear mailboxes\n" +
+        JOptionPane.showMessageDialog(null, "La consola será la encargada de ejecutar todos los comandos para realizar la simulación. Se debe presionar la tecla 'Enter' para ejecutar el comando.\n"
++ "Utilizar la consola con los comandos:\n \n"
++ "create-mailbox: comando para crear mailboxes\n" +
 "	- create-mailbox \n \n"
-                + "add-receiver-mailbox: comando para agregar procesos a la lista de permitida del mailbox\n" +
++ "add-producer-mailbox: comando para agregar procesos a la lista de permitida de producers del mailbox\n" +
+"	- add-producer-mailbox *id_mailbox* *id_proceso* \n \n"
++ "add-receiver-mailbox: comando para agregar procesos a la lista de permitida de receivers del mailbox\n" +
 "	- add-receiver-mailbox *id_mailbox* *id_proceso* \n \n"
-                + "send: comando para enviar un mensaje a otro proceso\n" +
++ "send: comando para enviar un mensaje a otro proceso\n" +
 "       Si la cola es de tipo FIFO:\n "+
-"               - Si es directo: send *id_proceso_sender* *id_proceso_receiver*\n" +
-"               - Si es indirecto: send *id_proceso_sender* *id_mailbox*\n \n"+
+"               - Si es directo: send *id_proceso_sender* *id_proceso_receiver* *mensaje*\n" +
+"               - Si es indirecto: send *id_proceso_sender* *id_mailbox* *mensaje*\n \n"+
 "       Si la cola es de Prioridad:\n "     + 
-"                - Si es directo: send *id_proceso_sender* *id_proceso_receiver* *prioridad*\n" +
-"                - Si es indirecto: send *id_proceso_sender* *id_mailbox* *prioridad*\n \n"
-                + "receive: comando para recibir mensajes enviados\n" +
-"	- receive *id_proceso_destino* *id_proceso_fuente* \n \n"+
-                "display: comando para mostrar el log de un proceso\n" +
-"	- display *id_proceso* \n \n"
+"               - Si es directo: send *id_proceso_sender* *id_proceso_receiver* *mensaje* *prioridad*\n" +
+"               - Si es indirecto: send *id_proceso_sender* *id_mailbox* *mensaje* *prioridad*\n \n"
++ "receive: comando para recibir mensajes enviados\n" +
+"       Si es explícito:\n"+
+"               - receive *id_proceso_destino* *id_proceso_fuente* \n \n"+
+"       Si es implícito:\n"+
+"               - receive *id_proceso_destino* \n \n"+
+"       Si es indirecto: \n"+
+"               - receive *id_proceso_destino* *id_mailbox* \n \n"+
+"display: comando para mostrar información y logs de un proceso o mailbox\n" +
+"       Si se quiere ver la información de un proceso: \n"+
+"           - display p *id_proceso* \n \n"+
+"       Si se quiere ver información de las colas de un proceso: \n"+
+"           - display pq *id_proceso* \n \n"+
+"       Si se quiere ver la información de un mailbox: \n"+
+"           - display m *id_mailbox* \n \n"+
+"       Si se quiere ver la información de la cola del mailbox \n"+
+"           - display mq *id_mailbox* \n \n"
                     , "Informacion de sincronización", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_consola_InfoMouseClicked
 
@@ -767,7 +781,7 @@ public class MainPage extends javax.swing.JFrame {
         queueCombo.enable();
         processSlider.enable();
         queueSize.enable();
-        formatField.setText("");
+        formatField.setText("20");
         queueSize.setText("");
         processSlider.setValue(1);
         direc_direcRadio.setSelected(false);
@@ -957,28 +971,35 @@ public class MainPage extends javax.swing.JFrame {
         {
             if(direc_indirectRadio.isSelected())
             {
-                functionManager.createMailbox(mailboxCounter, queueSizeType, queueType);
+                if(direc_indirecCombo.getSelectedItem().toString().equals("Dinámico"))
+                    functionManager.createMailbox(mailboxCounter, queueSizeType, queueType, true);
+                else
+                    functionManager.createMailbox(mailboxCounter, queueSizeType, queueType, false);
+
                 mailboxCounter++;
-            }
-            else;   
+            }   
         }
         
         public void addReceiverMailbox(int mailboxId,int receiverId)
         {
             functionManager.addReceiverMailbox(mailboxId, receiverId);
         }
+        
+        public void addProducerMailbox(int mailboxId, int producerId){
+            functionManager.addProducerMailbox(mailboxId, producerId);
+        }
 
-        public void executeBash(ArrayList<String> commands)
+        public void executeBash(ArrayList<String> commands) throws InterruptedException
         {
             for (int i = 0; i < commands.size(); i++) {
-            currentCommand = commandTokenizer.analyzeCommand(commands.get(i));
-            ArrayList<Object> params = new ArrayList<>();
-            params.add(this);
-            currentCommand.execute(params);
-            
-            String logs = getLogs();
-            eventLogArea.setText(logs);
-                
+                currentCommand = commandTokenizer.analyzeCommand(commands.get(i));
+                ArrayList<Object> params = new ArrayList<>();
+                params.add(this);
+                currentCommand.execute(params);
+                sleep(500);
+
+                String logs = getLogs();
+                eventLogArea.setText(logs);                
             }
 
         }

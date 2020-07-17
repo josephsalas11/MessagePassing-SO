@@ -24,7 +24,7 @@ public class AddProducerMailboxCommand implements ICommand{
     @Override
     public void execute(ArrayList params) {
         MainPage mainPage = (MainPage)params.get(0);
-        mainPage.addReceiverMailbox(mailboxId, producerId);    }
+        mainPage.addProducerMailbox(mailboxId, producerId);    }
 
     @Override
     public String getCommandText() {

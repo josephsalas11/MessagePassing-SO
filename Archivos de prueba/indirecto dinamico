@@ -1,0 +1,9 @@
+create-mailbox
+create-mailbox
+create-mailbox
+add-receiver-mailbox 1 2
+add-receiver-mailbox 2 1
+send 1 2 hola
+send 2 1 hola2
+receive 2 1
+receive 1 2

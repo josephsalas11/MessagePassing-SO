@@ -36,6 +36,7 @@ public class SendMessageCommand implements ICommand{
 
     @Override
     public void execute(ArrayList params) {
+        //System.out.println(getCommandText());
         MainPage mainPage = (MainPage)params.get(0);
         try {
             mainPage.sendMessage(sourceId, destinyId, message, priority);

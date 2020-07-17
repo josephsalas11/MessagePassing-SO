@@ -83,7 +83,7 @@ public class Receiver extends Thread implements IReceiver{
     
     public void retreiveMessageMailbox(){
         Message messsageTmp = currentMailbox.retreiveMessage(this);
-        System.out.println(messsageTmp.getContent());
+        //System.out.println(messsageTmp.getContent());
         if(messsageTmp != null){
             if(messsageTmp.getDestiny() == null){
                 Log.getInstance().addLog(idProcess, "El proceso "+idProcess+"  ha recibido el mensaje '"+messsageTmp.getContent()+"' del proceso "+messsageTmp.getSourceID(), true);

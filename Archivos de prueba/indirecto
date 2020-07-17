@@ -1,5 +1,0 @@
-create-mailbox
-create 1
-add-receiver-mailbox 1 2
-send 1 1 holasoyunmensaje
-receive 2 1

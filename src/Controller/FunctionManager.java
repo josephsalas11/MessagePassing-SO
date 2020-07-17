@@ -45,7 +45,7 @@ public class FunctionManager {
     
         public void createStaticProcess(int processCounter,SynchronizationType STP,QueueType queueType, int queueSizeType, SynchronizationType STR)
     {
-        createMailbox(mailboxList.size()+1,queueSizeType,queueType);
+        createMailbox(mailboxList.size()+1,queueSizeType,queueType, false);
         processList.put(processCounter, new Process(processCounter, STP,
                 queueType, queueSizeType,STR));
         addReceiverMailbox(mailboxList.size(),processCounter);
@@ -141,9 +141,9 @@ public boolean sendIndirectProcess(int idSourceProcess, int idDestinationProcess
         destination.receiveMailbox(mailbox);
     }
     
-    public void createMailbox(int ID, int queueSize, QueueType queueType)
+    public void createMailbox(int ID, int queueSize, QueueType queueType, boolean dynamic)
     {
-        mailboxList.put(ID, new Mailbox(ID,queueSize, queueType));
+        mailboxList.put(ID, new Mailbox(ID,queueSize, queueType, dynamic));
     } 
     
     public void addReceiverMailbox(int mailboxId,int receiverId)
