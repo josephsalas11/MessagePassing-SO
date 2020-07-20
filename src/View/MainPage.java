@@ -1061,18 +1061,18 @@ public class MainPage extends javax.swing.JFrame {
         }
         
         public String getProcessLogs(int sourceId, int logsQuantity){
-            ArrayList<String> logMessages = Log.getInstance().getProcessLog(sourceId) ;
+            ArrayList<LogMessage> logMessages = Log.getInstance().getProcessLog(sourceId) ;
             String logs = "";
             if(logsQuantity == -1){
                 for (int y = 0; y < logMessages.size(); y++) 
                 {
-                    logs += Log.getInstance().getLogs().get(y).getDetail() + "\n";
+                    logs += logMessages.get(y).getDetail() + "\n";
                 }
             }
             else{
                 int index = logMessages.size()-1;
                 while(logsQuantity > 0 && index >=0){
-                    logs += Log.getInstance().getLogs().get(index).getDetail() + "\n";
+                    logs += logMessages.get(index).getDetail() + "\n";
                     index--;
                     logsQuantity--;
                 }/*

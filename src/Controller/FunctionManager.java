@@ -43,7 +43,7 @@ public class FunctionManager {
     */
     
     
-        public void createStaticProcess(int processCounter,SynchronizationType STP,QueueType queueType, int queueSizeType, SynchronizationType STR)
+    public void createStaticProcess(int processCounter,SynchronizationType STP,QueueType queueType, int queueSizeType, SynchronizationType STR)
     {
         createMailbox(mailboxList.size()+1,queueSizeType,queueType, false);
         processList.put(processCounter, new Process(processCounter, STP,
@@ -53,7 +53,7 @@ public class FunctionManager {
     
         
         
-        public void createDynamicProcess(int processCounter,SynchronizationType STP,QueueType queueType, int queueSizeType, SynchronizationType STR)
+    public void createDynamicProcess(int processCounter,SynchronizationType STP,QueueType queueType, int queueSizeType, SynchronizationType STR)
     {
         //createMailbox(mailboxList.size()+1,queueSizeType,queueType);
         processList.put(processCounter, new Process(processCounter, STP,
@@ -68,9 +68,6 @@ public class FunctionManager {
         processList.clear();
         mailboxList.clear();
     }
-    
-    
-    
     
     public boolean sendDirectProcess(int idSourceProcess, int idDestinationProcess, MessageType messageType, int messageLength, String messageContent, int priority)
     { 
@@ -96,7 +93,7 @@ public class FunctionManager {
         }
     }
     
-public boolean sendIndirectProcess(int idSourceProcess, int idDestinationProcess, MessageType messageType, int messageLength, String messageContent, int priority) throws InterruptedException
+    public boolean sendIndirectProcess(int idSourceProcess, int idDestinationProcess, MessageType messageType, int messageLength, String messageContent, int priority) throws InterruptedException
     {        
         Process source = processList.get(idSourceProcess);
         Process destination = null;
@@ -153,9 +150,7 @@ public boolean sendIndirectProcess(int idSourceProcess, int idDestinationProcess
         mailbox.addReceiver(receiver);
         //LOG
     }
-    
-    
-        
+       
     public void addProducerMailbox(int mailboxId,int producerId)
     {   
         //Añadir excepción si no encuentra el producer o sino encuentra el mailbox
