@@ -46,7 +46,7 @@ public class Log {
     public ArrayList<LogMessage> getProcessLog(int idProcess){
         ArrayList result = new ArrayList<>();
         for(int i=0; i<logs.size(); i++){
-            if(logs.get(i).getAssociatedId() == idProcess){
+            if(logs.get(i).getAssociatedId() == idProcess && logs.get(i).isIsProcess()){
                 result.add(logs.get(i));
                 System.out.println(logs.get(i).getDetail());
             }
